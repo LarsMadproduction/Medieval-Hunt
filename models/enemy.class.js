@@ -9,18 +9,19 @@ class Enemy extends MovableObject {
     "assets/png/enemy/enemyWalk/enemyWalk7.png",
     "assets/png/enemy/enemyWalk/enemyWalk8.png",
   ];
-  currentImage = 0;
   constructor() {
     super().loadImage("assets/png/enemy/enemyWalk/enemyWalk1.png");
 
-    this.x = 200 + Math.random() * 500;
+    this.x = 720 + Math.random() * 250;
     this.y = 160;
     this.height = 220;
-    this.width = 100;
+    this.width = 180;
+    this.speed = 0.15 + Math.random() * 0.3;
     this.loadImages(this.ENEMY_WALK);
     this.animate();
   }
   animate() {
+    this.moveLeft()
     setInterval(() => {
       let i = this.currentImage % this.ENEMY_WALK.length;
       let path = this.ENEMY_WALK[i];
