@@ -18,6 +18,7 @@ class Character extends MovableObject {
     "assets/png/character/characterWalk/characterWalk6.png",
     "assets/png/character/characterWalk/characterWalk7.png",
   ];
+  world;
   constructor() {
     super().loadImage(
       "assets/png/character/characterDefault/characterDefault1.png"
@@ -27,11 +28,13 @@ class Character extends MovableObject {
   }
   animate() {
     setInterval(() => {
-      let i = this.currentImage % this.CHARACTER_WALK.length;
-      let path = this.CHARACTER_WALK[i];
-      this.img = this.imageCache[path];
-      this.currentImage++;
-    },500 / 4);
+      if (this.world.keyboard.RIGHT) {
+        let i = this.currentImage % this.CHARACTER_WALK.length;
+        let path = this.CHARACTER_WALK[i];
+        this.img = this.imageCache[path];
+        this.currentImage++;
+      }
+    }, 500 / 4);
   }
 
   moveRight() {

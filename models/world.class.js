@@ -20,6 +20,10 @@ class World {
     this.canvas = canvas;
     this.keyboard = keyboard;
     this.draw();
+    this.setWorld();
+  }
+  setWorld() {
+    this.character.world = this;
   }
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -32,18 +36,12 @@ class World {
       self.draw();
     });
   }
-  addObjectsToMap(objects){
+  addObjectsToMap(objects) {
     objects.forEach((o) => {
       this.addToMap(o);
     });
   }
   addToMap(mo) {
-    this.ctx.drawImage(
-      mo.img,
-      mo.x,
-      mo.y,
-      mo.width,
-      mo.height
-    );
+    this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
   }
 }

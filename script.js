@@ -7,34 +7,32 @@ function init() {
   world = new World(canvas, keyboard);
 }
 
-window.addEventListener('keydown', (k) =>{
-  if (k.keyCode == 100) {
+window.addEventListener("keydown", (k) => {
+  if (k.key === 'd') {
     keyboard.RIGHT = true;
   }
-  if (k.keyCode == 97) {
+  if (k.key === 'a') {
     keyboard.LEFT = true;
   }
-  if (k.keyCode == 32) {
+  if (k.key === ' ') {
     keyboard.SPACE = true;
   }
-  if (k.keyCode == 102) {
+  if (k.key === 'f') {
     keyboard.THROW = true;
   }
-  console.log(k);
-})
+});
 
 window.addEventListener('keyup', (k) =>{
-  if (k.keyCode == 100) {
+  if (k.key === 'd') {
     keyboard.RIGHT = false;
   }
-  if (k.keyCode == 97) {
+  if (k.key === 'a') {
     keyboard.LEFT = false;
   }
-  if (k.keyCode == 32) {
+  if (k.key === ' ') {
     keyboard.SPACE = false;
   }
-  if (k.keyCode == 102) {
+  if (k.key === 'f') {
     keyboard.THROW = false;
   }
-  console.log(k);
 })
