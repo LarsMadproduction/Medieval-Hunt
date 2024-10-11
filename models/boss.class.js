@@ -5,6 +5,7 @@ class Boss extends MovableObject {
     this.y = 60;
     this.height = 320;
     this.width = 160;
+    this.otherDirection = true;
   }
 
   moveLeft() {}
