@@ -1,5 +1,4 @@
 class Enemy extends MovableObject {
-  x = 720 + Math.random() * 500;
   y = 160;
   height = 220;
   width = 180;
@@ -19,9 +18,9 @@ class Enemy extends MovableObject {
     "assets/png/enemy/enemyAttack/enemyAttack4.png",
   ];
   walkingSound = new Audio("assets/sounds/enemySteps.mp3");
-  constructor(imagePath) {
+  constructor(imagePath, x) {
     super().loadImage(imagePath);
-
+    this.x = x;
     this.speed = 0.15 + Math.random() * 0.5;
     this.loadImages(this.ENEMY_WALKING);
     this.animate();

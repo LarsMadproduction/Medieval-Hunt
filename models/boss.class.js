@@ -26,7 +26,7 @@ class Boss extends MovableObject {
   }
 
   animate() {
-    // this.moveLeft()
+    this.moveLeft()
     setInterval(() => {
       // this.walkingSound.play();
       this.playAnimation(this.BOSS_WALKING);
