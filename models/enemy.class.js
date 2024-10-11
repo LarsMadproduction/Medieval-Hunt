@@ -1,5 +1,5 @@
 class Enemy extends MovableObject {
-  ENEMY_WALK = [
+  IMAGES_WALKING = [
     "assets/png/enemy/enemyWalk/enemyWalk1.png",
     "assets/png/enemy/enemyWalk/enemyWalk2.png",
     "assets/png/enemy/enemyWalk/enemyWalk3.png",
@@ -9,6 +9,7 @@ class Enemy extends MovableObject {
     "assets/png/enemy/enemyWalk/enemyWalk7.png",
     "assets/png/enemy/enemyWalk/enemyWalk8.png",
   ];
+  walkingSound = new Audio('assets/sounds/characterSteps.mp3');
   constructor(imagePath) {
     super().loadImage(imagePath);
 
@@ -17,17 +18,15 @@ class Enemy extends MovableObject {
     this.height = 220;
     this.width = 180;
     this.speed = 0.15 + Math.random() * 0.3;
-    this.loadImages(this.ENEMY_WALK);
+    this.loadImages(this.IMAGES_WALKING);
     this.animate();
     this.otherDirection = true;
   }
   animate() {
     this.moveLeft()
     setInterval(() => {
-      let i = this.currentImage % this.ENEMY_WALK.length;
-      let path = this.ENEMY_WALK[i];
-      this.img = this.imageCache[path];
-      this.currentImage++;
+      // this.walkingSound.play();
+      this.playAnimation(this.IMAGES_WALKING);
     },500 / 4);
   }
 }
