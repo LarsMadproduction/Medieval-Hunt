@@ -4,7 +4,19 @@ const level1 = new Level(
     new Enemy("assets/png/enemy/enemyWalk/enemyWalk1.png"),
     new Enemy("assets/png/enemy/enemyWalk/enemyWalk1.png"),
   ],
-  new Boss("assets/png/boss/bossWalk/bossWalk1.png", 3000),
+  [
+    new Minion("assets/png/enemy/enemyWalk/enemyWalk1.png"),
+    new Minion("assets/png/enemy/enemyWalk/enemyWalk1.png"),
+    new Minion("assets/png/enemy/enemyWalk/enemyWalk1.png"),
+  ],
+  new Boss("assets/png/boss/bossWalk/bossWalk1.png", 700),
+  [
+    new Coin("assets/png/coin/gold1.png"),
+    new Coin("assets/png/coin/gold1.png"),
+    new Coin("assets/png/coin/gold1.png"),
+    new Coin("assets/png/coin/gold1.png"),
+    new Coin("assets/png/coin/gold1.png"),
+  ],
   [
     new Background("assets/png/background/bright/bg.png", 0),
     new Background("assets/png/background/bright/bg.png", 710),

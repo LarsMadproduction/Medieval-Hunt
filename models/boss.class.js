@@ -1,4 +1,8 @@
 class Boss extends MovableObject {
+  y = - 40;
+  height = 420;
+  width = 270;
+
   IMAGES_WALKING = [
     "assets/png/boss/bossWalk/bossWalk1.png",
     "assets/png/boss/bossWalk/bossWalk2.png",
@@ -7,13 +11,14 @@ class Boss extends MovableObject {
     "assets/png/boss/bossWalk/bossWalk5.png",
     "assets/png/boss/bossWalk/bossWalk6.png",
     "assets/png/boss/bossWalk/bossWalk7.png",
+    "assets/png/boss/bossAttack/bossAttack1.png",
+    "assets/png/boss/bossAttack/bossAttack2.png",
+    "assets/png/boss/bossAttack/bossAttack3.png",
+    "assets/png/boss/bossAttack/bossAttack4.png",
   ];
   constructor(imagePath, x) {
     super().loadImage(imagePath);
     this.x = x;
-    this.y = 60;
-    this.height = 320;
-    this.width = 220;
     this.speed = 0.5 + Math.random()
     this.loadImages(this.IMAGES_WALKING);
     this.animate();
@@ -21,7 +26,7 @@ class Boss extends MovableObject {
   }
 
   animate() {
-    this.moveLeft()
+    // this.moveLeft()
     setInterval(() => {
       // this.walkingSound.play();
       this.playAnimation(this.IMAGES_WALKING);
