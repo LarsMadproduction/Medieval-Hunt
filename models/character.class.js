@@ -10,7 +10,7 @@ class Character extends MovableObject {
     "assets/png/character/characterDefault/characterDefault7.png",
     "assets/png/character/characterDefault/characterDefault8.png",
   ];
-  IMAGES_WALKING = [
+  CHARACTER_WALKING = [
     "assets/png/character/characterWalk/characterWalk1.png",
     "assets/png/character/characterWalk/characterWalk2.png",
     "assets/png/character/characterWalk/characterWalk3.png",
@@ -24,13 +24,12 @@ class Character extends MovableObject {
   constructor(imagePath, x) {
     super().loadImage(imagePath);
     this.x = x;
-    this.loadImages(this.IMAGES_WALKING);
+    this.loadImages(this.CHARACTER_WALKING);
     this.animate();
   }
   animate() {
     setInterval(() => {
       this.walkingSound.pause();
-
       if (this.world.keyboard.RIGHT  && this.x < this.world.level.levelEndX) {
         this.x += this.speed;
         this.otherDirection = false;
@@ -40,21 +39,15 @@ class Character extends MovableObject {
         this.x -= this.speed;
         this.otherDirection = true;
         this.walkingSound.play();
-
       }
       this.world.cameraX = -this.x + 0;
     }, 1000 / 60);
     setInterval(() => {
       if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-        this.playAnimation(this.IMAGES_WALKING);
+        this.playAnimation(this.CHARACTER_WALKING);
       }
     }, 500 / 4);
   }
-
-  moveRight() {
-    console.log("Moving right");
-  }
-
   jump() {
     console.log("jump");
   }

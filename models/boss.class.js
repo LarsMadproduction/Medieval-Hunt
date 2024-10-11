@@ -3,7 +3,7 @@ class Boss extends MovableObject {
   height = 420;
   width = 270;
 
-  IMAGES_WALKING = [
+  BOSS_WALKING = [
     "assets/png/boss/bossWalk/bossWalk1.png",
     "assets/png/boss/bossWalk/bossWalk2.png",
     "assets/png/boss/bossWalk/bossWalk3.png",
@@ -20,7 +20,7 @@ class Boss extends MovableObject {
     super().loadImage(imagePath);
     this.x = x;
     this.speed = 0.5 + Math.random()
-    this.loadImages(this.IMAGES_WALKING);
+    this.loadImages(this.BOSS_WALKING);
     this.animate();
     this.otherDirection = true;
   }
@@ -29,7 +29,7 @@ class Boss extends MovableObject {
     // this.moveLeft()
     setInterval(() => {
       // this.walkingSound.play();
-      this.playAnimation(this.IMAGES_WALKING);
+      this.playAnimation(this.BOSS_WALKING);
     },500 / 4);
   }
 }

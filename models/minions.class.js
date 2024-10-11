@@ -4,7 +4,7 @@ class Minion extends MovableObject {
     height = 220;
     width = 180;
   
-    IMAGES_WALKING = [
+    MINION_WALKING = [
       "assets/png/minion/minionWalk/minionWalk1.png",
       "assets/png/minion/minionWalk/minionWalk2.png",
       "assets/png/minion/minionWalk/minionWalk3.png",
@@ -29,7 +29,7 @@ class Minion extends MovableObject {
   
   
       this.speed = 0.15 + Math.random() * 0.5;
-      this.loadImages(this.IMAGES_WALKING);
+      this.loadImages(this.MINION_WALKING);
       this.animate();
       this.otherDirection = true;
     }
@@ -37,7 +37,7 @@ class Minion extends MovableObject {
       this.moveLeft()
       setInterval(() => {
         // this.walkingSound.play();
-        this.playAnimation(this.IMAGES_WALKING);
+        this.playAnimation(this.MINION_WALKING);
       },500 / 4);
     }
   }
