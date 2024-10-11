@@ -20,23 +20,23 @@ class Character extends MovableObject {
     "assets/png/character/characterWalk/characterWalk7.png",
   ];
   world;
-  constructor() {
-    super().loadImage(
-      "assets/png/character/characterDefault/characterDefault1.png"
-    );
+  constructor(imagePath, x) {
+    super().loadImage(imagePath);
+    this.x = x;
     this.loadImages(this.CHARACTER_WALK);
     this.animate();
   }
   animate() {
     setInterval(() => {
-      if (this.world.keyboard.RIGHT) {
+      if (this.world.keyboard.RIGHT  && this.x < this.world.level.levelEndX) {
         this.x += this.speed;
         this.otherDirection = false;
       }
-      if (this.world.keyboard.LEFT) {
+      if (this.world.keyboard.LEFT && this.x > 0) {
         this.x -= this.speed;
         this.otherDirection = true;
       }
+      this.world.cameraX = -this.x + 0;
     }, 1000 / 60);
     setInterval(() => {
       if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {

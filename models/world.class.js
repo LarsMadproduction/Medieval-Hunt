@@ -1,20 +1,10 @@
 class World {
-  character = new Character();
-  enemies = [new Enemy(), new Enemy(), new Enemy()];
-  boss = new Boss();
-  mountains = [new Mountain(), new Mountain()];
-  backgrounds = [
-    new Background("assets/png/background/bright/bg.png"),
-    new Mountain(),
-    new Background("assets/png/background/bright/wall@windows.png"),
-    new Background("assets/png/background/bright/candeliar.png"),
-    new Background("assets/png/background/bright/floor.png"),
-    new Background("assets/png/background/bright/dragon.png"),
-    new Background("assets/png/background/bright/columns&falgs.png"),
-  ];
+  character = new Character("assets/png/character/characterDefault/characterDefault1.png", 0);
+  level = level1;
   canvas;
   ctx;
   keyboard;
+  cameraX = 0;
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
@@ -27,10 +17,15 @@ class World {
   }
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    this.addObjectsToMap(this.backgrounds);
-    this.addObjectsToMap(this.enemies);
+
+    this.ctx.translate(this.cameraX, 0);
+
+    this.addObjectsToMap(this.level.backgrounds);
+    this.addObjectsToMap(this.level.enemies);
     this.addToMap(this.character);
-    this.addToMap(this.boss);
+    this.addToMap(this.level.boss);
+    this.ctx.translate(-this.cameraX, 0);
+
     let self = this;
     requestAnimationFrame(function () {
       self.draw();

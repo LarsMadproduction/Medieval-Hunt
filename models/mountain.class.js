@@ -3,13 +3,12 @@ class Mountain extends MovableObject {
   y = 0;
   height = 480;
   width = 720;
-
-  constructor() {
-    super().loadImage("assets/png/background/bright/mountaims.png");
-
+  constructor(imagePath, x) {
+    super().loadImage(imagePath);
+    this.x = x;
     this.animate();
   }
   animate() {
-    this.moveLeft()
+    this.moveLeft()    
   }
 }

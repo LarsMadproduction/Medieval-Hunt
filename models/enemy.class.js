@@ -9,8 +9,8 @@ class Enemy extends MovableObject {
     "assets/png/enemy/enemyWalk/enemyWalk7.png",
     "assets/png/enemy/enemyWalk/enemyWalk8.png",
   ];
-  constructor() {
-    super().loadImage("assets/png/enemy/enemyWalk/enemyWalk1.png");
+  constructor(imagePath) {
+    super().loadImage(imagePath);
 
     this.x = 720 + Math.random() * 250;
     this.y = 160;
