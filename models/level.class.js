@@ -4,7 +4,7 @@ class Level {
   boss;
   coins;
   backgrounds;
-  levelEndX = 2500;
+  levelEndX = 3500;
   constructor(enemies, minions, boss, coins, backgrounds) {
     this.enemies = enemies;
     this.minions = minions;
