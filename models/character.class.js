@@ -20,10 +20,11 @@ class Character extends MovableObject {
     "assets/png/character/characterWalk/characterWalk7.png",
   ];
   world;
-  walkingSound = new Audio('assets/sounds/characterSteps.mp3');
+  walkingSound = new Audio("assets/sounds/characterSteps.mp3");
   constructor(imagePath, x) {
     super().loadImage(imagePath);
     this.x = x;
+    this.loadImages(this.CHARACTER_DEFAULT);
     this.loadImages(this.CHARACTER_WALKING);
     this.animate();
   }
@@ -49,6 +50,15 @@ class Character extends MovableObject {
     setInterval(() => {
       if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
         this.playAnimation(this.CHARACTER_WALKING);
+      } else {
+        if (
+          !this.world.keyboard.RIGHT ||
+          !this.world.keyboard.LEFT ||
+          !this.world.keyboard.SPACE ||
+          !this.world.keyboard.THROW
+        ) {
+          this.playAnimation(this.CHARACTER_DEFAULT);
+        }
       }
     }, 500 / 4);
   }
