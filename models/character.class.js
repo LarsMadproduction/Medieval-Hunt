@@ -30,15 +30,19 @@ class Character extends MovableObject {
   animate() {
     setInterval(() => {
       this.walkingSound.pause();
-      if (this.world.keyboard.RIGHT  && this.x < this.world.level.levelEndX) {
+      if (this.world.keyboard.RIGHT && this.x < this.world.level.levelEndX) {
         this.x += this.speed;
         this.otherDirection = false;
         this.walkingSound.play();
+        this.walkingSound.playbackRate = 2;
+        this.walkingSound.volume = 1;
       }
       if (this.world.keyboard.LEFT && this.x > 0) {
         this.x -= this.speed;
         this.otherDirection = true;
         this.walkingSound.play();
+        this.walkingSound.playbackRate = 2;
+        this.walkingSound.volume = 1;
       }
       this.world.cameraX = -this.x + 0;
     }, 1000 / 60);

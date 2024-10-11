@@ -18,10 +18,9 @@ class Enemy extends MovableObject {
     "assets/png/enemy/enemyAttack/enemyAttack3.png",
     "assets/png/enemy/enemyAttack/enemyAttack4.png",
   ];
-  walkingSound = new Audio('assets/sounds/characterSteps.mp3');
+  walkingSound = new Audio("assets/sounds/enemySteps.mp3");
   constructor(imagePath) {
     super().loadImage(imagePath);
-
 
     this.speed = 0.15 + Math.random() * 0.5;
     this.loadImages(this.ENEMY_WALKING);
@@ -29,10 +28,12 @@ class Enemy extends MovableObject {
     this.otherDirection = true;
   }
   animate() {
-    this.moveLeft()
+    this.moveLeft();
     setInterval(() => {
       // this.walkingSound.play();
+      this.walkingSound.volume = 0.03;
+      this.walkingSound.playbackRate = 0.8;
       this.playAnimation(this.ENEMY_WALKING);
-    },500 / 4);
+    }, 500 / 4);
   }
 }

@@ -1,7 +1,8 @@
 body {
-    display: flex;
+    /* display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center; */
+    background-color: #00000094;
 }
 canvas {
     background-color: black;
