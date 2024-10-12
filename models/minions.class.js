@@ -33,7 +33,10 @@ class Minion extends MovableObject {
     this.otherDirection = true;
   }
   animate() {
-    this.moveLeft();
+    setInterval(() => {
+      this.moveLeft();
+    }, 1000 / 60);
+
     setInterval(() => {
       // this.walkingSound.play();
       this.playAnimation(this.MINION_WALKING);

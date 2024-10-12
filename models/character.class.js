@@ -1,5 +1,5 @@
 class Character extends MovableObject {
-  speed = 3;
+  speed = 3.8;
   CHARACTER_DEFAULT = [
     "assets/png/character/characterDefault/characterDefault1.png",
     "assets/png/character/characterDefault/characterDefault2.png",
@@ -20,14 +20,11 @@ class Character extends MovableObject {
     "assets/png/character/characterWalk/characterWalk7.png",
   ];
   CHARACTER_JUMP = [
-    "assets/png/character/characterJump/characterJump1.png",
-    "assets/png/character/characterJump/characterJump2.png",
     "assets/png/character/characterJump/characterJump3.png",
     "assets/png/character/characterJump/characterJump4.png",
     "assets/png/character/characterJump/characterJump5.png",
     "assets/png/character/characterJump/characterJump6.png",
     "assets/png/character/characterJump/characterJump7.png",
-    "assets/png/character/characterJump/characterJump8.png",
   ];
   world;
   walkingSound = new Audio("assets/sounds/characterSteps.mp3");
@@ -43,31 +40,34 @@ class Character extends MovableObject {
   animate() {
     setInterval(() => {
       if (this.world.keyboard.RIGHT && this.x < this.world.level.levelEndX) {
-        this.x += this.speed;
-        this.otherDirection = false;
+        this.moveRight();
       }
       if (this.world.keyboard.LEFT && this.x > 0) {
-        this.x -= this.speed;
-        this.otherDirection = true;
+        this.moveLeft();
       }
-      if (this.world.keyboard.SPACE) {
-        this.speedY = 20;
+      if (this.world.keyboard.SPACE && !this.isAboveGround()) {
+        this.jump();
       }
       this.world.cameraX = -this.x + 0;
     }, 1000 / 60);
     setInterval(() => {
-      if (this.isAboveGround()) {
-        this.playAnimation(this.CHARACTER_JUMP);
-      }
-      if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+      if (
+        (this.world.keyboard.RIGHT && !this.isAboveGround()) ||
+        (this.world.keyboard.LEFT && !this.isAboveGround())
+      ) {
         this.playAnimation(this.CHARACTER_WALKING);
         this.walkingSound.play();
-        this.walkingSound.playbackRate = 2;
+        this.walkingSound.playbackRate = 2.5;
         this.walkingSound.volume = 1;
-      } else {
+      } else if (!this.isAboveGround()) {
         this.walkingSound.pause();
         this.playAnimation(this.CHARACTER_DEFAULT);
       }
-    }, 500 / 4);
+    }, 700 / 4);
+    setInterval(() => {
+      if (this.isAboveGround() == true) {
+        this.playAnimation(this.CHARACTER_JUMP);
+      }
+    }, 800 / 3);
   }
 }
