@@ -27,7 +27,6 @@ class World {
   stopMusic() {
     this.musicTheme.pause();
     this.musicTheme.currentTime = 0;
-
   }
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -54,15 +53,22 @@ class World {
   }
   addToMap(mo) {
     if (mo.otherDirection) {
-      this.ctx.save();
-      this.ctx.translate(mo.width, 0);
-      this.ctx.scale(-1, 1);
-      mo.x = mo.x * -1;
+      this.mirrorImage(mo);
     }
-    this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
+    mo.draw(this.ctx);
+    mo.hitBox(this.ctx);
     if (mo.otherDirection) {
-      mo.x = mo.x * -1;
-      this.ctx.restore();
+      this.reverseMirrorImage(mo);
     }
+  }
+  mirrorImage(mo) {
+    this.ctx.save();
+    this.ctx.translate(mo.width, 0);
+    this.ctx.scale(-1, 1);
+    mo.x = mo.x * -1;
+  }
+  reverseMirrorImage(mo) {
+    mo.x = mo.x * -1;
+    this.ctx.restore();
   }
 }
