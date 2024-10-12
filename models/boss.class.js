@@ -16,6 +16,7 @@ class Boss extends MovableObject {
     "assets/png/boss/bossAttack/bossAttack3.png",
     "assets/png/boss/bossAttack/bossAttack4.png",
   ];
+  walkingSound = new Audio("assets/sounds/enemySteps.mp3");
   constructor(imagePath, x) {
     super().loadImage(imagePath);
     this.x = x;
@@ -29,6 +30,8 @@ class Boss extends MovableObject {
     this.moveLeft()
     setInterval(() => {
       // this.walkingSound.play();
+      this.walkingSound.volume = 0.05;
+      this.walkingSound.playbackRate = 0.8;
       this.playAnimation(this.BOSS_WALKING);
     },500 / 4);
   }

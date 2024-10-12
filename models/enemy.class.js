@@ -30,7 +30,7 @@ class Enemy extends MovableObject {
     this.moveLeft();
     setInterval(() => {
       // this.walkingSound.play();
-      this.walkingSound.volume = 0.03;
+      this.walkingSound.volume = 0.01;
       this.walkingSound.playbackRate = 0.8;
       this.playAnimation(this.ENEMY_WALKING);
     }, 500 / 4);
