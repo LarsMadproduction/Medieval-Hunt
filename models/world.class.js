@@ -17,6 +17,7 @@ class World {
     this.draw();
     this.setWorld();
     this.musicTheme.loop = true;
+    this.checkCollisions();
   }
   setWorld() {
     this.character.world = this;
@@ -24,15 +25,23 @@ class World {
     this.musicTheme.volume = 0.05;
   }
 
+  checkCollisions() {
+    setInterval(() => {
+      this.level.enemies.forEach((enemy) => {
+        if (this.character.isColliding(enemy)) {
+          this.character.hit();
+        }
+      });
+    }, 1000);
+  }
+
   stopMusic() {
     this.musicTheme.pause();
     this.musicTheme.currentTime = 0;
   }
   draw() {
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
+    this.deletFrame(this.ctx);
     this.ctx.translate(this.cameraX, 0);
-
     this.addObjectsToMap(this.level.backgrounds);
     this.addObjectsToMap(this.level.enemies);
     this.addObjectsToMap(this.level.minions);
@@ -70,5 +79,8 @@ class World {
   reverseMirrorImage(mo) {
     mo.x = mo.x * -1;
     this.ctx.restore();
+  }
+  deletFrame(ctx) {
+    return ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
   }
 }

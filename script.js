@@ -18,7 +18,7 @@ window.addEventListener("keydown", (k) => {
     keyboard.SPACE = true;
   }
   if (k.key === 'f') {
-    keyboard.THROW = true;
+    keyboard.SPELL = true;
   }
 });
 
@@ -33,6 +33,6 @@ window.addEventListener('keyup', (k) =>{
     keyboard.SPACE = false;
   }
   if (k.key === 'f') {
-    keyboard.THROW = false;
+    keyboard.SPELL = false;
   }
 })
