@@ -1,6 +1,6 @@
 class World {
-  healtPoints = new Lifebar("assets/png/potion/lifePotion.png", 0);
-  manaPoints = new Manabar("assets/png/potion/manaPotion.png", 0);
+  lifeBar = new Lifebar("assets/png/potion/lifePotion.png", 0);
+  manaBar = new Manabar("assets/png/potion/manaPotion.png", 0);
   collectedCoins = new CollectedCoins("assets/png/coin/gold1.png", 0);
   character = new Character("assets/png/character/characterDefault/characterDefault1.png", 0);
   level = level1;
@@ -9,6 +9,7 @@ class World {
   keyboard;
   cameraX = 0;
   musicTheme = new Audio("assets/sounds/backgroundMusic.mp3");
+
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -20,8 +21,8 @@ class World {
     this.checkCollisions();
   }
   setWorld() {
-    this.healtPoints.world = this;
-    this.manaPoints.world = this;
+    this.lifeBar.world = this;
+    this.manaBar.world = this;
     this.collectedCoins.world = this;
     this.character.world = this;
     // this.musicTheme.play();
@@ -33,6 +34,7 @@ class World {
       this.level.enemies.forEach((enemy) => {
         if (this.character.isColliding(enemy)) {
           this.character.hit();
+          this.lifeBar.hit()
         }
       });
     }, 1000);
@@ -51,8 +53,8 @@ class World {
     this.addObjectsToMap(this.level.coins);
 
     this.ctx.translate(-this.cameraX, 0);
-    this.addToMap(this.healtPoints);
-    this.addToMap(this.manaPoints);
+    this.addToMap(this.lifeBar);
+    this.addToMap(this.manaBar);
     this.addToMap(this.collectedCoins);
     this.ctx.translate(this.cameraX, 0);
 
@@ -76,6 +78,8 @@ class World {
     }
     mo.draw(this.ctx);
     mo.hitBox(this.ctx);
+    mo.progressLifeBar(this.ctx);
+    mo.progressManaBar(this.ctx);
     if (mo.otherDirection) {
       this.reverseMirrorImage(mo);
     }

@@ -1,4 +1,4 @@
-class Lifebar extends DrawableObject {
+class Lifebar extends MovableObject {
   x = 15;
   y = 5;
   height = 40;

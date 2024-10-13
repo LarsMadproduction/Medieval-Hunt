@@ -3,8 +3,8 @@ class MovableObject extends DrawableObject {
   otherDirection = false;
   speedY = 0;
   accelaration = 2;
-  healthPoints = 100;
   lastHit = 0;
+  healthPoints = 1;
 
   applyGravity() {
     setInterval(() => {
@@ -28,10 +28,10 @@ class MovableObject extends DrawableObject {
 
   playAnimationOnce(images, imagePath) {
     // let i = this.currentImage % images.length;
-    if ((this.currentImage == images.length)) {
-      this.loadImage(imagePath)
+    if (this.currentImage == images.length) {
+      this.loadImage(imagePath);
     }
-    
+
     let path = images[this.currentImage];
     this.img = this.imageCache[path];
     this.currentImage++;
@@ -59,8 +59,8 @@ class MovableObject extends DrawableObject {
     );
   }
   hit() {
-    this.healthPoints -= 20;
-    if (this.healthPoints < 0) {
+    this.healthPoints -= 0.2;
+    if (this.healthPoints < 0.2) {
       this.healthPoints = 0;
     } else {
       this.lastHit = new Date().getTime();
