@@ -129,7 +129,11 @@ progressManaBar(ctx) {
       ctx.lineTo(x, y + radius);
       ctx.arc(x + radius, y + radius, radius, Math.PI, Math.PI * 1.5);
       ctx.closePath();
-      ctx.fillStyle = "blue"; 
+      if (fillPercentage < 0.2) {
+        ctx.fillStyle = "transparent";
+      } else {
+        ctx.fillStyle = "blue";
+      }
       ctx.fill();  
   }
 }
