@@ -2,14 +2,16 @@ class World {
   lifeBar = new Lifebar("assets/png/potion/lifePotion.png", 0);
   manaBar = new Manabar("assets/png/potion/manaPotion.png", 0);
   collectedCoins = new CollectedCoins("assets/png/coin/gold1.png", 0);
-  character = new Character("assets/png/character/characterDefault/characterDefault1.png", 0);
+  character = new Character(
+    "assets/png/character/characterDefault/characterDefault1.png",
+    0
+  );
   level = level1;
   canvas;
   ctx;
   keyboard;
   cameraX = 0;
   musicTheme = new Audio("assets/sounds/backgroundMusic.mp3");
-
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -31,12 +33,9 @@ class World {
 
   checkCollisions() {
     setInterval(() => {
-      this.level.enemies.forEach((enemy) => {
-        if (this.character.isColliding(enemy)) {
-          this.character.hit();
-          this.lifeBar.hit()
-        }
-      });
+      this.hitByEnemy();
+      this.hitByMinion();
+      this.hitByBoss();
     }, 1000);
   }
 
@@ -96,5 +95,27 @@ class World {
   }
   deletFrame(ctx) {
     return ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+  }
+  hitByEnemy() {
+    this.level.enemies.forEach((enemy) => {
+      if (this.character.isColliding(enemy)) {
+        this.character.hit();
+        this.lifeBar.hit();
+      }
+    });
+  }
+  hitByMinion() {
+    this.level.minions.forEach((minions) => {
+      if (this.character.isColliding(minions)) {
+        this.character.hit();
+        this.lifeBar.hit();
+      }
+    });
+  }
+  hitByBoss() {
+    if (this.character.isColliding(this.level.boss)) {
+      this.character.hit();
+      this.lifeBar.hit();
+    }
   }
 }

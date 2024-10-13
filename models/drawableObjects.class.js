@@ -100,7 +100,7 @@ progressManaBar(ctx) {
       const radius = 10;
       let fillPercentage = 1;
       const fillWidth = width * fillPercentage;
-      // Zeichne den Hintergrund der Progressbar (optional)
+
       ctx.beginPath();
       ctx.moveTo(x + radius, y);
       ctx.lineTo(x + width - radius, y);
@@ -117,7 +117,7 @@ progressManaBar(ctx) {
       ctx.lineWidth = "5";
       ctx.strokeStyle = "black";
       ctx.stroke(); 
-      // Zeichne die gefüllte Fläche
+
       ctx.beginPath();
       ctx.moveTo(x + radius, y);
       ctx.lineTo(x + fillWidth - radius, y);

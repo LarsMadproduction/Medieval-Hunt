@@ -34,7 +34,7 @@ class Minion extends MovableObject {
   }
   animate() {
     setInterval(() => {
-    //   this.moveLeft();
+      // this.moveLeft();
     }, 1000 / 60);
 
     setInterval(() => {
