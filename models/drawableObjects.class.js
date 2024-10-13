@@ -53,7 +53,7 @@ class DrawableObject {
         const radius = 10;
         let fillPercentage = this.healthPoints;
         const fillWidth = width * fillPercentage;
-        // Zeichne den Hintergrund der Progressbar (optional)
+
         ctx.beginPath();
         ctx.moveTo(x + radius, y);
         ctx.lineTo(x + width - radius, y);
@@ -70,7 +70,7 @@ class DrawableObject {
         ctx.lineWidth = "5";
         ctx.strokeStyle = "black";
         ctx.stroke(); 
-        // Zeichne die gefüllte Fläche
+
         ctx.beginPath();
         ctx.moveTo(x + radius, y);
         ctx.lineTo(x + fillWidth - radius, y);
@@ -87,7 +87,6 @@ class DrawableObject {
         } else {
           ctx.fillStyle = "red";
         }
-        
         ctx.fill();  
     }
 }

@@ -5,11 +5,7 @@ class Lifebar extends MovableObject {
   width = 40;
   constructor(imagePath) {
     super().loadImage(imagePath);
-    this.animate();
     this.otherDirection = false;
 
-  }
-  animate() {
-    
   }
 }
