@@ -19,6 +19,24 @@ class Character extends MovableObject {
     "assets/png/character/characterWalk/characterWalk6.png",
     "assets/png/character/characterWalk/characterWalk7.png",
   ];
+  CHARACTER_CHARGE_SPELL = [
+    "assets/png/character/characterSkillLaunche/characterSkillLaunche1.png",
+    "assets/png/character/characterSkillLaunche/characterSkillLaunche2.png",
+    "assets/png/character/characterSkillLaunche/characterSkillLaunche3.png",
+    "assets/png/character/characterSkillLaunche/characterSkillLaunche4.png",
+    "assets/png/character/characterSkillLaunche/characterSkillLaunche5.png",
+    "assets/png/character/characterSkillLaunche/characterSkillLaunche6.png",
+    "assets/png/character/characterSkillLaunche/characterSkillLaunche7.png",
+    "assets/png/character/characterSkillLaunche/characterSkillLaunche8.png",
+    "assets/png/character/characterSkillLaunche/characterSkillLaunche9.png",
+    "assets/png/character/characterSkillLaunche/characterSkillLaunche10.png",
+    "assets/png/character/characterSkillLaunche/characterSkillLaunche11.png",
+    "assets/png/character/characterSkillLaunche/characterSkillLaunche12.png",
+    "assets/png/character/characterSkillLaunche/characterSkillLaunche13.png",
+    "assets/png/character/characterSkillLaunche/characterSkillLaunche14.png",
+    "assets/png/character/characterSkillLaunche/characterSkillLaunche15.png",
+    "assets/png/character/characterSkillLaunche/characterSkillLaunche16.png",
+  ];
   CHARACTER_JUMP = [
     "assets/png/character/characterJump/characterJump3.png",
     "assets/png/character/characterJump/characterJump4.png",
@@ -59,7 +77,10 @@ class Character extends MovableObject {
       if (this.world.keyboard.LEFT && this.x > 0) {
         this.moveLeft();
       }
-      if (this.world.keyboard.SPACE && !this.isAboveGround()) {
+      if (this.world.keyboard.JUMP && !this.isAboveGround()) {
+        this.jump();
+      }
+      if (this.world.keyboard.SPELL && !this.isAboveGround()) {
         this.jump();
       }
       this.world.cameraX = -this.x + 0;
