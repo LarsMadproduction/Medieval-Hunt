@@ -19,16 +19,6 @@ class MovableObject extends DrawableObject {
     return this.y < 100;
   }
 
-  hitBox(ctx) {
-    if (this.hitBoxTarget()) {
-      ctx.beginPath();
-      ctx.lineWidth = "3";
-      ctx.strokeStyle = "red";
-      ctx.rect(this.x, this.y, this.width, this.height);
-      ctx.stroke();
-    }
-  }
-
   playAnimation(images) {
     let i = this.currentImage % images.length;
     let path = images[i];
@@ -57,17 +47,9 @@ class MovableObject extends DrawableObject {
     this.otherDirection = true;
   }
   jump() {
-    this.speedY = 28;
+    this.speedY = 22;
   }
-  hitBoxTarget() {
-    return (
-      this instanceof Character ||
-      this instanceof Enemy ||
-      this instanceof Minion ||
-      this instanceof Coin ||
-      this instanceof Boss
-    );
-  }
+
   isColliding(mo) {
     return (
       this.x + this.width > mo.x &&

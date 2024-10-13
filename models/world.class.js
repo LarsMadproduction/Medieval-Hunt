@@ -1,8 +1,8 @@
 class World {
-  character = new Character(
-    "assets/png/character/characterDefault/characterDefault1.png",
-    0
-  );
+  healtPoints = new Lifebar("assets/png/potion/lifePotion.png", 0);
+  manaPoints = new Manabar("assets/png/potion/manaPotion.png", 0);
+  collectedCoins = new CollectedCoins("assets/png/coin/gold1.png", 0);
+  character = new Character("assets/png/character/characterDefault/characterDefault1.png", 0);
   level = level1;
   canvas;
   ctx;
@@ -20,6 +20,9 @@ class World {
     this.checkCollisions();
   }
   setWorld() {
+    this.healtPoints.world = this;
+    this.manaPoints.world = this;
+    this.collectedCoins.world = this;
     this.character.world = this;
     // this.musicTheme.play();
     this.musicTheme.volume = 0.05;
@@ -46,6 +49,13 @@ class World {
     this.addObjectsToMap(this.level.enemies);
     this.addObjectsToMap(this.level.minions);
     this.addObjectsToMap(this.level.coins);
+
+    this.ctx.translate(-this.cameraX, 0);
+    this.addToMap(this.healtPoints);
+    this.addToMap(this.manaPoints);
+    this.addToMap(this.collectedCoins);
+    this.ctx.translate(this.cameraX, 0);
+
     this.addToMap(this.character);
     this.addToMap(this.level.boss);
     this.ctx.translate(-this.cameraX, 0);

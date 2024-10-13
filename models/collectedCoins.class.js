@@ -1,8 +1,8 @@
-class Coin extends MovableObject {
-//   x = 250 + Math.random() * 250;
-//   y = 180;
-  height = 40;
-  width = 40;
+class CollectedCoins extends MovableObject {
+  x = 20;
+  y = 90;
+  height = 30;
+  width = 30;
 
   COIN_FLIPP = [
     "assets/png/coin/gold1.png",
@@ -16,11 +16,10 @@ class Coin extends MovableObject {
     "assets/png/coin/gold9.png",
     "assets/png/coin/gold10.png",
   ];
-  constructor(imagePath, x, y) {
+
+  constructor(imagePath) {
     super().loadImage(imagePath);
-    this.x = x;
-    this.y = y;
-    this.speed = 0.5 + Math.random();
+    this.otherDirection = false;
     this.loadImages(this.COIN_FLIPP);
     this.animate();
   }
@@ -28,6 +27,6 @@ class Coin extends MovableObject {
     setInterval(() => {
       // this.walkingSound.play();
       this.playAnimation(this.COIN_FLIPP);
-    }, 500 / 4);
+    }, 800 / 6);
   }
 }

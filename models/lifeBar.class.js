@@ -1,9 +1,8 @@
-class Statusbar extends DrawableObject {
+class Lifebar extends DrawableObject {
   x = 15;
-  y = 15;
-  height = 50;
-  width = 50;
-  HEALTPOINTS_IMG = ["assets/png/potion/lifePotion.png"];
+  y = 5;
+  height = 40;
+  width = 40;
   constructor(imagePath) {
     super().loadImage(imagePath);
     this.animate();
