@@ -17,7 +17,7 @@ window.addEventListener("keydown", (k) => {
   if (k.key === ' ') {
     keyboard.JUMP = true;
   }
-  if (k.key === 'f') {
+  if (k.key === 'w') {
     keyboard.SPELL = true;
   }
 });
@@ -32,7 +32,7 @@ window.addEventListener('keyup', (k) =>{
   if (k.key === ' ') {
     keyboard.JUMP = false;
   }
-  if (k.key === 'f') {
+  if (k.key === 'w') {
     keyboard.SPELL = false;
   }
 })

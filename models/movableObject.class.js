@@ -26,16 +26,12 @@ class MovableObject extends DrawableObject {
     this.currentImage++;
   }
 
-  playAnimationOnce(images, imagePath) {
-    // let i = this.currentImage % images.length;
-    if (this.currentImage == images.length) {
-      this.loadImage(imagePath);
-    }
-
-    let path = images[this.currentImage];
-    this.img = this.imageCache[path];
-    this.currentImage++;
-  }
+  // playAnimationOnce(images, imagePath) {
+  //   for (let i = 0; i < images.length; i++) {
+  //     let path = images[i];
+  //     this.img = this.imageCache[path];
+  //   }
+  // }
 
   moveRight() {
     this.x += this.speed;
@@ -73,5 +69,8 @@ class MovableObject extends DrawableObject {
   }
   isDead() {
     return this.healthPoints == 0;
+  }
+  castAnimation() {
+    return false;
   }
 }

@@ -37,6 +37,7 @@ class DrawableObject {
   hitBoxTarget() {
     return (
       this instanceof Character ||
+      this instanceof Attack ||
       this instanceof Enemy ||
       this instanceof Minion ||
       this instanceof Coin ||

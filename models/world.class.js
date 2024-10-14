@@ -4,8 +4,9 @@ class World {
   collectedCoins = new CollectedCoins("assets/png/coin/gold1.png", 0);
   character = new Character(
     "assets/png/character/characterDefault/characterDefault1.png",
-    0
+    0.1
   );
+  attack = [];
   level = level1;
   canvas;
   ctx;
@@ -36,6 +37,7 @@ class World {
       this.hitByEnemy();
       this.hitByMinion();
       this.hitByBoss();
+      this.castSpell();
     }, 1000);
   }
 
@@ -49,6 +51,7 @@ class World {
     this.addObjectsToMap(this.level.backgrounds);
     this.addObjectsToMap(this.level.enemies);
     this.addObjectsToMap(this.level.minions);
+    this.addObjectsToMap(this.attack);
     this.addObjectsToMap(this.level.coins);
 
     this.ctx.translate(-this.cameraX, 0);
@@ -116,6 +119,16 @@ class World {
     if (this.character.isColliding(this.level.boss)) {
       this.character.hit();
       this.lifeBar.hit();
+    }
+  }
+  castSpell() {
+    if (this.character.otherDirection == false && this.keyboard.SPELL) {
+      let spells = new Attack(this.character.x + 90, this.character.y + 50);
+      this.attack.push(spells);
+    }
+    if (this.character.otherDirection == true && this.keyboard.SPELL) {
+      let spells = new Attack(this.character.x -60, this.character.y + 50);
+      this.attack.push(spells);
     }
   }
 }

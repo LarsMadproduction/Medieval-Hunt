@@ -20,15 +20,6 @@ class Character extends MovableObject {
     "assets/png/character/characterWalk/characterWalk7.png",
   ];
   CHARACTER_CHARGE_SPELL = [
-    "assets/png/character/characterSkillLaunche/characterSkillLaunche1.png",
-    "assets/png/character/characterSkillLaunche/characterSkillLaunche2.png",
-    "assets/png/character/characterSkillLaunche/characterSkillLaunche3.png",
-    "assets/png/character/characterSkillLaunche/characterSkillLaunche4.png",
-    "assets/png/character/characterSkillLaunche/characterSkillLaunche5.png",
-    "assets/png/character/characterSkillLaunche/characterSkillLaunche6.png",
-    "assets/png/character/characterSkillLaunche/characterSkillLaunche7.png",
-    "assets/png/character/characterSkillLaunche/characterSkillLaunche8.png",
-    "assets/png/character/characterSkillLaunche/characterSkillLaunche9.png",
     "assets/png/character/characterSkillLaunche/characterSkillLaunche10.png",
     "assets/png/character/characterSkillLaunche/characterSkillLaunche11.png",
     "assets/png/character/characterSkillLaunche/characterSkillLaunche12.png",
@@ -38,11 +29,11 @@ class Character extends MovableObject {
     "assets/png/character/characterSkillLaunche/characterSkillLaunche16.png",
   ];
   CHARACTER_JUMP = [
-    "assets/png/character/characterJump/characterJump3.png",
+    // "assets/png/character/characterJump/characterJump3.png",
     "assets/png/character/characterJump/characterJump4.png",
     "assets/png/character/characterJump/characterJump5.png",
     "assets/png/character/characterJump/characterJump6.png",
-    "assets/png/character/characterJump/characterJump7.png",
+    // "assets/png/character/characterJump/characterJump7.png",
   ];
   CHARACTER_HURT = [
     "assets/png/character/characterHurt/characterHurt1.png",
@@ -65,6 +56,7 @@ class Character extends MovableObject {
     this.loadImages(this.CHARACTER_DEFAULT);
     this.loadImages(this.CHARACTER_WALKING);
     this.loadImages(this.CHARACTER_JUMP);
+    this.loadImages(this.CHARACTER_CHARGE_SPELL);
     this.loadImages(this.CHARACTER_HURT);
     this.loadImages(this.CHARACTER_DEAD);
     this.animate();
@@ -80,16 +72,16 @@ class Character extends MovableObject {
       if (this.world.keyboard.JUMP && !this.isAboveGround()) {
         this.jump();
       }
-      if (this.world.keyboard.SPELL && !this.isAboveGround()) {
-        this.jump();
-      }
       this.world.cameraX = -this.x + 0;
     }, 1000 / 60);
     setInterval(() => {
       if (this.gotHit()) {
         this.playAnimation(this.CHARACTER_HURT);
       } else if (this.isDead()) {
-        this.playAnimation(this.CHARACTER_DEAD, "assets/png/character/characterDead/characterDead4.png");
+        this.playAnimation(
+          this.CHARACTER_DEAD,
+          "assets/png/character/characterDead/characterDead4.png"
+        );
       } else if (
         (this.world.keyboard.RIGHT && !this.isAboveGround()) ||
         (this.world.keyboard.LEFT && !this.isAboveGround())
@@ -98,16 +90,23 @@ class Character extends MovableObject {
         this.walkingSound.play();
         this.walkingSound.playbackRate = 2.5;
         this.walkingSound.volume = 1;
-      } else if (!this.isAboveGround()) {
+      } else if (!this.isAboveGround() && !this.world.keyboard.SPELL) {
         this.walkingSound.pause();
         this.playAnimation(this.CHARACTER_DEFAULT);
       }
     }, 700 / 4);
     setInterval(() => {
-      if (this.isAboveGround() == true) {
-        this.playAnimation(this.CHARACTER_JUMP, "assets/png/character/characterJump/characterJump7.png");
+      if (this.isAboveGround() && !this.world.keyboard.SPELL) {
+        this.playAnimation(
+          this.CHARACTER_JUMP,
+          "assets/png/character/characterJump/characterJump6.png"
+        );
       }
     }, 800 / 3);
+    setInterval(() => {
+      if (this.world.keyboard.SPELL) {
+        this.playAnimation(this.CHARACTER_CHARGE_SPELL);
+      }
+    }, 1000 / 15);
   }
-  
 }
