@@ -20,11 +20,11 @@ class MovableObject extends DrawableObject {
     return this.y < 100;
   }
 
-  togglePause() {
-    if (!this.keyboard.PAUSE) {
-    } else if (this.keyboard.PAUSE) {
-    }
-  }
+  // togglePause() {
+  //   if (!this.keyboard.PAUSE) {
+  //   } else if (this.keyboard.PAUSE) {
+  //   }
+  // }
 
   playAnimation(images) {
     let i = this.currentImage % images.length;
