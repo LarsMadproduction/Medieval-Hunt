@@ -5,7 +5,11 @@ class MovableObject extends DrawableObject {
   accelaration = 2;
   lastHit = 0;
   healthPoints = 1;
-  i = 0 ;
+  i = 0;
+
+  constructor(world) {
+    super(world);
+  }
 
   applyGravity() {
     setInterval(() => {
@@ -39,7 +43,20 @@ class MovableObject extends DrawableObject {
       let path = images[this.i];
       this.img = this.imageCache[path];
       this.i++;
-  }}
+    }
+  }
+
+  SpellAnimationOnce(images) {
+    if (this.i < images.length) {
+      let path = images[this.i];
+      this.img = this.imageCache[path];
+      this.i++;
+      if (this.i == images.length) {
+        world.ctx.clearRect(this.x, this.y, this.width, this.height);
+        world.deletFrame(world.ctx);
+      }
+    }
+  }
 
   moveRight() {
     this.x += this.speed;
@@ -53,13 +70,44 @@ class MovableObject extends DrawableObject {
   jump() {
     this.speedY = 22;
   }
-
-  isColliding(mo) {
+  isCollidingCoin(mo) {
     return (
-      this.x + this.width > mo.x &&
-      this.x < mo.x + mo.width &&
-      this.y + this.height > mo.y &&
-      this.y < mo.y + mo.height
+      this.x+75 + this.width-150 > mo.x &&
+      this.x+75 < mo.x + mo.width &&
+      this.y+120 + this.height-120 > mo.y &&
+      this.y+120 < mo.y+100 + mo.height
+    );
+  }
+  isCollidingEnemy(mo) {
+    return (
+      this.x+75 + this.width-150 > mo.x+30 &&
+      this.x+75 < mo.x+30 + mo.width-100 &&
+      this.y+120 + this.height-120 > mo.y+100 &&
+      this.y+120 < mo.y+100 + mo.height-100
+    );
+  }
+  isCollidingMinion(mo) {
+    return (
+      this.x+75 + this.width-150 > mo.x+20 &&
+      this.x+75 < mo.x+20 + mo.width-90 &&
+      this.y+120 + this.height-120 > mo.y+120 &&
+      this.y+120 < mo.y+120 + mo.height-120
+    );
+  }
+  isCollidingBoss(mo) {
+    return (
+      this.x+75 + this.width-150 > mo.x+20 &&
+      this.x+75 < mo.x+20 + mo.width-100 &&
+      this.y+120 + this.height-120 > mo.y &&
+      this.y+120 < mo.y + mo.height
+    );
+  }
+  isCollidingSpell(mo) {
+    return (
+      this.x+75 + this.width-150 > mo.x+75 &&
+      this.x+75 < mo.x+75 + mo.width-100 &&
+      this.y+120 + this.height-120 > mo.y+120 &&
+      this.y+120 < mo.y+120 + mo.height-235
     );
   }
   hit() {

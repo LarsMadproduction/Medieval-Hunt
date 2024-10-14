@@ -32,13 +32,14 @@ class World {
     this.musicTheme.volume = 0.05;
   }
 
-
   checkCollisions() {
     setInterval(() => {
       this.hitByEnemy();
       this.hitByMinion();
       this.hitByBoss();
       this.castSpell();
+      this.gatherCoin();
+      // this.enemyHitBySpell();
     }, 1000);
   }
 
@@ -81,7 +82,10 @@ class World {
       this.mirrorImage(mo);
     }
     mo.draw(this.ctx);
-    mo.hitBox(this.ctx);
+    mo.hitBoxCoin(this.ctx);
+    mo.hitBoxCharacter(this.ctx);
+    // mo.hitBoxEnemy(this.ctx);
+    // mo.hitBoxMinion(this.ctx);
     mo.progressLifeBar(this.ctx);
     mo.progressManaBar(this.ctx);
     if (mo.otherDirection) {
@@ -107,36 +111,56 @@ class World {
   //     this.level = level1;
   //  }
   // }
-
+  gatherCoin() {
+    this.level.coins.forEach((coin) => {
+      if (this.character.isCollidingCoin(coin)) {
+        console.log("gather Coin");
+      }
+    });
+  }
   hitByEnemy() {
     this.level.enemies.forEach((enemy) => {
-      if (this.character.isColliding(enemy)) {
+      if (this.character.isCollidingEnemy(enemy)) {
         this.character.hit();
         this.lifeBar.hit();
       }
     });
   }
+  enemyHitBySpell() {
+    this.attack.forEach((attack) => {
+      if (this.level.enemies.isCollidingSpell(attack)) {
+        // this.enemies.hit();
+        console.log("hit Spell");
+      }
+    });
+  }
   hitByMinion() {
     this.level.minions.forEach((minions) => {
-      if (this.character.isColliding(minions)) {
+      if (this.character.isCollidingMinion(minions)) {
         this.character.hit();
         this.lifeBar.hit();
       }
     });
   }
   hitByBoss() {
-    if (this.character.isColliding(this.level.boss)) {
+    if (this.character.isCollidingBoss(this.level.boss)) {
       this.character.hit();
       this.lifeBar.hit();
     }
   }
   castSpell() {
+    this.spellRight();
+    this.spellLeft();
+  }
+  spellRight() {
     if (this.character.otherDirection == false && this.keyboard.SPELL) {
       let spells = new Attack(this.character.x + 90, this.character.y + 50);
       this.attack.push(spells);
     }
+  }
+  spellLeft() {
     if (this.character.otherDirection == true && this.keyboard.SPELL) {
-      let spells = new Attack(this.character.x -60, this.character.y + 50);
+      let spells = new Attack(this.character.x - 60, this.character.y + 50);
       this.attack.push(spells);
     }
   }
