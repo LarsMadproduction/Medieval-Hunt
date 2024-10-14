@@ -5,6 +5,7 @@ class MovableObject extends DrawableObject {
   accelaration = 2;
   lastHit = 0;
   healthPoints = 1;
+  i = 0 ;
 
   applyGravity() {
     setInterval(() => {
@@ -19,19 +20,26 @@ class MovableObject extends DrawableObject {
     return this.y < 100;
   }
 
+  togglePause() {
+    if (!this.keyboard.PAUSE) {
+    } else if (this.keyboard.PAUSE) {
+    }
+  }
+
   playAnimation(images) {
     let i = this.currentImage % images.length;
     let path = images[i];
     this.img = this.imageCache[path];
     this.currentImage++;
+    this.i = 0;
   }
 
-  // playAnimationOnce(images, imagePath) {
-  //   for (let i = 0; i < images.length; i++) {
-  //     let path = images[i];
-  //     this.img = this.imageCache[path];
-  //   }
-  // }
+  playAnimationOnce(images) {
+    if (this.i < images.length) {
+      let path = images[this.i];
+      this.img = this.imageCache[path];
+      this.i++;
+  }}
 
   moveRight() {
     this.x += this.speed;

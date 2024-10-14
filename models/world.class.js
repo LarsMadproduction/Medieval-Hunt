@@ -32,6 +32,7 @@ class World {
     this.musicTheme.volume = 0.05;
   }
 
+
   checkCollisions() {
     setInterval(() => {
       this.hitByEnemy();
@@ -68,6 +69,7 @@ class World {
     requestAnimationFrame(function () {
       self.draw();
     });
+    // this.restartLevel();
   }
   addObjectsToMap(objects) {
     objects.forEach((o) => {
@@ -99,6 +101,13 @@ class World {
   deletFrame(ctx) {
     return ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
   }
+
+  // restartLevel() {
+  //   if (this.keyboard.RESTART) {
+  //     this.level = level1;
+  //  }
+  // }
+
   hitByEnemy() {
     this.level.enemies.forEach((enemy) => {
       if (this.character.isColliding(enemy)) {

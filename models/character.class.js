@@ -29,11 +29,8 @@ class Character extends MovableObject {
     "assets/png/character/characterSkillLaunche/characterSkillLaunche16.png",
   ];
   CHARACTER_JUMP = [
-    // "assets/png/character/characterJump/characterJump3.png",
-    "assets/png/character/characterJump/characterJump4.png",
     "assets/png/character/characterJump/characterJump5.png",
     "assets/png/character/characterJump/characterJump6.png",
-    // "assets/png/character/characterJump/characterJump7.png",
   ];
   CHARACTER_HURT = [
     "assets/png/character/characterHurt/characterHurt1.png",
@@ -76,12 +73,14 @@ class Character extends MovableObject {
     }, 1000 / 60);
     setInterval(() => {
       if (this.gotHit()) {
-        this.playAnimation(this.CHARACTER_HURT);
+        this.playAnimationOnce(this.CHARACTER_HURT);
       } else if (this.isDead()) {
-        this.playAnimation(
-          this.CHARACTER_DEAD,
-          "assets/png/character/characterDead/characterDead4.png"
-        );
+        this.playAnimationOnce(
+          this.CHARACTER_DEAD, "assets/png/character/characterDead/characterDead4.png");
+          this.world.keyboard.RIGHT = false;
+          this.world.keyboard.LEFT = false;
+          this.world.keyboard.JUMP = false;
+          this.world.keyboard.SPELL = false;
       } else if (
         (this.world.keyboard.RIGHT && !this.isAboveGround()) ||
         (this.world.keyboard.LEFT && !this.isAboveGround())
@@ -97,15 +96,12 @@ class Character extends MovableObject {
     }, 700 / 4);
     setInterval(() => {
       if (this.isAboveGround() && !this.world.keyboard.SPELL) {
-        this.playAnimation(
-          this.CHARACTER_JUMP,
-          "assets/png/character/characterJump/characterJump6.png"
-        );
+        this.playAnimationOnce(this.CHARACTER_JUMP);
       }
     }, 800 / 3);
     setInterval(() => {
       if (this.world.keyboard.SPELL) {
-        this.playAnimation(this.CHARACTER_CHARGE_SPELL);
+        this.playAnimationOnce(this.CHARACTER_CHARGE_SPELL);
       }
     }, 1000 / 15);
   }

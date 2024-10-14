@@ -23,13 +23,12 @@ class Attack extends MovableObject {
   chargeSpell() {
     setInterval(() => {
         if (!world.character.otherDirection) {
-          this.playAnimation(this.CHARACTER_ATTACK_SPELL);
-        this.x += this.speed;
+          this.playAnimationOnce(this.CHARACTER_ATTACK_SPELL);
+          this.x += this.speed;
         }else{
-          this.playAnimation(this.CHARACTER_ATTACK_SPELL);
+          this.playAnimationOnce(this.CHARACTER_ATTACK_SPELL);
           this.x -= this.speed;
         }
-        
       }, 1000 / 10);
   }
 }

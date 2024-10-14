@@ -3,4 +3,6 @@ class Keyboard {
     RIGHT = false;
     JUMP = false;
     SPELL = false;
+    PAUSE = false;
+    RESTART = false;
 }
