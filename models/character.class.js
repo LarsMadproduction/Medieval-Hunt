@@ -60,7 +60,7 @@ class Character extends MovableObject {
   }
   animate() {
     setInterval(() => {
-      if (this.world.keyboard.RIGHT && this.x < this.world.level.levelEndX) {
+      if (world.keyboard.RIGHT && this.x < this.world.level.levelEndX) {
         this.moveRight();
       }
       if (this.world.keyboard.LEFT && this.x > 0) {
@@ -77,13 +77,9 @@ class Character extends MovableObject {
       } else if (this.isDead()) {
         this.playAnimationOnce(
           this.CHARACTER_DEAD, "assets/png/character/characterDead/characterDead4.png");
-          this.world.keyboard.RIGHT = false;
-          this.world.keyboard.LEFT = false;
-          this.world.keyboard.JUMP = false;
-          this.world.keyboard.SPELL = false;
       } else if (
-        (this.world.keyboard.RIGHT && !this.isAboveGround()) ||
-        (this.world.keyboard.LEFT && !this.isAboveGround())
+        (this.world.keyboard.RIGHT && !this.isAboveGround() && !this.world.keyboard.SPELL) ||
+        (this.world.keyboard.LEFT && !this.isAboveGround() && !this.world.keyboard.SPELL)
       ) {
         this.playAnimation(this.CHARACTER_WALKING);
         this.walkingSound.play();
@@ -92,17 +88,16 @@ class Character extends MovableObject {
       } else if (!this.isAboveGround() && !this.world.keyboard.SPELL) {
         this.walkingSound.pause();
         this.playAnimation(this.CHARACTER_DEFAULT);
+      
+      } else if (this.isAboveGround()) {
+        this.playAnimationOnce(this.CHARACTER_JUMP);
       }
     }, 700 / 4);
     setInterval(() => {
-      if (this.isAboveGround() && !this.world.keyboard.SPELL) {
-        this.playAnimationOnce(this.CHARACTER_JUMP);
-      }
-    }, 800 / 3);
-    setInterval(() => {
       if (this.world.keyboard.SPELL) {
-        this.playAnimationOnce(this.CHARACTER_CHARGE_SPELL);
-      }
-    }, 1000 / 15);
+        this.playAnimationOnce(this.CHARACTER_CHARGE_SPELL);}
+    }, 500 / 6);
   }
 }
+// let attackInterval=
+// clearInterval(attackInterval);

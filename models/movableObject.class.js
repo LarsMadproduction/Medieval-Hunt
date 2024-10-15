@@ -6,6 +6,7 @@ class MovableObject extends DrawableObject {
   lastHit = 0;
   healthPoints = 1;
   i = 0;
+  attackIntervals = [];
 
   constructor(world) {
     super(world);
@@ -43,18 +44,6 @@ class MovableObject extends DrawableObject {
       let path = images[this.i];
       this.img = this.imageCache[path];
       this.i++;
-    }
-  }
-
-  SpellAnimationOnce(images) {
-    if (this.i < images.length) {
-      let path = images[this.i];
-      this.img = this.imageCache[path];
-      this.i++;
-      if (this.i == images.length) {
-        world.ctx.clearRect(this.x, this.y, this.width, this.height);
-        world.deletFrame(world.ctx);
-      }
     }
   }
 

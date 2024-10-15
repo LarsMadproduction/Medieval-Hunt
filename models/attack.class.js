@@ -23,32 +23,43 @@ class Attack extends MovableObject {
   }
 
   chargeSpell() {
-    setInterval(() => {
+    
       if (!world.character.otherDirection) {
-        world.keyboard.SPELL = true
-        this.SpellAnimationOnce(this.CHARACTER_ATTACK_SPELL);
+        let attackRightInterval = setInterval(() => {
+        this.playAnimationOnce(this.CHARACTER_ATTACK_SPELL);
         this.x += this.speed;
-        if (this.x > world.character.x+440) { //|| this.x === world.level.enemies[0].x
-          // this.x += this.speed = 0;
-          world.attack.splice(0); 
+        
+        if (this.x > world.character.x + 440) {
+          clearInterval(attackRightInterval);
+          this.attackIntervals.splice(
+            this.attackIntervals.indexOf(attackRightInterval),
+            1
+          );
+          world.attack.splice(0);
           world.ctx.clearRect(this.x, this.y, this.width, this.height);
-          world.keyboard.SPELL = false
         }
+      }, 1000 / 10);
       }
-    }, 1000 / 10);
-    setInterval(() => {
+    
+
+    
       if (world.character.otherDirection) {
-        this.SpellAnimationOnce(this.CHARACTER_ATTACK_SPELL);
-        world.keyboard.SPELL = true
+        let attackLeftInterval = setInterval(() => {
+        this.playAnimationOnce(this.CHARACTER_ATTACK_SPELL);
+        // world.attack.otherDirection = true;
         this.x -= this.speed;
-        if (this.x > world.character.x-440) { //|| this.x === world.level.enemies[0].x
-          // this.x -= this.speed = 0;
-          world.attack.splice(0); 
+
+        if (this.x < world.character.x - 440) {
+          clearInterval(attackLeftInterval);
+          this.attackIntervals.splice(
+            this.attackIntervals.indexOf(attackLeftInterval),
+            1
+          );
+          world.attack.splice(0);
           world.ctx.clearRect(this.x, this.y, this.width, this.height);
-          world.keyboard.SPELL = false
         }
+      }, 1000 / 10);
       }
-    }, 1000 / 10);
+   
   }
-  
 }

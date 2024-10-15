@@ -1,6 +1,8 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
+let lastSpellTime = 0;
+
 function init() {
   canvas = document.getElementById("canvas");
   world = new World(canvas, keyboard);
@@ -13,6 +15,7 @@ function toggleRestart() {
 }
 
 window.addEventListener("keydown", (k) => {
+  let currentSpellTime = Date.now();
   if (k.key === "d") {
     keyboard.RIGHT = true;
   }
@@ -23,7 +26,14 @@ window.addEventListener("keydown", (k) => {
     keyboard.JUMP = true;
   }
   if (k.key === "w") {
-    keyboard.SPELL = true;
+    
+    if (currentSpellTime - lastSpellTime > 2000) {
+      keyboard.SPELL = true; 
+      lastSpellTime = currentSpellTime; 
+      console.log("Spell active!"); 
+  } else {
+      console.log("Spell on colldown!");
+  }
   }
   if (k.key === "p") {
     keyboard.PAUSE = true;
@@ -44,9 +54,9 @@ window.addEventListener("keyup", (k) => {
   if (k.key === " ") {
     keyboard.JUMP = false;
   }
-  // if (k.key === "w") {
-  //   keyboard.SPELL = false;
-  // }
+  if (k.key === "w") {
+    keyboard.SPELL = false; // timeout erst wieder false nach 1.5 sekunden
+  }
   if (k.key === "p") {
     keyboard.PAUSE = false;
   }

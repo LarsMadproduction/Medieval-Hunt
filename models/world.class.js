@@ -153,15 +153,15 @@ class World {
     this.spellLeft();
   }
   spellRight() {
-    if (this.character.otherDirection == false && this.keyboard.SPELL) {
-      let spells = new Attack(this.character.x + 90, this.character.y + 50);
-      this.attack.push(spells);
+    if (!this.character.otherDirection && this.keyboard.SPELL) {
+      let spellsRight = new Attack(this.character.x + 90, this.character.y + 50);
+      this.attack.push(spellsRight);
     }
   }
   spellLeft() {
-    if (this.character.otherDirection == true && this.keyboard.SPELL) {
-      let spells = new Attack(this.character.x - 60, this.character.y + 50);
-      this.attack.push(spells);
+    if (this.character.otherDirection && this.keyboard.SPELL) {
+      let spellsLeft = new Attack(this.character.x - 60, this.character.y + 50);
+      this.attack.push(spellsLeft);
     }
   }
 }
