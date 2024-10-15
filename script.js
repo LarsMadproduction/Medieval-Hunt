@@ -44,9 +44,9 @@ window.addEventListener("keyup", (k) => {
   if (k.key === " ") {
     keyboard.JUMP = false;
   }
-  if (k.key === "w") {
-    keyboard.SPELL = false;
-  }
+  // if (k.key === "w") {
+  //   keyboard.SPELL = false;
+  // }
   if (k.key === "p") {
     keyboard.PAUSE = false;
   }

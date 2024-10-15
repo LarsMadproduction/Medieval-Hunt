@@ -25,17 +25,30 @@ class Attack extends MovableObject {
   chargeSpell() {
     setInterval(() => {
       if (!world.character.otherDirection) {
+        world.keyboard.SPELL = true
         this.SpellAnimationOnce(this.CHARACTER_ATTACK_SPELL);
         this.x += this.speed;
         if (this.x > world.character.x+440) { //|| this.x === world.level.enemies[0].x
-          this.x += this.speed = 0;
+          // this.x += this.speed = 0;
+          world.attack.splice(0); 
           world.ctx.clearRect(this.x, this.y, this.width, this.height);
+          world.keyboard.SPELL = false
         }
-      } else {
+      }
+    }, 1000 / 10);
+    setInterval(() => {
+      if (world.character.otherDirection) {
         this.SpellAnimationOnce(this.CHARACTER_ATTACK_SPELL);
+        world.keyboard.SPELL = true
         this.x -= this.speed;
-        world.ctx.clearRect(this.x, this.y, this.width, this.height);
+        if (this.x > world.character.x-440) { //|| this.x === world.level.enemies[0].x
+          // this.x -= this.speed = 0;
+          world.attack.splice(0); 
+          world.ctx.clearRect(this.x, this.y, this.width, this.height);
+          world.keyboard.SPELL = false
+        }
       }
     }, 1000 / 10);
   }
+  
 }
