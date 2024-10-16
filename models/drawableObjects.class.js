@@ -153,7 +153,7 @@ class DrawableObject {
       const width = this.width + 100;
       const height = this.height - 20;
       const radius = 10;
-      let fillPercentage = 1;
+      let fillPercentage = this.manaPoints;
       const fillWidth = width * fillPercentage;
 
       ctx.beginPath();

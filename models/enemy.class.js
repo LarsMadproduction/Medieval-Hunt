@@ -2,7 +2,7 @@ class Enemy extends MovableObject {
   y = 160;
   height = 220;
   width = 180;
-
+  healthPoints = 0.2;
   ENEMY_WALKING = [
     "assets/png/enemy/enemyWalk/enemyWalk1.png",
     "assets/png/enemy/enemyWalk/enemyWalk2.png",
@@ -17,12 +17,21 @@ class Enemy extends MovableObject {
     "assets/png/enemy/enemyAttack/enemyAttack3.png",
     "assets/png/enemy/enemyAttack/enemyAttack4.png",
   ];
+  ENEMY_DEAD = [
+    "assets/png/enemy/enemyDead/enemyDead0.png",
+    "assets/png/enemy/enemyDead/enemyDead1.png",
+    "assets/png/enemy/enemyDead/enemyDead2.png",
+    "assets/png/enemy/enemyDead/enemyDead3.png",
+  ];
+  world;
+  level;
   walkingSound = new Audio("assets/sounds/enemySteps.mp3");
   constructor(imagePath, x) {
     super().loadImage(imagePath);
     this.x = x;
     this.speed = 0.15 + Math.random() * 0.5;
     this.loadImages(this.ENEMY_WALKING);
+    this.loadImages(this.ENEMY_DEAD);
     this.animate();
     this.otherDirection = true;
   }
@@ -31,10 +40,22 @@ class Enemy extends MovableObject {
       // this.moveLeft();
     }, 1000 / 60);
     setInterval(() => {
-      // this.walkingSound.play();
-      this.walkingSound.volume = 0.01;
-      this.walkingSound.playbackRate = 0.8;
-      this.playAnimation(this.ENEMY_WALKING);
+      if (this.gotHitBySpell()) {
+        this.isDead();
+      } else if (this.isDead()) {
+        this.playAnimationOnce(this.ENEMY_DEAD);
+        world.ctx.clearRect(
+          world.level.enemies[0].x,
+          world.level.enemies[0].y,
+          world.level.enemies[0].width,
+          world.level.enemies[0].height
+        );
+      } else {
+        this.playAnimation(this.ENEMY_WALKING);
+        // this.walkingSound.play();
+        this.walkingSound.volume = 0.01;
+        this.walkingSound.playbackRate = 0.8;
+      }
     }, 500 / 4);
   }
 }

@@ -1,4 +1,4 @@
-class Manabar extends DrawableObject {
+class Manabar extends MovableObject {
   x = 15;
   y = 45;
   height = 40;

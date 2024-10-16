@@ -4,7 +4,9 @@ class MovableObject extends DrawableObject {
   speedY = 0;
   accelaration = 2;
   lastHit = 0;
+  lastSpellHit = 0;
   healthPoints = 1;
+  manaPoints = 1;
   i = 0;
   attackIntervals = [];
 
@@ -115,7 +117,18 @@ class MovableObject extends DrawableObject {
   isDead() {
     return this.healthPoints == 0;
   }
-  castAnimation() {
-    return false;
+  spellUsed() {
+    this.manaPoints -= 0.2;
+    if (this.manaPoints < 0.2) {
+      this.manaPoints = 0;
+    } else {
+      this.lastSpellHit = new Date().getTime();
+    }
+  }
+
+  gotHitBySpell() {
+    let timepassed = new Date().getTime() - this.lastSpellHit;
+    timepassed = timepassed / 100;
+    return timepassed < 0.5;
   }
 }

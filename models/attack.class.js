@@ -29,14 +29,16 @@ class Attack extends MovableObject {
         this.playAnimationOnce(this.CHARACTER_ATTACK_SPELL);
         this.x += this.speed;
         
-        if (this.x > world.character.x + 440) {
+        if (this.x > world.character.x + 500 || world.enemyHitBySpell()) {
+          console.log("spell animation", this.x, world.attack[0]);
+          world.attack.splice(0);
+          world.ctx.clearRect(this.x, this.y, this.width, this.height);
           clearInterval(attackRightInterval);
           this.attackIntervals.splice(
             this.attackIntervals.indexOf(attackRightInterval),
             1
           );
-          world.attack.splice(0);
-          world.ctx.clearRect(this.x, this.y, this.width, this.height);
+
         }
       }, 1000 / 10);
       }
@@ -46,10 +48,9 @@ class Attack extends MovableObject {
       if (world.character.otherDirection) {
         let attackLeftInterval = setInterval(() => {
         this.playAnimationOnce(this.CHARACTER_ATTACK_SPELL);
-        // world.attack.otherDirection = true;
         this.x -= this.speed;
 
-        if (this.x < world.character.x - 440) {
+        if (this.x < world.character.x - 500) {
           clearInterval(attackLeftInterval);
           this.attackIntervals.splice(
             this.attackIntervals.indexOf(attackLeftInterval),

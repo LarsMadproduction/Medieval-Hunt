@@ -38,8 +38,7 @@ class World {
       this.hitByMinion();
       this.hitByBoss();
       this.castSpell();
-      this.gatherCoin();
-      // this.enemyHitBySpell();
+      // this.gatherCoin();
     }, 1000);
   }
 
@@ -84,7 +83,7 @@ class World {
     mo.draw(this.ctx);
     mo.hitBoxCoin(this.ctx);
     mo.hitBoxCharacter(this.ctx);
-    // mo.hitBoxEnemy(this.ctx);
+    mo.hitBoxEnemy(this.ctx);
     // mo.hitBoxMinion(this.ctx);
     mo.progressLifeBar(this.ctx);
     mo.progressManaBar(this.ctx);
@@ -126,13 +125,25 @@ class World {
       }
     });
   }
+
   enemyHitBySpell() {
-    this.attack.forEach((attack) => {
-      if (this.level.enemies.isCollidingSpell(attack)) {
-        // this.enemies.hit();
-        console.log("hit Spell");
-      }
-    });
+    if (this.attack.length > 0) {
+      let currentAttack = this.attack[0];
+      this.level.enemies.forEach((enemy) => {
+        if (enemy.isCollidingSpell(currentAttack)) {
+          enemy.hit();
+          this.manaBar.spellUsed();
+          this.ctx.clearRect(
+            currentAttack.x,
+            currentAttack.y,
+            currentAttack.width,
+            currentAttack.height
+          );
+          this.attack.splice(0);
+          console.log("hit Spell", enemy);
+        }
+      });
+    }
   }
   hitByMinion() {
     this.level.minions.forEach((minions) => {
@@ -151,10 +162,14 @@ class World {
   castSpell() {
     this.spellRight();
     this.spellLeft();
+    this.enemyHitBySpell();
   }
   spellRight() {
     if (!this.character.otherDirection && this.keyboard.SPELL) {
-      let spellsRight = new Attack(this.character.x + 90, this.character.y + 50);
+      let spellsRight = new Attack(
+        this.character.x + 90,
+        this.character.y + 50
+      );
       this.attack.push(spellsRight);
     }
   }
