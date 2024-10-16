@@ -25,16 +25,17 @@ window.addEventListener("keydown", (k) => {
   if (k.key === " ") {
     keyboard.JUMP = true;
   }
+
   if (k.key === "w") {
-    
-    if (currentSpellTime - lastSpellTime > 2000) {
-      keyboard.SPELL = true; 
-      lastSpellTime = currentSpellTime; 
-      console.log("Spell active!"); 
-  } else {
-      console.log("Spell on colldown!");
+    if (currentSpellTime - lastSpellTime > 450) {
+      keyboard.SPELL = true;
+      lastSpellTime = currentSpellTime;
+      setTimeout(() => {
+        keyboard.SPELL = false;
+      }, 450);
+    }
   }
-  }
+
   if (k.key === "p") {
     keyboard.PAUSE = true;
   }
@@ -54,9 +55,9 @@ window.addEventListener("keyup", (k) => {
   if (k.key === " ") {
     keyboard.JUMP = false;
   }
-  if (k.key === "w") {
-    keyboard.SPELL = false; // timeout erst wieder false nach 1.5 sekunden
-  }
+  // if (k.key === "w") {
+  //   keyboard.SPELL = false; // timeout erst wieder false nach 1.5 sekunden
+  // }
   if (k.key === "p") {
     keyboard.PAUSE = false;
   }

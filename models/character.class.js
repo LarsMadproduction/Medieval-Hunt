@@ -20,6 +20,15 @@ class Character extends MovableObject {
     "assets/png/character/characterWalk/characterWalk7.png",
   ];
   CHARACTER_CHARGE_SPELL = [
+    "assets/png/character/characterSkillLaunche/characterSkillLaunche1.png",
+    "assets/png/character/characterSkillLaunche/characterSkillLaunche2.png",
+    "assets/png/character/characterSkillLaunche/characterSkillLaunche3.png",
+    "assets/png/character/characterSkillLaunche/characterSkillLaunche4.png",
+    "assets/png/character/characterSkillLaunche/characterSkillLaunche5.png",
+    "assets/png/character/characterSkillLaunche/characterSkillLaunche6.png",
+    "assets/png/character/characterSkillLaunche/characterSkillLaunche7.png",
+    "assets/png/character/characterSkillLaunche/characterSkillLaunche8.png",
+    "assets/png/character/characterSkillLaunche/characterSkillLaunche9.png",
     "assets/png/character/characterSkillLaunche/characterSkillLaunche10.png",
     "assets/png/character/characterSkillLaunche/characterSkillLaunche11.png",
     "assets/png/character/characterSkillLaunche/characterSkillLaunche12.png",
@@ -96,7 +105,7 @@ class Character extends MovableObject {
     setInterval(() => {
       if (this.world.keyboard.SPELL) {
         this.playAnimationOnce(this.CHARACTER_CHARGE_SPELL);}
-    }, 500 / 6);
+    }, 1000 / 60);
   }
 }
 // let attackInterval=
