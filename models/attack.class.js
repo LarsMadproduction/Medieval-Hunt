@@ -24,11 +24,11 @@ class Attack extends MovableObject {
 
   chargeSpell() {
     
-      if (!world.character.otherDirection) {
+      if (!world.character.otherDirection && world.manaBar.manaPoints > 0) {  
         let attackRightInterval = setInterval(() => {
         this.playAnimationOnce(this.CHARACTER_ATTACK_SPELL);
         this.x += this.speed;
-        
+        world.keyboard.SPELL = this.spellCooldown()
         if (this.x > world.character.x + 500 || world.enemyHitBySpell()) {
           console.log("spell animation", this.x, world.attack[0]);
           world.attack.splice(0);
@@ -45,12 +45,12 @@ class Attack extends MovableObject {
     
 
     
-      if (world.character.otherDirection) {
+      if (world.character.otherDirection && world.manaBar.manaPoints > 0) {
         let attackLeftInterval = setInterval(() => {
         this.playAnimationOnce(this.CHARACTER_ATTACK_SPELL);
         this.x -= this.speed;
-
-        if (this.x < world.character.x - 500) {
+        world.keyboard.SPELL = this.spellCooldown()
+        if (this.x < world.character.x - 500 || world.enemyHitBySpell()) {
           clearInterval(attackLeftInterval);
           this.attackIntervals.splice(
             this.attackIntervals.indexOf(attackLeftInterval),

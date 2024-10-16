@@ -40,7 +40,7 @@ class Enemy extends MovableObject {
       // this.moveLeft();
     }, 1000 / 60);
     setInterval(() => {
-      if (this.gotHitBySpell()) {
+      if (this.gotHit()) {
         this.isDead();
       } else if (this.isDead()) {
         this.playAnimationOnce(this.ENEMY_DEAD);

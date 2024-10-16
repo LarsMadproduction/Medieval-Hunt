@@ -15,7 +15,7 @@ function toggleRestart() {
 }
 
 window.addEventListener("keydown", (k) => {
-  let currentSpellTime = Date.now();
+  // let currentSpellTime = Date.now();
   if (k.key === "d") {
     keyboard.RIGHT = true;
   }
@@ -27,13 +27,13 @@ window.addEventListener("keydown", (k) => {
   }
 
   if (k.key === "w") {
-    if (currentSpellTime - lastSpellTime > 450) {
+    // if (currentSpellTime - lastSpellTime > 450) {
       keyboard.SPELL = true;
-      lastSpellTime = currentSpellTime;
-      setTimeout(() => {
-        keyboard.SPELL = false;
-      }, 450);
-    }
+    //   lastSpellTime = currentSpellTime;
+    //   setTimeout(() => {
+    //     keyboard.SPELL = false;
+    //   }, 450);
+    // }
   }
 
   if (k.key === "p") {
@@ -56,8 +56,7 @@ window.addEventListener("keyup", (k) => {
     keyboard.JUMP = false;
   }
   // if (k.key === "w") {
-  //   keyboard.SPELL = false; // timeout erst wieder false nach 1.5 sekunden
-  // }
+  //   keyboard.SPELL = false;
   if (k.key === "p") {
     keyboard.PAUSE = false;
   }

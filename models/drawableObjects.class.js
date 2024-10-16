@@ -7,10 +7,6 @@ class DrawableObject {
   imageCache = {};
   currentImage = 0;
 
-  getCtx() {
-    return this.world.ctx;
-  }
-
   loadImage(path) {
     this.img = new Image();
     this.img.src = path;
@@ -155,7 +151,9 @@ class DrawableObject {
       const radius = 10;
       let fillPercentage = this.manaPoints;
       const fillWidth = width * fillPercentage;
-
+      if (fillPercentage == 0) {
+        world.keyboard.SPELL = false
+      }
       ctx.beginPath();
       ctx.moveTo(x + radius, y);
       ctx.lineTo(x + width - radius, y);

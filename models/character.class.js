@@ -85,10 +85,16 @@ class Character extends MovableObject {
         this.playAnimationOnce(this.CHARACTER_HURT);
       } else if (this.isDead()) {
         this.playAnimationOnce(
-          this.CHARACTER_DEAD, "assets/png/character/characterDead/characterDead4.png");
+          this.CHARACTER_DEAD,
+          "assets/png/character/characterDead/characterDead4.png"
+        );
       } else if (
-        (this.world.keyboard.RIGHT && !this.isAboveGround() && !this.world.keyboard.SPELL) ||
-        (this.world.keyboard.LEFT && !this.isAboveGround() && !this.world.keyboard.SPELL)
+        (this.world.keyboard.RIGHT &&
+          !this.isAboveGround() &&
+          !this.world.keyboard.SPELL) ||
+        (this.world.keyboard.LEFT &&
+          !this.isAboveGround() &&
+          !this.world.keyboard.SPELL)
       ) {
         this.playAnimation(this.CHARACTER_WALKING);
         this.walkingSound.play();
@@ -97,16 +103,16 @@ class Character extends MovableObject {
       } else if (!this.isAboveGround() && !this.world.keyboard.SPELL) {
         this.walkingSound.pause();
         this.playAnimation(this.CHARACTER_DEFAULT);
-      
       } else if (this.isAboveGround()) {
         this.playAnimationOnce(this.CHARACTER_JUMP);
       }
     }, 700 / 4);
+
     setInterval(() => {
-      if (this.world.keyboard.SPELL) {
-        this.playAnimationOnce(this.CHARACTER_CHARGE_SPELL);}
+      if (this.world.keyboard.SPELL && world.manaBar.manaPoints > 0 && this.attackIntervals.length < 1) {
+        //  if (this.isSpellUsed()) {
+        this.playAnimationOnce(this.CHARACTER_CHARGE_SPELL);
+      }
     }, 1000 / 60);
   }
 }
-// let attackInterval=
-// clearInterval(attackInterval);

@@ -13,6 +13,7 @@ class World {
   keyboard;
   cameraX = 0;
   musicTheme = new Audio("assets/sounds/backgroundMusic.mp3");
+  
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -132,7 +133,6 @@ class World {
       this.level.enemies.forEach((enemy) => {
         if (enemy.isCollidingSpell(currentAttack)) {
           enemy.hit();
-          this.manaBar.spellUsed();
           this.ctx.clearRect(
             currentAttack.x,
             currentAttack.y,
@@ -160,22 +160,23 @@ class World {
     }
   }
   castSpell() {
-    this.spellRight();
-    this.spellLeft();
-    this.enemyHitBySpell();
+    if (this.manaBar.manaPoints > 0) {
+      this.spellRight();
+      this.spellLeft();
+      this.enemyHitBySpell();
+    }
   }
   spellRight() {
     if (!this.character.otherDirection && this.keyboard.SPELL) {
-      let spellsRight = new Attack(
-        this.character.x + 90,
-        this.character.y + 50
-      );
+      let spellsRight = new Attack(this.character.x + 90, this.character.y + 50);
+      this.manaBar.isSpellUsed();
       this.attack.push(spellsRight);
     }
   }
   spellLeft() {
     if (this.character.otherDirection && this.keyboard.SPELL) {
       let spellsLeft = new Attack(this.character.x - 60, this.character.y + 50);
+      this.manaBar.isSpellUsed();
       this.attack.push(spellsLeft);
     }
   }
