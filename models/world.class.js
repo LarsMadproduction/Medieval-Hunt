@@ -13,7 +13,6 @@ class World {
   keyboard;
   cameraX = 0;
   musicTheme = new Audio("assets/sounds/backgroundMusic.mp3");
-  
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -23,6 +22,8 @@ class World {
     this.setWorld();
     this.musicTheme.loop = true;
     this.checkCollisions();
+    this.checkInstantCollisions();
+    this.checkCooldownCollisions();
   }
   setWorld() {
     this.lifeBar.world = this;
@@ -38,8 +39,16 @@ class World {
       this.hitByEnemy();
       this.hitByMinion();
       this.hitByBoss();
+    }, 1000);
+  }
+  checkInstantCollisions() {
+    setInterval(() => {
+      this.gatherCoin();
+    }, 0);
+  }
+  checkCooldownCollisions() {
+    setInterval(() => {
       this.castSpell();
-      // this.gatherCoin();
     }, 1000);
   }
 
@@ -114,6 +123,8 @@ class World {
   gatherCoin() {
     this.level.coins.forEach((coin) => {
       if (this.character.isCollidingCoin(coin)) {
+        this.ctx.clearRect(coin.x, coin.y, coin.width, coin.height);
+        this.level.coins.splice(0, 1);
         console.log("gather Coin");
       }
     });
@@ -133,6 +144,8 @@ class World {
       this.level.enemies.forEach((enemy) => {
         if (enemy.isCollidingSpell(currentAttack)) {
           enemy.hit();
+          this.ctx.clearRect(enemy.x, enemy.y, enemy.width, enemy.height);
+          this.level.enemies.splice(0, 1);
           this.ctx.clearRect(
             currentAttack.x,
             currentAttack.y,
@@ -168,7 +181,10 @@ class World {
   }
   spellRight() {
     if (!this.character.otherDirection && this.keyboard.SPELL) {
-      let spellsRight = new Attack(this.character.x + 90, this.character.y + 50);
+      let spellsRight = new Attack(
+        this.character.x + 90,
+        this.character.y + 50
+      );
       this.manaBar.isSpellUsed();
       this.attack.push(spellsRight);
     }

@@ -44,12 +44,6 @@ class Enemy extends MovableObject {
         this.isDead();
       } else if (this.isDead()) {
         this.playAnimationOnce(this.ENEMY_DEAD);
-        world.ctx.clearRect(
-          world.level.enemies[0].x,
-          world.level.enemies[0].y,
-          world.level.enemies[0].width,
-          world.level.enemies[0].height
-        );
       } else {
         this.playAnimation(this.ENEMY_WALKING);
         // this.walkingSound.play();

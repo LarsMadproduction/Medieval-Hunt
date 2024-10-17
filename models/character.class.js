@@ -109,7 +109,11 @@ class Character extends MovableObject {
     }, 700 / 4);
 
     setInterval(() => {
-      if (this.world.keyboard.SPELL && world.manaBar.manaPoints > 0 && this.attackIntervals.length < 1) {
+      if (
+        this.world.keyboard.SPELL &&
+        world.manaBar.manaPoints > 0 &&
+        this.attackIntervals.length < 1
+      ) {
         //  if (this.isSpellUsed()) {
         this.playAnimationOnce(this.CHARACTER_CHARGE_SPELL);
       }

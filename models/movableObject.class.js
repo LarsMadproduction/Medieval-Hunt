@@ -66,7 +66,7 @@ class MovableObject extends DrawableObject {
       this.x + 75 + this.width - 150 > mo.x &&
       this.x + 75 < mo.x + mo.width &&
       this.y + 120 + this.height - 120 > mo.y &&
-      this.y + 120 < mo.y + 100 + mo.height
+      this.y + 120 < mo.y + mo.height
     );
   }
   isCollidingEnemy(mo) {
@@ -129,6 +129,6 @@ class MovableObject extends DrawableObject {
   spellCooldown() {
     let timepassed = new Date().getTime() - this.lastSpell;
     timepassed = timepassed / 1000;
-    return timepassed < 2.7;
+    return timepassed < 1;
   }
 }

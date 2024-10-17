@@ -27,13 +27,13 @@ window.addEventListener("keydown", (k) => {
   }
 
   if (k.key === "w") {
-    // if (currentSpellTime - lastSpellTime > 450) {
-      keyboard.SPELL = true;
-    //   lastSpellTime = currentSpellTime;
-    //   setTimeout(() => {
-    //     keyboard.SPELL = false;
-    //   }, 450);
-    // }
+  //   // if (currentSpellTime - lastSpellTime > 450) {
+    keyboard.SPELL = true;
+  //   //   lastSpellTime = currentSpellTime;
+  //   //   setTimeout(() => {
+  //   //     keyboard.SPELL = false;
+  //   //   }, 450);
+  //   // }
   }
 
   if (k.key === "p") {
@@ -57,6 +57,7 @@ window.addEventListener("keyup", (k) => {
   }
   // if (k.key === "w") {
   //   keyboard.SPELL = false;
+  // }
   if (k.key === "p") {
     keyboard.PAUSE = false;
   }
