@@ -8,7 +8,6 @@ class Character extends MovableObject {
     "assets/png/character/characterDefault/characterDefault5.png",
     "assets/png/character/characterDefault/characterDefault6.png",
     "assets/png/character/characterDefault/characterDefault7.png",
-    "assets/png/character/characterDefault/characterDefault8.png",
   ];
   CHARACTER_WALKING = [
     "assets/png/character/characterWalk/characterWalk1.png",
@@ -17,7 +16,6 @@ class Character extends MovableObject {
     "assets/png/character/characterWalk/characterWalk4.png",
     "assets/png/character/characterWalk/characterWalk5.png",
     "assets/png/character/characterWalk/characterWalk6.png",
-    "assets/png/character/characterWalk/characterWalk7.png",
   ];
   CHARACTER_CHARGE_SPELL = [
     "assets/png/character/characterSkillLaunche/characterSkillLaunche1.png",
@@ -28,14 +26,6 @@ class Character extends MovableObject {
     "assets/png/character/characterSkillLaunche/characterSkillLaunche6.png",
     "assets/png/character/characterSkillLaunche/characterSkillLaunche7.png",
     "assets/png/character/characterSkillLaunche/characterSkillLaunche8.png",
-    "assets/png/character/characterSkillLaunche/characterSkillLaunche9.png",
-    "assets/png/character/characterSkillLaunche/characterSkillLaunche10.png",
-    "assets/png/character/characterSkillLaunche/characterSkillLaunche11.png",
-    "assets/png/character/characterSkillLaunche/characterSkillLaunche12.png",
-    "assets/png/character/characterSkillLaunche/characterSkillLaunche13.png",
-    "assets/png/character/characterSkillLaunche/characterSkillLaunche14.png",
-    "assets/png/character/characterSkillLaunche/characterSkillLaunche15.png",
-    "assets/png/character/characterSkillLaunche/characterSkillLaunche16.png",
   ];
   CHARACTER_JUMP = [
     "assets/png/character/characterJump/characterJump5.png",
@@ -45,13 +35,18 @@ class Character extends MovableObject {
     "assets/png/character/characterHurt/characterHurt1.png",
     "assets/png/character/characterHurt/characterHurt2.png",
     "assets/png/character/characterHurt/characterHurt3.png",
-    "assets/png/character/characterHurt/characterHurt4.png",
   ];
   CHARACTER_DEAD = [
     "assets/png/character/characterDead/characterDead1.png",
     "assets/png/character/characterDead/characterDead2.png",
     "assets/png/character/characterDead/characterDead3.png",
     "assets/png/character/characterDead/characterDead4.png",
+  ];
+  CHARACTER_BASE_ATTACK = [
+    "assets/png/character/characterBaseAttack/characterBaseAttack1.png",
+    "assets/png/character/characterBaseAttack/characterBaseAttack2.png",
+    "assets/png/character/characterBaseAttack/characterBaseAttack3.png",
+    "assets/png/character/characterBaseAttack/characterBaseAttack4.png",
   ];
   world;
   walkingSound = new Audio("assets/sounds/characterSteps.mp3");
@@ -65,6 +60,7 @@ class Character extends MovableObject {
     this.loadImages(this.CHARACTER_CHARGE_SPELL);
     this.loadImages(this.CHARACTER_HURT);
     this.loadImages(this.CHARACTER_DEAD);
+    this.loadImages(this.CHARACTER_BASE_ATTACK);
     this.animate();
   }
   animate() {
@@ -109,9 +105,18 @@ class Character extends MovableObject {
     }, 700 / 4);
 
     setInterval(() => {
-      if (this.world.keyboard.SPELL && world.manaBar.manaPoints > 0 && this.attackIntervals.length < 1) {
+      if (
+        this.world.keyboard.SPELL &&
+        world.manaBar.manaPoints > 0 &&
+        this.attackIntervals.length < 1
+      ) {
         this.playAnimationOnce(this.CHARACTER_CHARGE_SPELL);
       }
     }, 1000 / 60);
+    setInterval(() => {
+      if (this.world.keyboard.HIT) {
+        this.playAnimationOnce(this.CHARACTER_BASE_ATTACK);
+      }
+    }, 500 / 4);
   }
 }

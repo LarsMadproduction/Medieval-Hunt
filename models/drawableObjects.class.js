@@ -38,7 +38,7 @@ class DrawableObject {
       ctx.beginPath();
       ctx.lineWidth = "3";
       ctx.strokeStyle = "blue";
-      ctx.rect(this.x + 75, this.y + 120, this.width - 150, this.height - 120);
+      ctx.rect(this.x + 45, this.y + 120, this.width - 150, this.height - 120);
       ctx.stroke();
     }
   }
@@ -81,16 +81,7 @@ class DrawableObject {
       let fillWidth = width * fillPercentage;
       let statusColor = "#F60C08";
       this.drawStatusBarBackground(ctx, x, y, width, height, radius);
-      this.drawStatusBarFillwidth(
-        ctx,
-        x,
-        y,
-        fillWidth,
-        height,
-        radius,
-        fillPercentage,
-        statusColor
-      );
+      this.drawStatusBarFillWidth(ctx, x, y, fillWidth, height, radius, fillPercentage, statusColor);
     }
   }
 
@@ -106,16 +97,7 @@ class DrawableObject {
       let statusColor = "#0089F3";
       this.disableSpellButton(fillPercentage);
       this.drawStatusBarBackground(ctx, x, y, width, height, radius);
-      this.drawStatusBarFillwidth(
-        ctx,
-        x,
-        y,
-        fillWidth,
-        height,
-        radius,
-        fillPercentage,
-        statusColor
-      );
+      this.drawStatusBarFillWidth(ctx, x, y, fillWidth, height, radius, fillPercentage, statusColor);
     }
   }
 
@@ -137,7 +119,8 @@ class DrawableObject {
     ctx.strokeStyle = "black";
     ctx.stroke();
   }
-  drawStatusBarFillwidth(ctx, x, y, fillWidth, height, radius, fillPercentage, statusColor) {
+
+  drawStatusBarFillWidth(ctx, x, y, fillWidth, height, radius, fillPercentage, statusColor) {
     ctx.beginPath();
     ctx.moveTo(x + radius, y);
     ctx.lineTo(x + fillWidth - radius, y);
@@ -152,11 +135,13 @@ class DrawableObject {
     this.outOfManaOrLife(ctx, fillPercentage, statusColor);
     ctx.fill();
   }
+
   disableSpellButton(fillPercentage) {
     if (fillPercentage == 0) {
       world.keyboard.SPELL = false;
     }
   }
+
   outOfManaOrLife(ctx, fillPercentage, statusColor){
     if (fillPercentage < 0.2) {
       ctx.fillStyle = "transparent";

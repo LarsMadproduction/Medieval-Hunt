@@ -9,6 +9,10 @@ class Attack extends MovableObject {
     "assets/png/character/characterChargeSkill/characterChargeSkill6.png",
     "assets/png/character/characterChargeSkill/characterChargeSkill7.png",
     "assets/png/character/characterChargeSkill/characterChargeSkill8.png",
+    "assets/png/character/characterChargeSkill/characterChargeSkill9.png",
+    "assets/png/character/characterChargeSkill/characterChargeSkill10.png",
+    "assets/png/character/characterChargeSkill/characterChargeSkill11.png",
+    "assets/png/character/characterChargeSkill/characterChargeSkill12.png",
   ];
   world;
   constructor(x, y) {

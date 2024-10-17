@@ -2,17 +2,15 @@ class World {
   lifeBar = new Lifebar("assets/png/potion/lifePotion.png", 0);
   manaBar = new Manabar("assets/png/potion/manaPotion.png", 0);
   collectedCoins = new CollectedCoins("assets/png/coin/gold1.png", 0);
-  character = new Character(
-    "assets/png/character/characterDefault/characterDefault1.png",
-    0.1
-  );
+  character = new Character("assets/png/character/characterDefault/characterDefault1.png", 0.1);
+  musicTheme = new Audio("assets/sounds/backgroundMusic.mp3");
   attack = [];
   level = level1;
   canvas;
   ctx;
   keyboard;
   cameraX = 0;
-  musicTheme = new Audio("assets/sounds/backgroundMusic.mp3");
+  spellCasting = 0;
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -175,10 +173,13 @@ class World {
   }
   spellRight() {
     if (!this.character.otherDirection && this.keyboard.SPELL) {
-      let spellsRight = new Attack(
-        this.character.x + 90,
-        this.character.y + 50
-      );
+      this.spellCasting = new Date().getTime()
+      console.log(this.spellCasting);
+      // if (this.spellCooldown(this.spellCasting)){}
+      // this.keyboard.SPELL = true
+      // this.spellCooldown(this.spellCasting)
+
+      let spellsRight = new Attack(this.character.x + 90, this.character.y + 50);
       this.manaBar.isSpellUsed();
       this.attack.push(spellsRight);
     }

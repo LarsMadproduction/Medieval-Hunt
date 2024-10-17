@@ -58,49 +58,56 @@ class MovableObject extends DrawableObject {
     this.x -= this.speed;
     this.otherDirection = true;
   }
+
   jump() {
     this.speedY = 22;
   }
+
   isCollidingCoin(mo) {
     return (
-      this.x + 75 + this.width - 150 > mo.x &&
-      this.x + 75 < mo.x + mo.width &&
+      this.x + 35 + this.width - 150 > mo.x &&
+      this.x + 35 < mo.x + mo.width &&
       this.y + 120 + this.height - 120 > mo.y &&
       this.y + 120 < mo.y + mo.height
     );
   }
+
   isCollidingEnemy(mo) {
     return (
-      this.x + 75 + this.width - 150 > mo.x + 30 &&
-      this.x + 75 < mo.x + 30 + mo.width - 100 &&
+      this.x + 45 + this.width - 150 > mo.x + 30 &&
+      this.x + 45 < mo.x + 30 + mo.width - 100 &&
       this.y + 120 + this.height - 120 > mo.y + 100 &&
       this.y + 120 < mo.y + 100 + mo.height - 100
     );
   }
+
   isCollidingMinion(mo) {
     return (
-      this.x + 75 + this.width - 150 > mo.x + 20 &&
-      this.x + 75 < mo.x + 20 + mo.width - 90 &&
+      this.x + 45 + this.width - 150 > mo.x + 20 &&
+      this.x + 45 < mo.x + 20 + mo.width - 90 &&
       this.y + 120 + this.height - 120 > mo.y + 120 &&
       this.y + 120 < mo.y + 120 + mo.height - 120
     );
   }
+
   isCollidingBoss(mo) {
     return (
-      this.x + 75 + this.width - 150 > mo.x + 20 &&
-      this.x + 75 < mo.x + 20 + mo.width - 100 &&
+      this.x + 45 + this.width - 150 > mo.x + 20 &&
+      this.x + 45 < mo.x + 20 + mo.width - 100 &&
       this.y + 120 + this.height - 120 > mo.y &&
       this.y + 120 < mo.y + mo.height
     );
   }
+
   isCollidingSpell(mo) {
     return (
-      this.x + 75 + this.width - 150 > mo.x + 75 &&
-      this.x + 75 < mo.x + 75 + mo.width - 100 &&
+      this.x + 45 + this.width - 150 > mo.x + 75 &&
+      this.x + 45 < mo.x + 75 + mo.width - 100 &&
       this.y + 120 + this.height - 120 > mo.y + 120 &&
       this.y + 120 < mo.y + 120 + mo.height - 235
     );
   }
+
   hit() {
     this.healthPoints -= 0.2;
     if (this.healthPoints < 0.2) {
@@ -112,23 +119,24 @@ class MovableObject extends DrawableObject {
   
   gotHit() {
     let timepassed = new Date().getTime() - this.lastHit;
-    timepassed = timepassed / 1000;
-    return timepassed < 0.5;
+    return timepassed < 500;
   }
+
   isDead() {
     return this.healthPoints == 0;
   }
+
   isSpellUsed() {
     this.manaPoints -= 0.2;
     if (this.manaPoints < 0.2) {
       this.manaPoints = 0;
     } else {
-      this.lastSpell = new Date().getTime();
+      this.lastSpell = new Date().getTime();      
     }
   }
-  spellCooldown() {
-    let timepassed = new Date().getTime() - this.lastSpell;
-    timepassed = timepassed / 1000;
-    return timepassed < 1;
+
+  spellCooldown(timepassed) {
+    timepassed = new Date().getTime() - this.spellCasting;
+    return timepassed < 1000;
   }
 }

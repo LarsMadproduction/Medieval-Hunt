@@ -36,6 +36,10 @@ window.addEventListener("keydown", (k) => {
   //   // }
   }
 
+  if (k.key === "s") {
+    keyboard.HIT = true;
+  }
+
   if (k.key === "p") {
     keyboard.PAUSE = true;
   }
@@ -58,6 +62,9 @@ window.addEventListener("keyup", (k) => {
   // if (k.key === "w") {
   //   keyboard.SPELL = false;
   // }
+  if (k.key === "s") {
+    keyboard.HIT = false;
+  }
   if (k.key === "p") {
     keyboard.PAUSE = false;
   }
