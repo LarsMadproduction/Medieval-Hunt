@@ -42,7 +42,7 @@ class Enemy extends MovableObject {
     setInterval(() => {
       if (this.gotHit()) {
         this.isDead();
-      } else if (this.isDead()) {
+      } if (this.isDead()) {
         this.playAnimationOnce(this.ENEMY_DEAD);
       } else {
         this.playAnimation(this.ENEMY_WALKING);

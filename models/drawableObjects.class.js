@@ -29,7 +29,7 @@ class DrawableObject {
       ctx.beginPath();
       ctx.lineWidth = "3";
       ctx.strokeStyle = "green";
-      ctx.rect(this.x+75, this.y+120, this.width-100, this.height-235);
+      ctx.rect(this.x + 75, this.y + 120, this.width - 100, this.height - 235);
       ctx.stroke();
     }
   }
@@ -38,7 +38,7 @@ class DrawableObject {
       ctx.beginPath();
       ctx.lineWidth = "3";
       ctx.strokeStyle = "blue";
-      ctx.rect(this.x+75, this.y+120, this.width-150, this.height-120);
+      ctx.rect(this.x + 75, this.y + 120, this.width - 150, this.height - 120);
       ctx.stroke();
     }
   }
@@ -48,7 +48,7 @@ class DrawableObject {
       ctx.beginPath();
       ctx.lineWidth = "3";
       ctx.strokeStyle = "red";
-      ctx.rect(this.x+60, this.y+100, this.width-100, this.height-100);
+      ctx.rect(this.x + 60, this.y + 100, this.width - 100, this.height - 100);
       ctx.stroke();
     }
   }
@@ -58,160 +58,110 @@ class DrawableObject {
       ctx.beginPath();
       ctx.lineWidth = "3";
       ctx.strokeStyle = "darkred";
-      ctx.rect(this.x+60, this.y+120, this.width-85, this.height-120);
+      ctx.rect(this.x + 60, this.y + 120, this.width - 85, this.height - 120);
       ctx.stroke();
     }
   }
 
   hitBoxTarget() {
     return (
-      this instanceof Attack 
-      // this instanceof Coin ||
+      this instanceof Attack //||
       // this instanceof Boss
     );
   }
 
   progressLifeBar(ctx) {
     if (this instanceof Lifebar) {
-      const x = this.x + 40;
-      const y = this.y + 10;
-      const width = this.width + 100;
-      const height = this.height - 20;
-      const radius = 10;
+      let x = this.x + 40;
+      let y = this.y + 10;
+      let width = this.width + 100;
+      let height = this.height - 20;
+      let radius = 10;
       let fillPercentage = this.healthPoints;
-      const fillWidth = width * fillPercentage;
-
-      ctx.beginPath();
-      ctx.moveTo(x + radius, y);
-      ctx.lineTo(x + width - radius, y);
-      ctx.arc(
-        x + width - radius,
-        y + radius,
+      let fillWidth = width * fillPercentage;
+      let statusColor = "#F60C08";
+      this.drawStatusBarBackground(ctx, x, y, width, height, radius);
+      this.drawStatusBarFillwidth(
+        ctx,
+        x,
+        y,
+        fillWidth,
+        height,
         radius,
-        Math.PI * 1.5,
-        Math.PI * 2
+        fillPercentage,
+        statusColor
       );
-      ctx.lineTo(x + width, y + height - radius);
-      ctx.arc(
-        x + width - radius,
-        y + height - radius,
-        radius,
-        0,
-        Math.PI * 0.5
-      );
-      ctx.lineTo(x + radius, y + height);
-      ctx.arc(x + radius, y + height - radius, radius, Math.PI * 0.5, Math.PI);
-      ctx.lineTo(x, y + radius);
-      ctx.arc(x + radius, y + radius, radius, Math.PI, Math.PI * 1.5);
-      ctx.closePath();
-      ctx.fillStyle = "black";
-      ctx.fill();
-      ctx.lineWidth = "5";
-      ctx.strokeStyle = "black";
-      ctx.stroke();
-
-      ctx.beginPath();
-      ctx.moveTo(x + radius, y);
-      ctx.lineTo(x + fillWidth - radius, y);
-      ctx.arc(
-        x + fillWidth - radius,
-        y + radius,
-        radius,
-        Math.PI * 1.5,
-        Math.PI * 2
-      );
-      ctx.lineTo(x + fillWidth, y + height - radius);
-      ctx.arc(
-        x + fillWidth - radius,
-        y + height - radius,
-        radius,
-        0,
-        Math.PI * 0.5
-      );
-      ctx.lineTo(x + radius, y + height);
-      ctx.arc(x + radius, y + height - radius, radius, Math.PI * 0.5, Math.PI);
-      ctx.lineTo(x, y + radius);
-      ctx.arc(x + radius, y + radius, radius, Math.PI, Math.PI * 1.5);
-      ctx.closePath();
-      if (fillPercentage < 0.2) {
-        ctx.fillStyle = "transparent";
-      } else {
-        ctx.fillStyle = "#F60C08";
-      }
-      ctx.fill();
     }
   }
 
   progressManaBar(ctx) {
     if (this instanceof Manabar) {
-      const x = this.x + 40;
-      const y = this.y + 10;
-      const width = this.width + 100;
-      const height = this.height - 20;
-      const radius = 10;
+      let x = this.x + 40;
+      let y = this.y + 10;
+      let width = this.width + 100;
+      let height = this.height - 20;
+      let radius = 10;
       let fillPercentage = this.manaPoints;
-      const fillWidth = width * fillPercentage;
-      if (fillPercentage == 0) {
-        world.keyboard.SPELL = false
-      }
-      ctx.beginPath();
-      ctx.moveTo(x + radius, y);
-      ctx.lineTo(x + width - radius, y);
-      ctx.arc(
-        x + width - radius,
-        y + radius,
+      let fillWidth = width * fillPercentage;
+      let statusColor = "#0089F3";
+      this.disableSpellButton(fillPercentage);
+      this.drawStatusBarBackground(ctx, x, y, width, height, radius);
+      this.drawStatusBarFillwidth(
+        ctx,
+        x,
+        y,
+        fillWidth,
+        height,
         radius,
-        Math.PI * 1.5,
-        Math.PI * 2
+        fillPercentage,
+        statusColor
       );
-      ctx.lineTo(x + width, y + height - radius);
-      ctx.arc(
-        x + width - radius,
-        y + height - radius,
-        radius,
-        0,
-        Math.PI * 0.5
-      );
-      ctx.lineTo(x + radius, y + height);
-      ctx.arc(x + radius, y + height - radius, radius, Math.PI * 0.5, Math.PI);
-      ctx.lineTo(x, y + radius);
-      ctx.arc(x + radius, y + radius, radius, Math.PI, Math.PI * 1.5);
-      ctx.closePath();
-      ctx.fillStyle = "black";
-      ctx.fill();
-      ctx.lineWidth = "5";
-      ctx.strokeStyle = "black";
-      ctx.stroke();
+    }
+  }
 
-      ctx.beginPath();
-      ctx.moveTo(x + radius, y);
-      ctx.lineTo(x + fillWidth - radius, y);
-      ctx.arc(
-        x + fillWidth - radius,
-        y + radius,
-        radius,
-        Math.PI * 1.5,
-        Math.PI * 2
-      );
-      ctx.lineTo(x + fillWidth, y + height - radius);
-      ctx.arc(
-        x + fillWidth - radius,
-        y + height - radius,
-        radius,
-        0,
-        Math.PI * 0.5
-      );
-      ctx.lineTo(x + radius, y + height);
-      ctx.arc(x + radius, y + height - radius, radius, Math.PI * 0.5, Math.PI);
-      ctx.lineTo(x, y + radius);
-      ctx.arc(x + radius, y + radius, radius, Math.PI, Math.PI * 1.5);
-      ctx.closePath();
-      if (fillPercentage < 0.2) {
-        ctx.fillStyle = "transparent";
-      } else {
-        ctx.fillStyle = "#0089F3";
-      }
-      ctx.fill();
+  drawStatusBarBackground(ctx, x, y, width, height, radius) {
+    ctx.beginPath();
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + width - radius, y);
+    ctx.arc(x + width - radius, y + radius, radius, Math.PI * 1.5, Math.PI * 2);
+    ctx.lineTo(x + width, y + height - radius);
+    ctx.arc(x + width - radius, y + height - radius, radius, 0, Math.PI * 0.5);
+    ctx.lineTo(x + radius, y + height);
+    ctx.arc(x + radius, y + height - radius, radius, Math.PI * 0.5, Math.PI);
+    ctx.lineTo(x, y + radius);
+    ctx.arc(x + radius, y + radius, radius, Math.PI, Math.PI * 1.5);
+    ctx.closePath();
+    ctx.fillStyle = "black";
+    ctx.fill();
+    ctx.lineWidth = "5";
+    ctx.strokeStyle = "black";
+    ctx.stroke();
+  }
+  drawStatusBarFillwidth(ctx, x, y, fillWidth, height, radius, fillPercentage, statusColor) {
+    ctx.beginPath();
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + fillWidth - radius, y);
+    ctx.arc(x + fillWidth - radius, y + radius, radius, Math.PI * 1.5, Math.PI * 2);
+    ctx.lineTo(x + fillWidth, y + height - radius);
+    ctx.arc(x + fillWidth - radius, y + height - radius, radius, 0, Math.PI * 0.5);
+    ctx.lineTo(x + radius, y + height);
+    ctx.arc(x + radius, y + height - radius, radius, Math.PI * 0.5, Math.PI);
+    ctx.lineTo(x, y + radius);
+    ctx.arc(x + radius, y + radius, radius, Math.PI, Math.PI * 1.5);
+    ctx.closePath();
+    this.outOfManaOrLife(ctx, fillPercentage, statusColor);
+    ctx.fill();
+  }
+  disableSpellButton(fillPercentage) {
+    if (fillPercentage == 0) {
+      world.keyboard.SPELL = false;
+    }
+  }
+  outOfManaOrLife(ctx, fillPercentage, statusColor){
+    if (fillPercentage < 0.2) {
+      ctx.fillStyle = "transparent";
+    } else {
+      ctx.fillStyle = statusColor;
     }
   }
 }

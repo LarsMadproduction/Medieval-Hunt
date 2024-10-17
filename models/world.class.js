@@ -33,12 +33,12 @@ class World {
     // this.musicTheme.play();
     this.musicTheme.volume = 0.05;
   }
-
+  
   checkCollisions() {
     setInterval(() => {
-      this.hitByEnemy();
-      this.hitByMinion();
-      this.hitByBoss();
+        this.hitByEnemy();
+        this.hitByMinion();
+        this.hitByBoss();
     }, 1000);
   }
   checkInstantCollisions() {
@@ -94,7 +94,7 @@ class World {
     mo.hitBoxCoin(this.ctx);
     mo.hitBoxCharacter(this.ctx);
     mo.hitBoxEnemy(this.ctx);
-    // mo.hitBoxMinion(this.ctx);
+    mo.hitBoxMinion(this.ctx);
     mo.progressLifeBar(this.ctx);
     mo.progressManaBar(this.ctx);
     if (mo.otherDirection) {
@@ -144,16 +144,10 @@ class World {
       this.level.enemies.forEach((enemy) => {
         if (enemy.isCollidingSpell(currentAttack)) {
           enemy.hit();
-          this.ctx.clearRect(enemy.x, enemy.y, enemy.width, enemy.height);
-          this.level.enemies.splice(0, 1);
-          this.ctx.clearRect(
-            currentAttack.x,
-            currentAttack.y,
-            currentAttack.width,
-            currentAttack.height
-          );
           this.attack.splice(0);
-          console.log("hit Spell", enemy);
+          // if (enemy.isDead()) {
+          //   this.level.enemies.splice(0, 1);
+          // }
         }
       });
     }
