@@ -74,8 +74,8 @@ class MovableObject extends DrawableObject {
 
   isCollidingEnemy(mo) {
     return (
-      this.x + 45 + this.width - 150 > mo.x + 30 &&
-      this.x + 45 < mo.x + 30 + mo.width - 100 &&
+      this.x + 45 + this.width - 150 > mo.x - 30 &&
+      this.x + 45 < mo.x - 30 + mo.width - 100 &&
       this.y + 120 + this.height - 120 > mo.y + 100 &&
       this.y + 120 < mo.y + 100 + mo.height - 100
     );
@@ -83,8 +83,8 @@ class MovableObject extends DrawableObject {
 
   isCollidingMinion(mo) {
     return (
-      this.x + 45 + this.width - 150 > mo.x + 20 &&
-      this.x + 45 < mo.x + 20 + mo.width - 90 &&
+      this.x + 45 + this.width - 150 > mo.x - 40 &&
+      this.x + 45 < mo.x - 40 + mo.width - 90 &&
       this.y + 120 + this.height - 120 > mo.y + 120 &&
       this.y + 120 < mo.y + 120 + mo.height - 120
     );
@@ -92,8 +92,8 @@ class MovableObject extends DrawableObject {
 
   isCollidingBoss(mo) {
     return (
-      this.x + 45 + this.width - 150 > mo.x + 20 &&
-      this.x + 45 < mo.x + 20 + mo.width - 100 &&
+      this.x + 45 + this.width - 150 > mo.x - 40 &&
+      this.x + 45 < mo.x - 40 + mo.width - 100 &&
       this.y + 120 + this.height - 120 > mo.y &&
       this.y + 120 < mo.y + mo.height
     );

@@ -31,7 +31,7 @@ class Attack extends MovableObject {
       let attackRightInterval = setInterval(() => {
         this.playAnimationOnce(this.CHARACTER_ATTACK_SPELL);
         this.x += this.speed;
-        world.keyboard.SPELL = this.spellCooldown();
+        // world.keyboard.SPELL = false;
         if (this.x > world.character.x + 500 || world.enemyHitBySpell()) {
           world.attack.splice(0);
           world.ctx.clearRect(this.x, this.y, this.width, this.height);
@@ -48,7 +48,7 @@ class Attack extends MovableObject {
       let attackLeftInterval = setInterval(() => {
         this.playAnimationOnce(this.CHARACTER_ATTACK_SPELL);
         this.x -= this.speed;
-        world.keyboard.SPELL = this.spellCooldown();
+        // world.keyboard.SPELL = false;
         if (this.x < world.character.x - 500 || world.enemyHitBySpell()) {
           world.attack.splice(0);
           world.ctx.clearRect(this.x, this.y, this.width, this.height);

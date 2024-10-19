@@ -10,12 +10,12 @@ class Character extends MovableObject {
     "assets/png/character/characterDefault/characterDefault7.png",
   ];
   CHARACTER_WALKING = [
-    "assets/png/character/characterWalk/characterWalk1.png",
-    "assets/png/character/characterWalk/characterWalk2.png",
-    "assets/png/character/characterWalk/characterWalk3.png",
-    "assets/png/character/characterWalk/characterWalk4.png",
-    "assets/png/character/characterWalk/characterWalk5.png",
-    "assets/png/character/characterWalk/characterWalk6.png",
+    "assets/png/character/characterWalk/characterWalk01.png",
+    "assets/png/character/characterWalk/characterWalk02.png",
+    "assets/png/character/characterWalk/characterWalk03.png",
+    "assets/png/character/characterWalk/characterWalk04.png",
+    "assets/png/character/characterWalk/characterWalk05.png",
+    "assets/png/character/characterWalk/characterWalk06.png",
   ];
   CHARACTER_CHARGE_SPELL = [
     "assets/png/character/characterSkillLaunche/characterSkillLaunche1.png",
@@ -130,6 +130,7 @@ class Character extends MovableObject {
       this.attackIntervals.length < 1
     ) {
       this.playAnimationOnce(this.CHARACTER_CHARGE_SPELL);
+      // world.keyboard.SPELL = false;
     }
   }
 
