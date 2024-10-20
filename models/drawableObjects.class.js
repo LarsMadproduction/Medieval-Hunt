@@ -202,18 +202,18 @@ class DrawableObject {
     ctx.font = "bold 32px Arial";
     ctx.strokeStyle = "#fff";
     ctx.lineWidth = 2;
-    ctx.strokeText(number, this.x + 50, this.y + 28);
+    ctx.strokeText(number, this.x + 65, this.y + 28);
     ctx.fillStyle = "#000";
-    ctx.fillText(number, this.x + 50, this.y + 28);
+    ctx.fillText(number, this.x + 65, this.y + 28);
   }
 
   drawXTime(ctx) {
     let xTimes = "X";
-    ctx.font = "bold 24px Arial";
+    ctx.font = "bold 16px Arial";
     ctx.strokeStyle = "#fff";
     ctx.lineWidth = 2;
-    ctx.strokeText(xTimes, this.x + 85, this.y + 28);
+    ctx.strokeText(xTimes, this.x + 45, this.y + 28);
     ctx.fillStyle = "#000";
-    ctx.fillText(xTimes, this.x + 85, this.y + 28);
+    ctx.fillText(xTimes, this.x + 45, this.y + 28);
   }
 }

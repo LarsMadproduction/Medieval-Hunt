@@ -60,7 +60,7 @@ class MovableObject extends DrawableObject {
   }
 
   jump() {
-    this.speedY = 22;
+    this.speedY = 28;
   }
 
   isCollidingCoin(mo) {
@@ -101,8 +101,8 @@ class MovableObject extends DrawableObject {
 
   isCollidingSpell(mo) {
     return (
-      this.x + 45 + this.width - 150 > mo.x + 75 &&
-      this.x + 45 < mo.x + 75 + mo.width - 100 &&
+      this.x + 45 + this.width - 150 > mo.x + 160 &&
+      this.x + 45 < mo.x + 160 + mo.width - 100 &&
       this.y + 120 + this.height - 120 > mo.y + 120 &&
       this.y + 120 < mo.y + 120 + mo.height - 235
     );
@@ -133,10 +133,5 @@ class MovableObject extends DrawableObject {
     } else {
       this.lastSpell = new Date().getTime();      
     }
-  }
-
-  spellCooldown(timepassed) {
-    timepassed = new Date().getTime() - this.spellCasting;
-    return timepassed < 1000;
   }
 }

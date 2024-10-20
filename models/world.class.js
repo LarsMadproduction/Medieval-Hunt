@@ -2,7 +2,10 @@ class World {
   lifeBar = new Lifebar("assets/png/potion/lifePotion.png", 0);
   manaBar = new Manabar("assets/png/potion/manaPotion.png", 0);
   collectedCoins = new CollectedCoins("assets/png/coin/gold1.png", 0);
-  character = new Character("assets/png/character/characterDefault/characterDefault1.png", 0.1);
+  character = new Character(
+    "assets/png/character/characterDefault/characterDefault1.png",
+    0.1
+  );
   musicTheme = new Audio("assets/sounds/backgroundMusic.mp3");
   attack = [];
   level = level1;
@@ -10,8 +13,8 @@ class World {
   ctx;
   keyboard;
   cameraX = 0;
-  spellCasting = 0;
   actionStart;
+  actionEnd;
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -21,6 +24,7 @@ class World {
     this.setWorld();
     this.musicTheme.loop = true;
     this.checkCollisions();
+    this.castSpell();
   }
   setWorld() {
     this.lifeBar.world = this;
@@ -30,13 +34,13 @@ class World {
     // this.musicTheme.play();
     this.musicTheme.volume = 0.05;
   }
-  
+
   checkCollisions() {
     setInterval(() => {
-        this.hitByEnemy();
-        this.hitByMinion();
-        this.hitByBoss();
-    }, 1000);
+      this.hitByEnemy();
+      this.hitByMinion();
+      this.hitByBoss();
+    }, 800);
   }
 
   stopMusic() {
@@ -91,7 +95,7 @@ class World {
   }
   mirrorImage(mo) {
     this.ctx.save();
-    this.ctx.translate(mo.width-60, 0);
+    this.ctx.translate(mo.width - 60, 0);
     this.ctx.scale(-1, 1);
     mo.x = mo.x * -1;
   }
@@ -146,23 +150,42 @@ class World {
       this.lifeBar.hit();
     }
   }
+
   castSpell() {
-    if (this.manaBar.manaPoints > 0 && this.keyboard.SPELL) {
-      this.spellRight();
-      this.spellLeft();
-      this.enemyHitBySpell();
-    }
+    let lastCastTime = 0;
+    let castInterval = 1000;
+    let checkSpellCasting = () => {
+      let currentTime = new Date().getTime();
+      if (this.manaBar.manaPoints > 0 && this.keyboard.SPELL) {
+        if (currentTime - lastCastTime >= castInterval) {
+          this.spellRight();
+          this.spellLeft();
+          this.enemyHitBySpell();
+          lastCastTime = currentTime;
+        }
+      }
+      requestAnimationFrame(checkSpellCasting);
+    };
+    requestAnimationFrame(checkSpellCasting);
   }
+
+  castConditions(){
+    
+  }
+
   spellRight() {
     if (!this.character.otherDirection && this.keyboard.SPELL) {
-      let spellsRight = new Attack(this.character.x + 90, this.character.y + 50);
+      let spellsRight = new Attack(
+        this.character.x + 90,
+        this.character.y + 35
+      );
       this.manaBar.isSpellUsed();
       this.attack.push(spellsRight);
     }
   }
   spellLeft() {
     if (this.character.otherDirection && this.keyboard.SPELL) {
-      let spellsLeft = new Attack(this.character.x - 60, this.character.y + 50);
+      let spellsLeft = new Attack(this.character.x - 60, this.character.y + 35);
       this.manaBar.isSpellUsed();
       this.attack.push(spellsLeft);
     }

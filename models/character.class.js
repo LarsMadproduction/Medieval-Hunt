@@ -18,10 +18,6 @@ class Character extends MovableObject {
     "assets/png/character/characterWalk/characterWalk06.png",
   ];
   CHARACTER_CHARGE_SPELL = [
-    "assets/png/character/characterSkillLaunche/characterSkillLaunche1.png",
-    "assets/png/character/characterSkillLaunche/characterSkillLaunche2.png",
-    "assets/png/character/characterSkillLaunche/characterSkillLaunche3.png",
-    "assets/png/character/characterSkillLaunche/characterSkillLaunche4.png",
     "assets/png/character/characterSkillLaunche/characterSkillLaunche5.png",
     "assets/png/character/characterSkillLaunche/characterSkillLaunche6.png",
     "assets/png/character/characterSkillLaunche/characterSkillLaunche7.png",
@@ -124,13 +120,20 @@ class Character extends MovableObject {
   }
 
   characterSpellAnimation() {
+    let currentTime = new Date().getTime();
+    let animationInterval = 1000 / 60;
     if (
-      this.world.keyboard.SPELL &&
-      world.manaBar.manaPoints > 0 &&
-      this.attackIntervals.length < 1
+      this.world.keyboard.SPELL 
+      // this.world.manaBar.manaPoints > 0 &&
+      // this.attackIntervals.length < 1
     ) {
-      this.playAnimationOnce(this.CHARACTER_CHARGE_SPELL);
-      // world.keyboard.SPELL = false;
+      if (
+        !this.lastAnimationTime ||
+        currentTime - this.lastAnimationTime >= animationInterval
+      ) {
+        this.playAnimationOnce(this.CHARACTER_CHARGE_SPELL);
+        this.lastAnimationTime = currentTime;
+      }
     }
   }
 
