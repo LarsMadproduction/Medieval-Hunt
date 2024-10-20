@@ -192,13 +192,28 @@ class DrawableObject {
 
   gatheredCoins(ctx) {
     if (this instanceof CollectedCoins) {
-      let number = this.coinsCollected;
-      ctx.font = "bold 32px Arial";
-      ctx.strokeStyle = "#fff";
-      ctx.lineWidth = 2;
-      ctx.strokeText(number, this.x + 50, this.y + 25);
-      ctx.fillStyle = "#000";
-      ctx.fillText(number, this.x + 50, this.y + 25);
+      this.drawCoinAmount(ctx);
+      this.drawXTime(ctx);
     }
+  }
+
+  drawCoinAmount(ctx) {
+    let number = this.coinsCollected;
+    ctx.font = "bold 32px Arial";
+    ctx.strokeStyle = "#fff";
+    ctx.lineWidth = 2;
+    ctx.strokeText(number, this.x + 50, this.y + 28);
+    ctx.fillStyle = "#000";
+    ctx.fillText(number, this.x + 50, this.y + 28);
+  }
+
+  drawXTime(ctx) {
+    let xTimes = "X";
+    ctx.font = "bold 24px Arial";
+    ctx.strokeStyle = "#fff";
+    ctx.lineWidth = 2;
+    ctx.strokeText(xTimes, this.x + 85, this.y + 28);
+    ctx.fillStyle = "#000";
+    ctx.fillText(xTimes, this.x + 85, this.y + 28);
   }
 }
