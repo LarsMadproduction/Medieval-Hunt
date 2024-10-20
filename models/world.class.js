@@ -17,13 +17,10 @@ class World {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
     this.keyboard = keyboard;
-    // this.keyboard.onattack = this.castSpell;
     this.draw();
     this.setWorld();
     this.musicTheme.loop = true;
     this.checkCollisions();
-    this.checkInstantCollisions();
-    // this.checkCooldownCollisions();
   }
   setWorld() {
     this.lifeBar.world = this;
@@ -41,18 +38,6 @@ class World {
         this.hitByBoss();
     }, 1000);
   }
-
-  checkInstantCollisions() {
-    setInterval(() => {
-      this.gatherCoin();
-    }, 0);
-  }
-
-  // checkCooldownCollisions() {
-  //   setInterval(() => {
-  //     this.castSpell();
-  //   }, 50);
-  // }
 
   stopMusic() {
     this.musicTheme.pause();
@@ -99,6 +84,7 @@ class World {
     mo.hitBoxMinion(this.ctx);
     mo.progressLifeBar(this.ctx);
     mo.progressManaBar(this.ctx);
+    mo.gatheredCoins(this.ctx);
     if (mo.otherDirection) {
       this.reverseMirrorImage(mo);
     }
@@ -122,22 +108,6 @@ class World {
   //     this.level = level1;
   //  }
   // }
-  gatherCoin() {
-    this.level.coins.forEach((coin, i) => {
-      if (this.character.isCollidingCoin(coin)) {
-        this.level.coins.splice(i, 1);
-        console.log("gather Coin");
-        this.createRandomNo();
-      }
-    });
-  }
-
-  createRandomNo() {
-    let number = Math.round(Math.random() * 10);
-    this.ctx.font = "bold 16px Arial";
-    this.ctx.fillStyle = "#000";
-    this.ctx.fillText(number, this.x = 200, this.y = 200);
-}
 
   hitByEnemy() {
     this.level.enemies.forEach((enemy) => {
@@ -185,12 +155,6 @@ class World {
   }
   spellRight() {
     if (!this.character.otherDirection && this.keyboard.SPELL) {
-      // this.spellCasting = new Date().getTime()
-      // console.log(this.spellCasting);
-      // if (this.spellCooldown(this.spellCasting)){}
-      // this.keyboard.SPELL = true
-      // this.spellCooldown(this.spellCasting)
-
       let spellsRight = new Attack(this.character.x + 90, this.character.y + 50);
       this.manaBar.isSpellUsed();
       this.attack.push(spellsRight);

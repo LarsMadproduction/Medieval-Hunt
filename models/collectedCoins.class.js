@@ -22,11 +22,22 @@ class CollectedCoins extends MovableObject {
     this.otherDirection = false;
     this.loadImages(this.COIN_FLIPP);
     this.animate();
+    this.gatherCoin();
   }
   animate() {
     setInterval(() => {
       // this.walkingSound.play();
       this.playAnimation(this.COIN_FLIPP);
     }, 800 / 6);
+  }
+  gatherCoin() {
+    setInterval(() => {
+    this.world.level.coins.forEach((coin, i) => {
+      if (this.world.character.isCollidingCoin(coin)) {
+        this.world.level.coins.splice(i, 1);
+        this.coinsCollected++;
+      }
+    });
+  }, 0);
   }
 }

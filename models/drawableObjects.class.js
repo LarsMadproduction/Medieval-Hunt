@@ -6,6 +6,7 @@ class DrawableObject {
   img;
   imageCache = {};
   currentImage = 0;
+  coinsCollected = 0;
 
   loadImage(path) {
     this.img = new Image();
@@ -81,7 +82,16 @@ class DrawableObject {
       let fillWidth = width * fillPercentage;
       let statusColor = "#F60C08";
       this.drawStatusBarBackground(ctx, x, y, width, height, radius);
-      this.drawStatusBarFillWidth(ctx, x, y, fillWidth, height, radius, fillPercentage, statusColor);
+      this.drawStatusBarFillWidth(
+        ctx,
+        x,
+        y,
+        fillWidth,
+        height,
+        radius,
+        fillPercentage,
+        statusColor
+      );
     }
   }
 
@@ -97,7 +107,16 @@ class DrawableObject {
       let statusColor = "#0089F3";
       this.disableSpellButton(fillPercentage);
       this.drawStatusBarBackground(ctx, x, y, width, height, radius);
-      this.drawStatusBarFillWidth(ctx, x, y, fillWidth, height, radius, fillPercentage, statusColor);
+      this.drawStatusBarFillWidth(
+        ctx,
+        x,
+        y,
+        fillWidth,
+        height,
+        radius,
+        fillPercentage,
+        statusColor
+      );
     }
   }
 
@@ -120,13 +139,34 @@ class DrawableObject {
     ctx.stroke();
   }
 
-  drawStatusBarFillWidth(ctx, x, y, fillWidth, height, radius, fillPercentage, statusColor) {
+  drawStatusBarFillWidth(
+    ctx,
+    x,
+    y,
+    fillWidth,
+    height,
+    radius,
+    fillPercentage,
+    statusColor
+  ) {
     ctx.beginPath();
     ctx.moveTo(x + radius, y);
     ctx.lineTo(x + fillWidth - radius, y);
-    ctx.arc(x + fillWidth - radius, y + radius, radius, Math.PI * 1.5, Math.PI * 2);
+    ctx.arc(
+      x + fillWidth - radius,
+      y + radius,
+      radius,
+      Math.PI * 1.5,
+      Math.PI * 2
+    );
     ctx.lineTo(x + fillWidth, y + height - radius);
-    ctx.arc(x + fillWidth - radius, y + height - radius, radius, 0, Math.PI * 0.5);
+    ctx.arc(
+      x + fillWidth - radius,
+      y + height - radius,
+      radius,
+      0,
+      Math.PI * 0.5
+    );
     ctx.lineTo(x + radius, y + height);
     ctx.arc(x + radius, y + height - radius, radius, Math.PI * 0.5, Math.PI);
     ctx.lineTo(x, y + radius);
@@ -142,11 +182,23 @@ class DrawableObject {
     }
   }
 
-  outOfManaOrLife(ctx, fillPercentage, statusColor){
+  outOfManaOrLife(ctx, fillPercentage, statusColor) {
     if (fillPercentage < 0.2) {
       ctx.fillStyle = "transparent";
     } else {
       ctx.fillStyle = statusColor;
+    }
+  }
+
+  gatheredCoins(ctx) {
+    if (this instanceof CollectedCoins) {
+      let number = this.coinsCollected;
+      ctx.font = "bold 32px Arial";
+      ctx.strokeStyle = "#fff";
+      ctx.lineWidth = 2;
+      ctx.strokeText(number, this.x + 50, this.y + 25);
+      ctx.fillStyle = "#000";
+      ctx.fillText(number, this.x + 50, this.y + 25);
     }
   }
 }
