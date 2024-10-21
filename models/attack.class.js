@@ -17,8 +17,7 @@ class Attack extends MovableObject {
       !world.character.isDead()
     ) {
       world.character.playAnimationOnce(world.character.CHARACTER_BASE_ATTACK);
-      if (world.enemyHitBySword() || !world.keyboard.HIT) {
-        world.spliceAttacks();
+      if (world.enemyHitBySword() && !world.keyboard.HIT) {
 
       }
       if (world.keyboard.JUMP) {
