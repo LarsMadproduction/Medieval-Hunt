@@ -27,7 +27,7 @@ class Minion extends MovableObject {
     super().loadImage(imagePath);
 
     this.x = x;
-    this.speed = 0.15 + Math.random() * 0.5;
+    this.speed = 0.4 + Math.random() * 0.7;
     this.loadImages(this.MINION_WALKING);
     this.animate();
     this.otherDirection = true;

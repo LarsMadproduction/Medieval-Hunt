@@ -29,7 +29,7 @@ class Enemy extends MovableObject {
   constructor(imagePath, x) {
     super().loadImage(imagePath);
     this.x = x;
-    this.speed = 0.15 + Math.random() * 0.5;
+    this.speed = 0.6 + Math.random() * 1;
     this.loadImages(this.ENEMY_WALKING);
     this.loadImages(this.ENEMY_DEAD);
     this.animate();

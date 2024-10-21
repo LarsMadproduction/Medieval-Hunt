@@ -81,7 +81,7 @@ class World {
     if (mo.otherDirection) {
       this.mirrorImage(mo);
     }
-    mo.draw(this.ctx);
+    mo.drawObjects(this.ctx);
     mo.hitBoxCoin(this.ctx);
     mo.hitBoxCharacter(this.ctx);
     mo.hitBoxEnemy(this.ctx);
@@ -125,17 +125,26 @@ class World {
   enemyHitBySpell() {
     if (this.attack.length > 0) {
       let currentAttack = this.attack[0];
-      this.level.enemies.forEach((enemy) => {
+      this.level.enemies.forEach((enemy, i) => {
         if (enemy.isCollidingSpell(currentAttack)) {
           enemy.hit();
-          this.attack.splice(0);
-          // if (enemy.isDead()) {
-          //   this.level.enemies.splice(0, 1);
-          // }
+          this.spliceAttacks();
+          if (enemy.isDead()) {
+            this.level.enemies.splice(i, 1);
+          }
         }
       });
     }
   }
+  
+  spliceAttacks(){
+    for (let activeSpell = 0; activeSpell < world.attack.length; activeSpell++) {
+      let currentSpell = world.attack[activeSpell];
+      world.attack.splice(currentSpell, 1);
+      console.log(currentSpell);
+    }
+  }
+
   hitByMinion() {
     this.level.minions.forEach((minions) => {
       if (this.character.isCollidingMinion(minions)) {
@@ -144,6 +153,7 @@ class World {
       }
     });
   }
+
   hitByBoss() {
     if (this.character.isCollidingBoss(this.level.boss)) {
       this.character.hit();
@@ -152,33 +162,31 @@ class World {
   }
 
   castSpell() {
-    let lastCastTime = 0;
-    let castInterval = 1000;
-    let checkSpellCasting = () => {
-      let currentTime = new Date().getTime();
-      if (this.manaBar.manaPoints > 0 && this.keyboard.SPELL) {
-        if (currentTime - lastCastTime >= castInterval) {
-          this.spellRight();
-          this.spellLeft();
-          this.enemyHitBySpell();
-          lastCastTime = currentTime;
-        }
-      }
-      requestAnimationFrame(checkSpellCasting);
-    };
-    requestAnimationFrame(checkSpellCasting);
-  }
+    this.lastCastTime = 0;
+    this.castInterval = 1000;
+    this.checkSpellCasting();
+}
 
-  castConditions(){
-    
-  }
+checkSpellCasting() {
+    const currentTime = new Date().getTime();
+    if (this.manaBar.manaPoints > 0 && this.keyboard.SPELL) {
+        if (currentTime - this.lastCastTime >= this.castInterval) {
+            this.performSpell();
+        }
+    }
+    requestAnimationFrame(this.checkSpellCasting.bind(this)); 
+}
+
+performSpell() {
+    this.spellRight();
+    this.spellLeft();
+    this.enemyHitBySpell();
+    this.lastCastTime = new Date().getTime();
+}
 
   spellRight() {
     if (!this.character.otherDirection && this.keyboard.SPELL) {
-      let spellsRight = new Attack(
-        this.character.x + 90,
-        this.character.y + 35
-      );
+      let spellsRight = new Attack(this.character.x + 90, this.character.y + 35);
       this.manaBar.isSpellUsed();
       this.attack.push(spellsRight);
     }

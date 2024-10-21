@@ -21,7 +21,7 @@ class DrawableObject {
     });
   }
 
-  draw(ctx) {
+  drawObjects(ctx) {
     ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
   }
 
