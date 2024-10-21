@@ -122,26 +122,51 @@ class World {
     });
   }
 
-  enemyHitBySpell() {
-    if (this.attack.length > 0) {
+enemyHitBySpell() {
+  if (this.attack.length > 0) {
       let currentAttack = this.attack[0];
       this.level.enemies.forEach((enemy, i) => {
-        if (enemy.isCollidingSpell(currentAttack)) {
-          enemy.hit();
-          this.spliceAttacks();
-          if (enemy.isDead()) {
-            this.level.enemies.splice(i, 1);
+          if (enemy.isCollidingSpell(currentAttack) && !enemy.hasBeenHit) {
+              enemy.hit();
+              enemy.hasBeenHit = true;
+              setTimeout(() => {
+                  this.spliceAttacks();
+              }, 10);
+              if (enemy.isDead()) {
+                  enemy.playAnimationOnce(enemy.ENEMY_DEAD);
+                  setTimeout(() => {
+                      this.level.enemies.splice(i, 1);
+                  }, 500);
+              }
           }
-        }
       });
-    }
   }
+}
+minionHitBySpell() {
+  if (this.attack.length > 0) {
+      let currentAttack = this.attack[0];
+      this.level.minions.forEach((minion, i) => {
+          if (minion.isCollidingSpell(currentAttack) && !minion.hasBeenHit) {
+            minion.hit();
+              minion.hasBeenHit = true;
+              setTimeout(() => {
+                  this.spliceAttacks();
+              }, 10);
+              if (minion.isDead()) {
+                minion.playAnimationOnce(minion.MINION_DEAD);
+                  setTimeout(() => {
+                      this.level.minions.splice(i, 1);
+                  }, 500);
+              }
+          }
+      });
+  }
+}
   
   spliceAttacks(){
     for (let activeSpell = 0; activeSpell < world.attack.length; activeSpell++) {
       let currentSpell = world.attack[activeSpell];
       world.attack.splice(currentSpell, 1);
-      console.log(currentSpell);
     }
   }
 
@@ -181,12 +206,13 @@ performSpell() {
     this.spellRight();
     this.spellLeft();
     this.enemyHitBySpell();
+    this.minionHitBySpell();
     this.lastCastTime = new Date().getTime();
 }
 
   spellRight() {
     if (!this.character.otherDirection && this.keyboard.SPELL) {
-      let spellsRight = new Attack(this.character.x + 90, this.character.y + 35);
+      let spellsRight = new Attack(this.character.x + 40, this.character.y + 35);
       this.manaBar.isSpellUsed();
       this.attack.push(spellsRight);
     }

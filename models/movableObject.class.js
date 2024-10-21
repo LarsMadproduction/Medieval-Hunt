@@ -9,11 +9,23 @@ class MovableObject extends DrawableObject {
   manaPoints = 1;
   i = 0;
   attackIntervals = [];
+  hasBeenHit = false;
+
+  CHARACTER_ATTACK_SPELL_HIT = [
+    "assets/png/character/characterChargeSkill/characterChargeSkill6.png",
+    "assets/png/character/characterChargeSkill/characterChargeSkill7.png",
+    "assets/png/character/characterChargeSkill/characterChargeSkill8.png",
+    "assets/png/character/characterChargeSkill/characterChargeSkill9.png",
+    "assets/png/character/characterChargeSkill/characterChargeSkill10.png",
+    "assets/png/character/characterChargeSkill/characterChargeSkill11.png",
+    "assets/png/character/characterChargeSkill/characterChargeSkill12.png",
+  ];
 
   constructor(world) {
     super(world);
+    this.loadImages(this.CHARACTER_ATTACK_SPELL_HIT);
   }
-
+  
   applyGravity() {
     setInterval(() => {
       if (this.isAboveGround() || this.speedY > 0) {

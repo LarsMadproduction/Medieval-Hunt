@@ -6,13 +6,6 @@ class Attack extends MovableObject {
     "assets/png/character/characterChargeSkill/characterChargeSkill3.png",
     "assets/png/character/characterChargeSkill/characterChargeSkill4.png",
     "assets/png/character/characterChargeSkill/characterChargeSkill5.png",
-    "assets/png/character/characterChargeSkill/characterChargeSkill6.png",
-    "assets/png/character/characterChargeSkill/characterChargeSkill7.png",
-    "assets/png/character/characterChargeSkill/characterChargeSkill8.png",
-    "assets/png/character/characterChargeSkill/characterChargeSkill9.png",
-    "assets/png/character/characterChargeSkill/characterChargeSkill10.png",
-    "assets/png/character/characterChargeSkill/characterChargeSkill11.png",
-    "assets/png/character/characterChargeSkill/characterChargeSkill12.png",
   ];
   world;
   constructor(x, y) {
@@ -29,9 +22,9 @@ class Attack extends MovableObject {
   chargeSpell() {
     if (!world.character.otherDirection && world.manaBar.manaPoints > 0) {
       let attackRightInterval = setInterval(() => {
-        this.playAnimationOnce(this.CHARACTER_ATTACK_SPELL);
+        this.playAnimation(this.CHARACTER_ATTACK_SPELL);
         this.x += this.speed;
-        if (this.x > world.character.x + 400 || world.enemyHitBySpell()) {
+        if (this.x > world.character.x + 400 || world.enemyHitBySpell() || world.minionHitBySpell()) {
           world.spliceAttacks();
           world.ctx.clearRect(this.x, this.y, this.width, this.height);
           clearInterval(attackRightInterval);

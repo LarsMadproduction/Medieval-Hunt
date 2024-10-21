@@ -123,15 +123,8 @@ class Character extends MovableObject {
   characterSpellAnimation() {
     let currentTime = new Date().getTime();
     let animationInterval = 1000 / 60;
-    if (
-      this.world.keyboard.SPELL 
-      // this.world.manaBar.manaPoints > 0 &&
-      // this.attackIntervals.length < 1
-    ) {
-      if (
-        !this.lastAnimationTime ||
-        currentTime - this.lastAnimationTime >= animationInterval
-      ) {
+    if (this.world.keyboard.SPELL) {
+      if (!this.lastAnimationTime || currentTime - this.lastAnimationTime >= animationInterval) {
         this.playAnimationOnce(this.CHARACTER_CHARGE_SPELL);
         this.lastAnimationTime = currentTime;
       }
