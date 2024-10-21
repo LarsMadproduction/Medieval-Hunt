@@ -8,6 +8,7 @@ class World {
   );
   musicTheme = new Audio("assets/sounds/backgroundMusic.mp3");
   attack = [];
+  spell = [];
   level = level1;
   canvas;
   ctx;
@@ -25,6 +26,7 @@ class World {
     this.musicTheme.loop = true;
     this.checkCollisions();
     this.castSpell();
+    this.swordAttack();
   }
   setWorld() {
     this.lifeBar.world = this;
@@ -54,6 +56,7 @@ class World {
     this.addObjectsToMap(this.level.enemies);
     this.addObjectsToMap(this.level.minions);
     this.addObjectsToMap(this.attack);
+    this.addObjectsToMap(this.spell);
     this.addObjectsToMap(this.level.coins);
 
     this.ctx.translate(-this.cameraX, 0);
@@ -84,6 +87,7 @@ class World {
     mo.drawObjects(this.ctx);
     mo.hitBoxCoin(this.ctx);
     mo.hitBoxCharacter(this.ctx);
+    mo.hitBoxCharacterSword(this.ctx);
     mo.hitBoxEnemy(this.ctx);
     mo.hitBoxMinion(this.ctx);
     mo.progressLifeBar(this.ctx);
@@ -123,10 +127,31 @@ class World {
   }
 
 enemyHitBySpell() {
+  if (this.spell.length > 0) {
+      let currentSpell = this.spell[0];
+      this.level.enemies.forEach((enemy, i) => {
+          if (enemy.isCollidingSpell(currentSpell) && !enemy.hasBeenHit) {
+              enemy.hit();
+              enemy.hasBeenHit = true;
+              setTimeout(() => {
+                  this.spliceSpells();
+              }, 10);
+              if (enemy.isDead()) {
+                  enemy.playAnimationOnce(enemy.ENEMY_DEAD);
+                  setTimeout(() => {
+                      this.level.enemies.splice(i, 1);
+                  }, 500);
+              }
+          }
+      });
+  }
+}
+
+enemyHitBySword() {
   if (this.attack.length > 0) {
       let currentAttack = this.attack[0];
       this.level.enemies.forEach((enemy, i) => {
-          if (enemy.isCollidingSpell(currentAttack) && !enemy.hasBeenHit) {
+          if (enemy.isCollidingSword(currentAttack) && !enemy.hasBeenHit) {
               enemy.hit();
               enemy.hasBeenHit = true;
               setTimeout(() => {
@@ -142,15 +167,16 @@ enemyHitBySpell() {
       });
   }
 }
+
 minionHitBySpell() {
-  if (this.attack.length > 0) {
-      let currentAttack = this.attack[0];
+  if (this.spell.length > 0) {
+      let currentSpell = this.spell[0];
       this.level.minions.forEach((minion, i) => {
-          if (minion.isCollidingSpell(currentAttack) && !minion.hasBeenHit) {
+          if (minion.isCollidingSpell(currentSpell) && !minion.hasBeenHit) {
             minion.hit();
               minion.hasBeenHit = true;
               setTimeout(() => {
-                  this.spliceAttacks();
+                  this.spliceSpells();
               }, 10);
               if (minion.isDead()) {
                 minion.playAnimationOnce(minion.MINION_DEAD);
@@ -163,10 +189,17 @@ minionHitBySpell() {
   }
 }
   
+spliceSpells(){
+    for (let activeSpell = 0; activeSpell < world.spell.length; activeSpell++) {
+      let currentSpell = world.spell[activeSpell];
+      world.spell.splice(currentSpell, 1);
+    }
+  }
+
   spliceAttacks(){
-    for (let activeSpell = 0; activeSpell < world.attack.length; activeSpell++) {
-      let currentSpell = world.attack[activeSpell];
-      world.attack.splice(currentSpell, 1);
+    for (let activeAttack = 0; activeAttack < world.attack.length; activeAttack++) {
+      let currentAttack = world.attack[activeAttack];
+      world.attack.splice(currentAttack, 1);
     }
   }
 
@@ -194,7 +227,7 @@ minionHitBySpell() {
 
 checkSpellCasting() {
     const currentTime = new Date().getTime();
-    if (this.manaBar.manaPoints > 0 && this.keyboard.SPELL) {
+    if (this.manaBar.manaPoints > 0 && this.keyboard.SPELL && !this.character.isDead()) {
         if (currentTime - this.lastCastTime >= this.castInterval) {
             this.performSpell();
         }
@@ -212,16 +245,54 @@ performSpell() {
 
   spellRight() {
     if (!this.character.otherDirection && this.keyboard.SPELL) {
-      let spellsRight = new Attack(this.character.x + 40, this.character.y + 35);
+      let spellsRight = new Spell(this.character.x + 40, this.character.y + 35);
       this.manaBar.isSpellUsed();
-      this.attack.push(spellsRight);
+      this.spell.push(spellsRight);
     }
   }
   spellLeft() {
     if (this.character.otherDirection && this.keyboard.SPELL) {
-      let spellsLeft = new Attack(this.character.x - 60, this.character.y + 35);
+      let spellsLeft = new Spell(this.character.x - 60, this.character.y + 35);
       this.manaBar.isSpellUsed();
-      this.attack.push(spellsLeft);
+      this.spell.push(spellsLeft);
+    }
+  }
+
+  swordAttack() {
+    this.lastAttackTime = 0;
+    this.attackInterval = 10;
+    this.checkSwordSwing();
+}
+
+checkSwordSwing() {
+    let currentTime = new Date().getTime();
+    if (this.keyboard.HIT && !this.character.isDead()) {
+        if (currentTime - this.lastAttackTime >= this.attackInterval) {
+            this.performAttack();
+        }
+    }
+    requestAnimationFrame(this.checkSwordSwing.bind(this)); 
+}
+
+performAttack() {
+    this.swordHitRight();
+    this.swordHitLeft();
+    this.enemyHitBySpell();
+    this.minionHitBySpell();
+    this.lastAttackTime = new Date().getTime();
+}
+
+  swordHitRight(){
+    if (!this.character.otherDirection && this.keyboard.HIT  && !world.character.isDead()) {
+      let swordHitting = new Attack(this.character.x, this.character.y);
+      this.attack.push(swordHitting);
+    }
+  }
+
+  swordHitLeft(){
+    if (this.character.otherDirection && this.keyboard.HIT  && !world.character.isDead()) {
+      let swordHitting = new Attack(this.character.x, this.character.y);
+      this.attack.push(swordHitting);
     }
   }
 }

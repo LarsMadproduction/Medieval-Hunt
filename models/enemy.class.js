@@ -44,7 +44,6 @@ class Enemy extends MovableObject {
         this.isDead();
       } if (this.isDead()) {
         this.playAnimationOnce(this.CHARACTER_ATTACK_SPELL_HIT);
-
         this.playAnimationOnce(this.ENEMY_DEAD);
       } else {
         this.playAnimation(this.ENEMY_WALKING);

@@ -15,9 +15,9 @@ class DrawableObject {
 
   loadImages(arr) {
     arr.forEach((path) => {
-      let img = new Image();
-      img.src = path;
-      this.imageCache[path] = img;
+      this.img = new Image();
+      this.img.src = path;
+      this.imageCache[path] = this.img;
     });
   }
 
@@ -40,6 +40,15 @@ class DrawableObject {
       ctx.lineWidth = "3";
       ctx.strokeStyle = "blue";
       ctx.rect(this.x + 45, this.y + 120, this.width - 150, this.height - 120);
+      ctx.stroke();
+    }
+  }
+  hitBoxCharacterSword(ctx) {
+    if (this instanceof Attack) {
+      ctx.beginPath();
+      ctx.lineWidth = "3";
+      ctx.strokeStyle = "darkblue";
+      ctx.rect(this.x + 115, this.y + 180, this.width - 150, this.height - 240);
       ctx.stroke();
     }
   }
@@ -66,7 +75,7 @@ class DrawableObject {
 
   hitBoxTarget() {
     return (
-      this instanceof Attack //||
+      this instanceof Spell //||
       // this instanceof Boss
     );
   }

@@ -8,7 +8,7 @@ class MovableObject extends DrawableObject {
   healthPoints = 1;
   manaPoints = 1;
   i = 0;
-  attackIntervals = [];
+  spellIntervals = [];
   hasBeenHit = false;
 
   CHARACTER_ATTACK_SPELL_HIT = [
@@ -25,7 +25,7 @@ class MovableObject extends DrawableObject {
     super(world);
     this.loadImages(this.CHARACTER_ATTACK_SPELL_HIT);
   }
-  
+
   applyGravity() {
     setInterval(() => {
       if (this.isAboveGround() || this.speedY > 0) {
@@ -117,6 +117,15 @@ class MovableObject extends DrawableObject {
       this.x + 45 < mo.x + 160 + mo.width - 100 &&
       this.y + 120 + this.height - 120 > mo.y + 120 &&
       this.y + 120 < mo.y + 120 + mo.height - 235
+    );
+  }
+
+  isCollidingSword(mo) {
+    return (
+      this.x + 45 + this.width - 150 > mo.x + 165 &&
+      this.x + 45 < mo.x + 165 + mo.width - 150 &&
+      this.y + 120 + this.height - 120 > mo.y + 180 &&
+      this.y + 120 < mo.y + 180 + mo.height - 240
     );
   }
 
