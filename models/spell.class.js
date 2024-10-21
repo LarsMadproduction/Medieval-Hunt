@@ -35,7 +35,6 @@ class Spell extends MovableObject {
           world.minionHitBySpell()
         ) {
           world.spliceSpells();
-          world.ctx.clearRect(this.x, this.y, this.width, this.height);
           clearInterval(spellRightInterval);
           this.spellIntervals.splice(
             this.spellIntervals.indexOf(spellRightInterval),
@@ -56,7 +55,6 @@ class Spell extends MovableObject {
         this.x -= this.speed;
         if (this.x < world.character.x - 400 || world.enemyHitBySpell()) {
           world.spliceSpells();
-          world.ctx.clearRect(this.x, this.y, this.width, this.height);
           clearInterval(spellLeftInterval);
           this.spellIntervals.splice(
             this.spellIntervals.indexOf(spellLeftInterval),

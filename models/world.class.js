@@ -147,77 +147,6 @@ class World {
     }
   }
 
-  // enemyHitBySword() {
-  //   for (
-  //     let activeAttack = 0;
-  //     activeAttack < world.attack.length;
-  //     activeAttack++
-  //   ) {
-  //     let currentAttack = world.attack[activeAttack];
-    
-  //   if (this.attack.length > 0) {
-  //     this.level.enemies.forEach((enemy, i) => {
-  //       if (enemy.isCollidingSword(currentAttack) && !enemy.hasBeenHit) {
-  //         enemy.hit();
-  //         enemy.hasBeenHit = true;
-  //         setTimeout(() => {
-  //           world.attack.splice(currentAttack);
-  //         }, 10);
-  //         if (enemy.isDead()) {
-  //           enemy.playAnimationOnce(enemy.ENEMY_DEAD);
-  //           setTimeout(() => {
-  //             this.level.enemies.splice(i, 1);
-  //           }, 500);
-  //         }
-  //       }
-  //     });
-  //   }}
-  // }
-
-  enemyHitBySword() {
-    for (let activeAttack = 0; activeAttack < world.attack.length; activeAttack++) {
-        let currentAttack = world.attack[activeAttack];
-        if (this.attack.length > 0) {
-            this.checkEnemiesForHit(currentAttack);
-        }
-    }
-}
-
-checkEnemiesForHit(currentAttack) {
-    this.level.enemies.forEach((enemy, i) => {
-        if (enemy.isCollidingSword(currentAttack) && !enemy.hasBeenHit) {
-            this.handleEnemyHit(enemy, i);
-        }
-    });
-}
-
-handleEnemyHit(enemy, index) {
-    enemy.hit(); // Feind wird getroffen
-    enemy.hasBeenHit = true; // Setze die Flagge auf true
-
-    // Splice der Angriffe nach 10ms verzögern
-    setTimeout(() => {
-        this.spliceCurrentAttack();
-    }, 100);
-
-    if (enemy.isDead()) {
-        enemy.playAnimationOnce(enemy.ENEMY_DEAD);
-
-        // Splice des Feindes nach 500ms verzögern
-        setTimeout(() => {
-            this.removeEnemy(index);
-        }, 500);
-    }
-}
-
-spliceCurrentAttack() {
-    world.attack.splice(0, 1); // Entferne den ersten Angriff aus der Liste
-}
-
-removeEnemy(index) {
-    this.level.enemies.splice(index, 1); // Entferne den Feind aus der Liste
-} 
-
   minionHitBySpell() {
     if (this.spell.length > 0) {
       let currentSpell = this.spell[0];
@@ -243,17 +172,6 @@ removeEnemy(index) {
     for (let activeSpell = 0; activeSpell < world.spell.length; activeSpell++) {
       let currentSpell = world.spell[activeSpell];
       world.spell.splice(currentSpell, 1);
-    }
-  }
-
-  spliceAttacks() {
-    for (
-      let activeAttack = 0;
-      activeAttack < world.attack.length;
-      activeAttack++
-    ) {
-      let currentAttack = world.attack[activeAttack];
-      world.attack.splice(currentAttack);
     }
   }
 
@@ -318,7 +236,7 @@ removeEnemy(index) {
 
   swordAttack() {
     this.lastAttackTime = 0;
-    this.attackInterval = 1000/60;
+    this.attackInterval = 1000 / 60;
     this.checkSwordSwing();
   }
 
@@ -332,33 +250,15 @@ removeEnemy(index) {
     requestAnimationFrame(this.checkSwordSwing.bind(this));
   }
 
-  // performAttack() {
-  //   // this.attack.length = 0;
-  //   this.swordHitRight();
-  //   this.swordHitLeft();
-  //   this.enemyHitBySpell();
-  //   this.minionHitBySpell();
-  //   this.lastAttackTime = new Date().getTime();
-  // }
-
   performAttack() {
-    // Lösche alle vorhandenen Angriffe
-    
-
-    // Führe die verschiedenen Angriffe aus
     this.swordHitRight();
     this.swordHitLeft();
-    this.enemyHitBySpell();
-    this.minionHitBySpell();
-
-    // Setze den Zeitstempel für den letzten Angriff
     this.lastAttackTime = new Date().getTime();
-}
+  }
 
-clearExistingAttacks() {
-    // Setze die Angriffs-Liste zurück oder lösche sie
-    world.attack.length = 0; // Alle vorhandenen Angriffe löschen
-}
+  clearExistingAttacks() {
+    world.attack.length = 0;
+  }
 
   swordHitRight() {
     if (
@@ -378,7 +278,7 @@ clearExistingAttacks() {
       this.keyboard.HIT &&
       !world.character.isDead()
     ) {
-      let swordHitting = new Attack(this.character.x-180, this.character.y);
+      let swordHitting = new Attack(this.character.x - 180, this.character.y);
       this.clearExistingAttacks();
       this.attack.push(swordHitting);
     }

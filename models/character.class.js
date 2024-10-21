@@ -132,7 +132,7 @@ class Character extends MovableObject {
   }
 
   characterBaseAttackAnimation() {
-    if (this.world.keyboard.HIT && !this.isAboveGround()) {
+    if (this.world.keyboard.HIT) {
       this.playAnimationOnce(this.CHARACTER_BASE_ATTACK);
       if (this.world.keyboard.JUMP){
         this.world.keyboard.HIT = false;

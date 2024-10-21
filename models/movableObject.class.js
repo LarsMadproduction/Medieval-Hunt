@@ -19,6 +19,7 @@ class MovableObject extends DrawableObject {
     "assets/png/character/characterChargeSkill/characterChargeSkill10.png",
     "assets/png/character/characterChargeSkill/characterChargeSkill11.png",
     "assets/png/character/characterChargeSkill/characterChargeSkill12.png",
+    "assets/png/character/characterChargeSkill/characterChargeSkill13.png",
   ];
 
   constructor(world) {
