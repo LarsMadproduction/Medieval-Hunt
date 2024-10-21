@@ -28,6 +28,8 @@ class Attack extends MovableObject {
       let currentAttack = world.attack[activeAttack];
       if (world.attack.length > 0) {
         this.checkEnemiesForHit(currentAttack);
+        this.checkMinionsForHit(currentAttack);
+
       }
     }
   }
@@ -43,7 +45,7 @@ class Attack extends MovableObject {
   checkMinionsForHit(currentAttack) {
     world.level.minions.forEach((minion, i) => {
       if (minion.isCollidingSword(currentAttack) && !minion.hasBeenHit) {
-        this.handleEnemyHit(minion, i);
+        this.handleMinionHit(minion, i);
       }
     });
   }
@@ -62,11 +64,29 @@ class Attack extends MovableObject {
     }
   }
 
+  handleMinionHit(target, index) {
+    target.hit();
+    target.hasBeenHit = true;
+    setTimeout(() => {
+      this.spliceCurrentAttack();
+    }, 100);
+    if (target.isDead()) {
+      target.playAnimationOnce(target.MINION_DEAD);
+      setTimeout(() => {
+        this.removeMinion(index);
+      }, 500);
+    }
+  }
+
   spliceCurrentAttack() {
     world.attack.splice(0, 1);
   }
 
   removeEnemy(index) {
     world.level.enemies.splice(index, 1);
+  }
+
+  removeMinion(index) {
+    world.level.minions.splice(index, 1);
   }
 }
