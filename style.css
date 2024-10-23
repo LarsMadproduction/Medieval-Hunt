@@ -3,7 +3,20 @@ body {
     flex-direction: column;
     align-items: center; */
     background-color: #00000094;
+    background-image: url("assets/png/background/bright/mainBackground.png");
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    margin: 0;
+    background-position: center;
+    font-family: 'pixelFont', Arial, Helvetica, sans-serif;
 }
 canvas {
     background-color: black;
+}
+
+@font-face {
+    font-family: 'pixelFont';
+    src: url('assets/font/joystixMonospace.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
 }
