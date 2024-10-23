@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html translate="no">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -26,8 +26,10 @@
     <script src="./levels/level1.js"></script>
     <script src="./script.js"></script>
   </head>
-  <body onload="init()">
+  <body>
     <h1>Medieval Hunt</h1>
-    <canvas id="canvas" width="4315" height="480">
+    <canvas id="canvas" width="4315" height="480"></canvas>
+      <button onclick="initLevel(), init()">Start</button>
+      <button onclick="initLevel(), restart()">Restart</button>
   </body>
 </html>

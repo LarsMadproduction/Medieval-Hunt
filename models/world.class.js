@@ -14,8 +14,6 @@ class World {
   ctx;
   keyboard;
   cameraX = 0;
-  actionStart;
-  actionEnd;
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -37,6 +35,24 @@ class World {
     this.musicTheme.volume = 0.05;
   }
 
+  static clear() {
+    if (World.instance) { // Überprüfe, ob eine Instanz existiert
+        const instance = World.instance; // Greife auf die Instanz zu
+        instance.lifeBar = null; 
+        instance.manaBar = null; 
+        instance.collectedCoins = null; 
+        instance.character = null; 
+        instance.musicTheme.pause(); // Stoppe die Musik
+        instance.musicTheme.currentTime = 0; // Setze den Zeitstempel zurück
+        instance.attack.length = 0; 
+        instance.spell.length = 0; 
+        // Hier kannst du auch andere Aufräumarbeiten durchführen
+        // z.B. alle Feinde oder Angriffe löschen
+        instance.enemies = []; 
+        instance.attacks = []; 
+        instance.imageCache = {};
+    }
+}
   checkCollisions() {
     setInterval(() => {
       this.hitByEnemy();

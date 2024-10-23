@@ -6,7 +6,17 @@ let actionEnd = 0;
 
 function init() {
   canvas = document.getElementById("canvas");
-  world = new World(canvas, keyboard, actionStart, actionEnd);
+  world = new World(canvas, keyboard);
+}
+
+function restart(){
+  World.clear();
+  clearAllIntervals();
+  init();
+}
+
+function clearAllIntervals() {
+  for (let i = 1; i < 9999; i++) window.clearInterval(i);
 }
 
 function toggleRestart() {
@@ -82,5 +92,11 @@ window.addEventListener("keyup", (k) => {
   }
   if (k.key === "r") {
     keyboard.RESTART = false;
+  }
+});
+
+window.addEventListener('keydown', function(k) {
+  if(k.key === " " && k.target == document.body) {
+    k.preventDefault();
   }
 });

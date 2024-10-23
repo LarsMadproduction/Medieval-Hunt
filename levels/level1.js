@@ -1,4 +1,8 @@
-const level1 = new Level(
+let level1
+
+function initLevel() {
+
+ level1 = new Level(
   [
     //ENEMYSET 1
     new Enemy("assets/png/enemy/enemyWalk/enemyWalk1.png", 730),
@@ -35,7 +39,7 @@ const level1 = new Level(
     // new Minion("assets/png/enemy/enemyWalk/enemyWalk1.png", 4080),
     new Minion("assets/png/enemy/enemyWalk/enemyWalk1.png", 4280),
   ],
-  new Boss("assets/png/boss/bossWalk/bossWalk1.png", 5500),
+  new Boss("assets/png/boss/bossWalk/bossWalk1.png", 4320),
   [
     //COINSET 1
     new Coin("assets/png/coin/gold1.png", 430, 180),
@@ -112,3 +116,4 @@ const level1 = new Level(
     new Background("assets/png/background/bright/columns&falgs.png", 719 * 5),
   ]
 );
+}

@@ -1,7 +1,8 @@
 body {
-    /* display: flex;
+    /* display: flex; */
     flex-direction: column;
-    align-items: center; */
+    align-items: center;
+    justify-content: center;
     background-color: #00000094;
     background-image: url("assets/png/background/bright/mainBackground.png");
     background-repeat: no-repeat;
@@ -10,8 +11,16 @@ body {
     background-position: center;
     font-family: 'pixelFont', Arial, Helvetica, sans-serif;
 }
+
+h1{
+    font-size: 64px;
+    letter-spacing: 5px;
+    text-shadow: 2px 2px 8px rgb(255, 255, 255,0.5);
+}
+
 canvas {
     background-color: black;
+    display: block;
 }
 
 @font-face {
@@ -20,3 +29,23 @@ canvas {
     font-weight: normal;
     font-style: normal;
 }
+
+@media only screen and (max-width: 720px) {
+    canvas{
+        width: 100%;
+    }
+    h1{
+        display: none;
+     }
+}
+
+@media only screen and (max-width: 480px) {
+    canvas{
+        height: 100vh;
+    }
+     h1{
+        display: none;
+     }
+}
+
+
