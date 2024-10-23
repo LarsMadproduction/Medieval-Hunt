@@ -36,18 +36,16 @@ class World {
   }
 
   static clear() {
-    if (World.instance) { // Überprüfe, ob eine Instanz existiert
-        const instance = World.instance; // Greife auf die Instanz zu
+    if (World.instance) { 
+        const instance = World.instance;
         instance.lifeBar = null; 
         instance.manaBar = null; 
         instance.collectedCoins = null; 
         instance.character = null; 
-        instance.musicTheme.pause(); // Stoppe die Musik
-        instance.musicTheme.currentTime = 0; // Setze den Zeitstempel zurück
+        instance.musicTheme.pause(); 
+        instance.musicTheme.currentTime = 0; 
         instance.attack.length = 0; 
         instance.spell.length = 0; 
-        // Hier kannst du auch andere Aufräumarbeiten durchführen
-        // z.B. alle Feinde oder Angriffe löschen
         instance.enemies = []; 
         instance.attacks = []; 
         instance.imageCache = {};

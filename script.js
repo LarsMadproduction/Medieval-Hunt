@@ -1,15 +1,15 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
-let actionStart = null;
-let actionEnd = 0;
+let actionSpellStart = null;
+let actionAttackStart = null;
 
 function init() {
   canvas = document.getElementById("canvas");
   world = new World(canvas, keyboard);
 }
 
-function restart(){
+function restart() {
   World.clear();
   clearAllIntervals();
   init();
@@ -29,17 +29,35 @@ function executeSpell() {
   keyboard.SPELL = true;
 }
 
-function cooldown() {
+function cooldownSpell() {
   let currentTime = new Date().getTime();
-  if (actionStart === null) {
-    actionStart = currentTime;
+  if (actionSpellStart === null) {
+    actionSpellStart = currentTime;
     executeSpell();
     return;
   }
-  let actionEnd = currentTime - actionStart;
+  let actionEnd = currentTime - actionSpellStart;
   if (actionEnd > 1000) {
     executeSpell();
-    actionStart = currentTime;
+    actionSpellStart = currentTime;
+  }
+}
+
+function executeAttack() {
+  keyboard.HIT = true;
+}
+
+function cooldownAttack() {
+  let currentTime = new Date().getTime();
+  if (actionAttackStart === null) {
+    actionAttackStart = currentTime;
+    executeAttack();
+    return;
+  }
+  let actionEnd = currentTime - actionAttackStart;
+  if (actionEnd > 1000) {
+    executeAttack();
+    actionAttackStart = currentTime;
   }
 }
 
@@ -55,11 +73,11 @@ window.addEventListener("keydown", (k) => {
   }
 
   if (k.key === "w") {
-    cooldown();
+    cooldownSpell();
   }
 
   if (k.key === "s") {
-    keyboard.HIT = true;
+    cooldownAttack();
   }
 
   if (k.key === "p") {
@@ -95,8 +113,8 @@ window.addEventListener("keyup", (k) => {
   }
 });
 
-window.addEventListener('keydown', function(k) {
-  if(k.key === " " && k.target == document.body) {
+window.addEventListener("keydown", function (k) {
+  if (k.key === " " && k.target == document.body) {
     k.preventDefault();
   }
 });

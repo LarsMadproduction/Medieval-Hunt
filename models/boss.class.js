@@ -3,6 +3,7 @@ class Boss extends MovableObject {
   height = 420;
   width = 270;
   firstContact = false;
+  healthPoints = 1;
   BOSS_WALKING = [
     "assets/png/boss/bossWalk/bossWalk1.png",
     "assets/png/boss/bossWalk/bossWalk2.png",
