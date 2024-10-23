@@ -36,21 +36,21 @@ class World {
   }
 
   static clear() {
-    if (World.instance) { 
-        const instance = World.instance;
-        instance.lifeBar = null; 
-        instance.manaBar = null; 
-        instance.collectedCoins = null; 
-        instance.character = null; 
-        instance.musicTheme.pause(); 
-        instance.musicTheme.currentTime = 0; 
-        instance.attack.length = 0; 
-        instance.spell.length = 0; 
-        instance.enemies = []; 
-        instance.attacks = []; 
-        instance.imageCache = {};
+    if (World.instance) {
+      const instance = World.instance;
+      instance.lifeBar = null;
+      instance.manaBar = null;
+      instance.collectedCoins = null;
+      instance.character = null;
+      instance.musicTheme.pause();
+      instance.musicTheme.currentTime = 0;
+      instance.attack.length = 0;
+      instance.spell.length = 0;
+      instance.enemies = [];
+      instance.attacks = [];
+      instance.imageCache = {};
     }
-}
+  }
   checkCollisions() {
     setInterval(() => {
       this.hitByEnemy();
@@ -182,6 +182,28 @@ class World {
     }
   }
 
+  bossHitBySpell() {
+    if (this.spell.length > 0) {
+      let currentSpell = this.spell[0];
+      if (
+        this.level.boss.isCollidingSpell(currentSpell) &&
+        !this.level.boss.hasBeenHit
+      ) {
+        this.level.boss.bossHit();
+        this.level.boss.hasBeenHit = true;
+        setTimeout(() => {
+          this.spliceSpells();
+        }, 10);
+        if (this.level.boss.isDead()) {
+          this.level.boss.playAnimationOnce(this.level.boss.BOSS_DEAD);
+          // setTimeout(() => {
+          //   this.level.boss.splice(i, 1);
+          // }, 500);
+        }
+      }
+    }
+  }
+
   spliceSpells() {
     for (let activeSpell = 0; activeSpell < world.spell.length; activeSpell++) {
       let currentSpell = world.spell[activeSpell];
@@ -230,6 +252,7 @@ class World {
     this.spellLeft();
     this.enemyHitBySpell();
     this.minionHitBySpell();
+    this.bossHitBySpell();
     this.lastCastTime = new Date().getTime();
   }
 

@@ -144,6 +144,20 @@ class MovableObject extends DrawableObject {
     return timepassed < 500;
   }
 
+  bossHit() {
+    this.healthPoints -= 0.2;
+    if (this.healthPoints < 0.2) {
+      this.healthPoints = 0;
+    } else {
+      this.lastHit = new Date().getTime();
+    }
+  }
+
+  bossGotHit() {
+    let timepassed = new Date().getTime() - this.lastHit;
+    return timepassed < 500;
+  }
+
   isDead() {
     return this.healthPoints == 0;
   }

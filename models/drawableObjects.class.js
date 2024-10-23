@@ -75,8 +75,8 @@ class DrawableObject {
 
   hitBoxTarget() {
     return (
-      this instanceof Spell //||
-      // this instanceof Boss
+      this instanceof Spell ||
+      this instanceof Boss
     );
   }
 
