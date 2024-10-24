@@ -1,5 +1,5 @@
 class Character extends MovableObject {
-  speed = 3.8;
+  speed = 30.8;
   CHARACTER_DEFAULT = [
     "assets/png/character/characterDefault/characterDefault1.png",
     "assets/png/character/characterDefault/characterDefault2.png",
