@@ -11,6 +11,5 @@ class Level {
     this.boss = boss; 
     this.coins = coins;
     this.backgrounds = backgrounds;
-   
   }
 }

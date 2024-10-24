@@ -7,6 +7,7 @@ class Spell extends MovableObject {
     "assets/png/character/characterChargeSkill/characterChargeSkill4.png",
     "assets/png/character/characterChargeSkill/characterChargeSkill5.png",
   ];
+
   world;
   constructor(x, y) {
     super().loadImage(
@@ -31,11 +32,11 @@ class Spell extends MovableObject {
         this.x += this.speed;
         if (
           this.x > world.character.x + 400 ||
-          world.enemyHitBySpell() ||
-          world.minionHitBySpell() ||
-          world.bossHitBySpell()
+          this.enemyHitBySpell() ||
+          this.minionHitBySpell() ||
+          this.bossHitBySpell()
         ) {
-          world.spliceSpells();
+          this.spliceSpells();
           clearInterval(spellRightInterval);
           this.spellIntervals.splice(
             this.spellIntervals.indexOf(spellRightInterval),
@@ -56,11 +57,11 @@ class Spell extends MovableObject {
         this.x -= this.speed;
         if (
           this.x < world.character.x - 400 ||
-          world.enemyHitBySpell() ||
-          world.minionHitBySpell() ||
-          world.bossHitBySpell()
+          this.enemyHitBySpell() ||
+          this.minionHitBySpell() ||
+          this.bossHitBySpell()
         ) {
-          world.spliceSpells();
+          this.spliceSpells();
           clearInterval(spellLeftInterval);
           this.spellIntervals.splice(
             this.spellIntervals.indexOf(spellLeftInterval),
@@ -71,24 +72,85 @@ class Spell extends MovableObject {
     }
   }
 
-  //   enemyHitBySpell() {
-  //     if (world.spell.length > 0) {
-  //     world.currentSpell = world.spell[0];
-  //       world.level.enemies.forEach((enemy, i) => {
-  //         if (enemy.isCollidingSpell(currentSpell) && !enemy.hasBeenHit) {
-  //           enemy.hit();
-  //           enemy.hasBeenHit = true;
-  //           setTimeout(() => {
-  //             world.spliceSpells();
-  //           }, 10);
-  //           if (enemy.isDead()) {
-  //             enemy.playAnimationOnce(enemy.ENEMY_DEAD);
-  //             setTimeout(() => {
-  //               world.level.enemies.splice(i, 1);
-  //             }, 500);
-  //           }
-  //         }
-  //       });
-  //     }
-  //   }
+  enemyHitBySpell() {
+    for (
+      let activeCastSpell = 0;
+      activeCastSpell < world.spell.length;
+      activeCastSpell++
+    ) {
+      let currentSpell = world.spell[activeCastSpell];
+      if (world.spell.length > 0) {
+        world.level.enemies.forEach((enemy, i) => {
+          if (enemy.isCollidingSpell(currentSpell) && !enemy.hasBeenHit) {
+            enemy.hit();
+            enemy.hasBeenHit = true;
+            setTimeout(() => {
+              this.spliceSpells();
+            }, 10);
+            if (enemy.isDead()) {
+              enemy.playAnimationOnce(enemy.ENEMY_DEAD);
+              setTimeout(() => {
+                world.level.enemies.splice(i, 1);
+              }, 500);
+            }
+          }
+        });
+      }
+    }
+  }
+
+  minionHitBySpell() {
+    for (
+      let activeCastSpell = 0;
+      activeCastSpell < world.spell.length;
+      activeCastSpell++
+    ) {
+      let currentSpell = world.spell[activeCastSpell];
+      if (world.spell.length > 0) {
+        world.level.minions.forEach((minion, i) => {
+          if (minion.isCollidingSpell(currentSpell) && !minion.hasBeenHit) {
+            minion.hit();
+            minion.hasBeenHit = true;
+            setTimeout(() => {
+              this.spliceSpells();
+            }, 10);
+            if (minion.isDead()) {
+              minion.playAnimationOnce(minion.MINION_DEAD);
+              setTimeout(() => {
+                world.level.minions.splice(i, 1);
+              }, 500);
+            }
+          }
+        });
+      }
+    }
+  }
+
+  bossHitBySpell() {
+    for (
+      let activeCastSpell = 0;
+      activeCastSpell < world.spell.length;
+      activeCastSpell++
+    ) {
+      let currentSpell = world.spell[activeCastSpell];
+      if (world.spell.length > 0) {
+        if (world.level.boss.isCollidingSpell(currentSpell)) {
+          world.level.boss.bossHitSpell();
+          setTimeout(() => {
+            this.spliceSpells();
+          }, 10);
+          if (world.level.boss.isDead()) {
+            world.level.boss.playAnimationOnce(world.level.boss.BOSS_DEAD);
+          }
+        }
+      }
+    }
+  }
+
+  spliceSpells() {
+    for (let activeSpell = 0; activeSpell < world.spell.length; activeSpell++) {
+      let currentSpell = world.spell[activeSpell];
+      world.spell.splice(currentSpell, 1);
+    }
+  }
 }

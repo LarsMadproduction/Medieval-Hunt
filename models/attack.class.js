@@ -87,6 +87,7 @@ class Attack extends MovableObject {
 
   removeEnemy(index) {
     world.level.enemies.splice(index, 1);
+    
   }
 
   removeMinion(index) {

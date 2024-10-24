@@ -32,12 +32,12 @@ class CollectedCoins extends MovableObject {
   }
   gatherCoin() {
     setInterval(() => {
-    this.world.level.coins.forEach((coin, i) => {
-      if (this.world.character.isCollidingCoin(coin)) {
-        this.world.level.coins.splice(i, 1);
-        this.coinsCollected++;
-      }
-    });
-  }, 0);
+      this.world.level.coins.forEach((coin, i) => {
+        if (this.world.character.isCollidingCoin(coin)) {
+          this.world.level.coins.splice(i, 1);
+          this.coinsCollected++;
+        }
+      });
+    }, 0);
   }
 }

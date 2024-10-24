@@ -90,7 +90,6 @@ class World {
     requestAnimationFrame(function () {
       self.draw();
     });
-    // this.restartLevel();
   }
   addObjectsToMap(objects) {
     objects.forEach((o) => {
@@ -128,12 +127,6 @@ class World {
     return ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
   }
 
-  // restartLevel() {
-  //   if (this.keyboard.RESTART) {
-  //     this.level = level1;
-  //  }
-  // }
-
   hitByEnemy() {
     this.level.enemies.forEach((enemy) => {
       if (this.character.isCollidingEnemy(enemy)) {
@@ -141,85 +134,6 @@ class World {
         this.lifeBar.hit();
       }
     });
-  }
-
-  enemyHitBySpell() {
-    for (
-      let activeCastSpell = 0;
-      activeCastSpell < this.spell.length;
-      activeCastSpell++
-    ) {
-      let currentSpell = this.spell[activeCastSpell];
-      if (this.spell.length > 0) {
-        this.level.enemies.forEach((enemy, i) => {
-          if (enemy.isCollidingSpell(currentSpell) && !enemy.hasBeenHit) {
-            enemy.hit();
-            enemy.hasBeenHit = true;
-            setTimeout(() => {
-              this.spliceSpells();
-            }, 10);
-            if (enemy.isDead()) {
-              enemy.playAnimationOnce(enemy.ENEMY_DEAD);
-              setTimeout(() => {
-                this.level.enemies.splice(i, 1);
-              }, 500);
-            }
-          }
-        });
-      }
-    }
-  }
-
-  minionHitBySpell() {
-    if (this.spell.length > 0) {
-      let currentSpell = this.spell[0];
-      this.level.minions.forEach((minion, i) => {
-        if (minion.isCollidingSpell(currentSpell) && !minion.hasBeenHit) {
-          minion.hit();
-          minion.hasBeenHit = true;
-          setTimeout(() => {
-            this.spliceSpells();
-          }, 10);
-          if (minion.isDead()) {
-            minion.playAnimationOnce(minion.MINION_DEAD);
-            setTimeout(() => {
-              this.level.minions.splice(i, 1);
-            }, 500);
-          }
-        }
-      });
-    }
-  }
-
-  bossHitBySpell() {
-    for (
-      let activeCastSpell = 0;
-      activeCastSpell < this.spell.length;
-      activeCastSpell++
-    ) {
-      let currentSpell = this.spell[activeCastSpell];
-      if (this.spell.length > 0) {
-        if (this.level.boss.isCollidingSpell(currentSpell)) {
-          this.level.boss.bossHitSpell();
-          setTimeout(() => {
-            this.spliceSpells();
-          }, 10);
-          if (this.level.boss.isDead()) {
-            this.level.boss.playAnimationOnce(this.level.boss.BOSS_DEAD);
-            // setTimeout(() => {
-            //   this.level.boss.splice(i, 1);
-            // }, 500);
-          }
-        }
-      }
-    }
-  }
-
-  spliceSpells() {
-    for (let activeSpell = 0; activeSpell < world.spell.length; activeSpell++) {
-      let currentSpell = world.spell[activeSpell];
-      world.spell.splice(currentSpell, 1);
-    }
   }
 
   hitByMinion() {
@@ -261,9 +175,6 @@ class World {
   performSpell() {
     this.spellRight();
     this.spellLeft();
-    this.enemyHitBySpell();
-    this.minionHitBySpell();
-    this.bossHitBySpell();
     this.lastCastTime = new Date().getTime();
   }
 
@@ -290,7 +201,12 @@ class World {
 
   checkSwordSwing() {
     let currentTime = new Date().getTime();
-    if (this.keyboard.HIT && !this.character.isDead() && !this.keyboard.RIGHT && !this.keyboard.LEFT) {
+    if (
+      this.keyboard.HIT &&
+      !this.character.isDead() &&
+      !this.keyboard.RIGHT &&
+      !this.keyboard.LEFT
+    ) {
       if (currentTime - this.lastAttackTime >= this.attackInterval) {
         this.performAttack();
       }

@@ -139,7 +139,7 @@ class MovableObject extends DrawableObject {
       this.lastHit = new Date().getTime();
     }
   }
-  
+
   gotHit() {
     let timepassed = new Date().getTime() - this.lastHit;
     return timepassed < 500;
@@ -153,7 +153,7 @@ class MovableObject extends DrawableObject {
       this.lastBossHit = new Date().getTime();
     }
   }
-  
+
   bossHitSword() {
     this.healthPoints -= 0.1;
     if (this.healthPoints < 0.05) {
@@ -177,7 +177,7 @@ class MovableObject extends DrawableObject {
     if (this.manaPoints < 0.2) {
       this.manaPoints = 0;
     } else {
-      this.lastSpell = new Date().getTime();      
+      this.lastSpell = new Date().getTime();
     }
   }
 }

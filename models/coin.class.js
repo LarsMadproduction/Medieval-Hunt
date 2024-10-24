@@ -18,13 +18,12 @@ class Coin extends MovableObject {
     super().loadImage(imagePath);
     this.x = x;
     this.y = y;
-    this.speed = 0.5 + Math.random();
+    this.speed = 0.5;
     this.loadImages(this.COIN_FLIPP);
     this.animate();
   }
   animate() {
     setInterval(() => {
-      // this.walkingSound.play();
       this.playAnimation(this.COIN_FLIPP);
     }, 500 / 4);
   }
