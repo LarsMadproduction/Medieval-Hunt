@@ -4,39 +4,19 @@ function initLevel() {
 
  level1 = new Level(
   [
-    //ENEMYSET 1
     new Enemy("assets/png/enemy/enemyWalk/enemyWalk1.png", 730),
-    // new Enemy("assets/png/enemy/enemyWalk/enemyWalk1.png", 930),
     new Enemy("assets/png/enemy/enemyWalk/enemyWalk1.png", 1130),
-    //ENEMYSET 2
-    // new Enemy("assets/png/enemy/enemyWalk/enemyWalk1.png", 1730),
     new Enemy("assets/png/enemy/enemyWalk/enemyWalk1.png", 1930),
-    // new Enemy("assets/png/enemy/enemyWalk/enemyWalk1.png", 2130),
-    //ENEMYSET 3
     new Enemy("assets/png/enemy/enemyWalk/enemyWalk1.png", 2730),
-    // new Enemy("assets/png/enemy/enemyWalk/enemyWalk1.png", 2930),
     new Enemy("assets/png/enemy/enemyWalk/enemyWalk1.png", 3130),
-    //ENEMYSET 4
-    // new Enemy("assets/png/enemy/enemyWalk/enemyWalk1.png", 3730),
     new Enemy("assets/png/enemy/enemyWalk/enemyWalk1.png", 3930),
-    // new Enemy("assets/png/enemy/enemyWalk/enemyWalk1.png", 4130),
   ],
   [
-    //MINIONSET 1
-    // new Minion("assets/png/enemy/enemyWalk/enemyWalk1.png", 880),
     new Minion("assets/png/enemy/enemyWalk/enemyWalk1.png", 1080),
-    // new Minion("assets/png/enemy/enemyWalk/enemyWalk1.png", 1280),
-    //MINIONSET 2
     new Minion("assets/png/enemy/enemyWalk/enemyWalk1.png", 1880),
-    // new Minion("assets/png/enemy/enemyWalk/enemyWalk1.png", 2080),
     new Minion("assets/png/enemy/enemyWalk/enemyWalk1.png", 2280),
-    //MINIONSET 3
-    // new Minion("assets/png/enemy/enemyWalk/enemyWalk1.png", 2880),
     new Minion("assets/png/enemy/enemyWalk/enemyWalk1.png", 3080),
-    // new Minion("assets/png/enemy/enemyWalk/enemyWalk1.png", 3280),
-    //MINIONSET 4
     new Minion("assets/png/enemy/enemyWalk/enemyWalk1.png", 3880),
-    // new Minion("assets/png/enemy/enemyWalk/enemyWalk1.png", 4080),
     new Minion("assets/png/enemy/enemyWalk/enemyWalk1.png", 4280),
   ],
   new Boss("assets/png/boss/bossWalk/bossWalk1.png", 4520),

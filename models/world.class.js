@@ -14,6 +14,7 @@ class World {
   ctx;
   keyboard;
   cameraX = 0;
+  immortal = false;
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -53,9 +54,11 @@ class World {
   }
   checkCollisions() {
     setInterval(() => {
-      this.hitByEnemy();
-      this.hitByMinion();
-      this.hitByBoss();
+      if (!this.immortal) {
+        this.hitByEnemy();
+        this.hitByMinion();
+        this.hitByBoss();
+      }
     }, 800);
   }
 
@@ -196,8 +199,7 @@ class World {
     ) {
       let currentSpell = this.spell[activeCastSpell];
       if (this.spell.length > 0) {
-        if (
-          this.level.boss.isCollidingSpell(currentSpell)) {
+        if (this.level.boss.isCollidingSpell(currentSpell)) {
           this.level.boss.bossHitSpell();
           setTimeout(() => {
             this.spliceSpells();
@@ -288,7 +290,7 @@ class World {
 
   checkSwordSwing() {
     let currentTime = new Date().getTime();
-    if (this.keyboard.HIT && !this.character.isDead()) {
+    if (this.keyboard.HIT && !this.character.isDead() && !this.keyboard.RIGHT && !this.keyboard.LEFT) {
       if (currentTime - this.lastAttackTime >= this.attackInterval) {
         this.performAttack();
       }
@@ -299,11 +301,15 @@ class World {
   performAttack() {
     this.swordHitRight();
     this.swordHitLeft();
+    this.immortal = true;
     this.lastAttackTime = new Date().getTime();
   }
 
   clearExistingAttacks() {
     world.attack.length = 0;
+    setTimeout(() => {
+      this.immortal = false;
+    }, 500);
   }
 
   swordHitRight() {

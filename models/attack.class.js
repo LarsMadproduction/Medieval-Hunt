@@ -11,7 +11,7 @@ class Attack extends MovableObject {
   }
 
   baseAttack() {
-    if (world.keyboard.HIT && this.enemyHitBySword() && !world.character.isDead()) {
+    if (world.keyboard.HIT && this.hitted() && !world.character.isDead()) {
       world.character.playAnimationOnce(world.character.CHARACTER_BASE_ATTACK);
       if (world.keyboard.JUMP) {
         world.keyboard.HIT = false;
@@ -19,7 +19,7 @@ class Attack extends MovableObject {
     }
   }
 
-  enemyHitBySword() {
+  hitted() {
     for (
       let activeAttack = 0;
       activeAttack < world.attack.length;
@@ -30,7 +30,6 @@ class Attack extends MovableObject {
         this.checkEnemiesForHit(currentAttack);
         this.checkMinionsForHit(currentAttack);
         this.checkBossForHit(currentAttack);
-
       }
     }
   }
@@ -52,17 +51,14 @@ class Attack extends MovableObject {
   }
 
   checkBossForHit(currentAttack) {
-      if (world.level.boss.isCollidingSword(currentAttack)) {
-        this.handleBossHit(world.level.boss);
-      }
+    if (world.level.boss.isCollidingSword(currentAttack)) {
+      this.handleBossHit(world.level.boss);
+    }
   }
 
   handleEnemyHit(target, index) {
     target.hit();
     target.hasBeenHit = true;
-    setTimeout(() => {
-      this.spliceCurrentAttack();
-    }, 100);
     if (target.isDead()) {
       target.playAnimationOnce(target.ENEMY_DEAD);
       setTimeout(() => {
@@ -74,9 +70,6 @@ class Attack extends MovableObject {
   handleMinionHit(target, index) {
     target.hit();
     target.hasBeenHit = true;
-    setTimeout(() => {
-      this.spliceCurrentAttack();
-    }, 100);
     if (target.isDead()) {
       target.playAnimationOnce(target.MINION_DEAD);
       setTimeout(() => {
@@ -87,19 +80,9 @@ class Attack extends MovableObject {
 
   handleBossHit(target) {
     target.bossHitSword();
-    setTimeout(() => {
-      this.spliceCurrentAttack();
-    }, 100);
     if (target.isDead()) {
       target.playAnimationOnce(target.BOSS_DEAD);
-      // setTimeout(() => {
-      //   this.removeBoss();
-      // }, 500);
     }
-  }
-
-  spliceCurrentAttack() {
-    world.attack.splice(0, 1);
   }
 
   removeEnemy(index) {
@@ -109,8 +92,4 @@ class Attack extends MovableObject {
   removeMinion(index) {
     world.level.minions.splice(index, 1);
   }
-
-  // removeBoss() {
-  //   world.level.minions = null;
-  // }
 }

@@ -124,7 +124,10 @@ class Character extends MovableObject {
     let currentTime = new Date().getTime();
     let animationInterval = 1000 / 60;
     if (this.world.keyboard.SPELL) {
-      if (!this.lastAnimationTime || currentTime - this.lastAnimationTime >= animationInterval) {
+      if (
+        !this.lastAnimationTime ||
+        currentTime - this.lastAnimationTime >= animationInterval
+      ) {
         this.playAnimationOnce(this.CHARACTER_CHARGE_SPELL);
         this.lastAnimationTime = currentTime;
       }
@@ -132,11 +135,9 @@ class Character extends MovableObject {
   }
 
   characterBaseAttackAnimation() {
-    if (this.world.keyboard.HIT) {
+    if (this.world.keyboard.HIT && !this.world.keyboard.RIGHT && !this.world.keyboard.LEFT) {
       this.playAnimationOnce(this.CHARACTER_BASE_ATTACK);
-      if (this.world.keyboard.JUMP){
-        this.world.keyboard.HIT = false;
-      }
+    
     }
   }
 

@@ -55,7 +55,7 @@ function cooldownAttack() {
     return;
   }
   let actionEnd = currentTime - actionAttackStart;
-  if (actionEnd > 1000) {
+  if (actionEnd > 500) {
     executeAttack();
     actionAttackStart = currentTime;
   }
@@ -64,20 +64,35 @@ function cooldownAttack() {
 window.addEventListener("keydown", (k) => {
   if (k.key === "d") {
     keyboard.RIGHT = true;
+    attackTimeout = setTimeout(() => {
+      keyboard.HIT = false;
+  }, 100);
   }
   if (k.key === "a") {
     keyboard.LEFT = true;
+    attackTimeout = setTimeout(() => {
+      keyboard.HIT = false;
+  }, 100);
   }
   if (k.key === " ") {
     keyboard.JUMP = true;
+    attackTimeout = setTimeout(() => {
+      keyboard.HIT = false;
+  }, 100);
   }
 
   if (k.key === "w") {
     cooldownSpell();
+    attackTimeout = setTimeout(() => {
+      keyboard.HIT = false;
+  }, 100);
   }
 
   if (k.key === "s") {
     cooldownAttack();
+    attackTimeout = setTimeout(() => {
+      keyboard.HIT = false;
+  }, 100);
   }
 
   if (k.key === "p") {
