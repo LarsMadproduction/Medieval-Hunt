@@ -198,7 +198,7 @@ class World {
       if (this.spell.length > 0) {
         if (
           this.level.boss.isCollidingSpell(currentSpell)) {
-          this.level.boss.bossHit();
+          this.level.boss.bossHitSpell();
           setTimeout(() => {
             this.spliceSpells();
           }, 10);

@@ -86,7 +86,7 @@ class Attack extends MovableObject {
   }
 
   handleBossHit(target) {
-    target.bossHit();
+    target.bossHitSword();
     setTimeout(() => {
       this.spliceCurrentAttack();
     }, 100);

@@ -53,14 +53,12 @@ class Boss extends MovableObject {
       if (this.bossGotHit()) {
         this.playAnimationOnce(this.BOSS_HURT);
       } else if (this.isDead()) {
+        this.playAnimationOnce(this.CHARACTER_ATTACK_SPELL_HIT);
         this.playAnimationOnce(
           this.BOSS_DEAD,
           "assets/png/character/characterDead/characterDead4.png"
         );
-      }
-    }, 1000 / 60);
-    setInterval(() => {
-      if ((world.character.x > 90 || !this.firstContact) && (!this.bossGotHit() || !this.isDead()) ) {
+      } else if (world.character.x > 90 || !this.firstContact) {
         this.playAnimation(this.BOSS_WALKING);
         // this.walkingSound.play();
         this.walkingSound.volume = 0.05;
