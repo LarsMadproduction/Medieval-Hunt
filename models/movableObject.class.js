@@ -4,6 +4,7 @@ class MovableObject extends DrawableObject {
   speedY = 0;
   accelaration = 2;
   lastHit = 0;
+  lastBossHit = 0;
   lastSpell = 0;
   healthPoints = 1;
   manaPoints = 1;
@@ -149,12 +150,12 @@ class MovableObject extends DrawableObject {
     if (this.healthPoints < 0.2) {
       this.healthPoints = 0;
     } else {
-      this.lastHit = new Date().getTime();
+      this.lastBossHit = new Date().getTime();
     }
   }
 
   bossGotHit() {
-    let timepassed = new Date().getTime() - this.lastHit;
+    let timepassed = new Date().getTime() - this.lastBossHit;
     return timepassed < 500;
   }
 

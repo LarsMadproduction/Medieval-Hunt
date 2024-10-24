@@ -32,7 +32,8 @@ class Spell extends MovableObject {
         if (
           this.x > world.character.x + 400 ||
           world.enemyHitBySpell() ||
-          world.minionHitBySpell()
+          world.minionHitBySpell() ||
+          world.bossHitBySpell()
         ) {
           world.spliceSpells();
           clearInterval(spellRightInterval);
@@ -53,7 +54,12 @@ class Spell extends MovableObject {
       let spellLeftInterval = setInterval(() => {
         this.playAnimationOnce(this.CHARACTER_SPELL);
         this.x -= this.speed;
-        if (this.x < world.character.x - 400 || world.enemyHitBySpell()) {
+        if (
+          this.x < world.character.x - 400 ||
+          world.enemyHitBySpell() ||
+          world.minionHitBySpell() ||
+          world.bossHitBySpell()
+        ) {
           world.spliceSpells();
           clearInterval(spellLeftInterval);
           this.spellIntervals.splice(
@@ -64,4 +70,25 @@ class Spell extends MovableObject {
       }, 1000 / 10);
     }
   }
+
+  //   enemyHitBySpell() {
+  //     if (world.spell.length > 0) {
+  //     world.currentSpell = world.spell[0];
+  //       world.level.enemies.forEach((enemy, i) => {
+  //         if (enemy.isCollidingSpell(currentSpell) && !enemy.hasBeenHit) {
+  //           enemy.hit();
+  //           enemy.hasBeenHit = true;
+  //           setTimeout(() => {
+  //             world.spliceSpells();
+  //           }, 10);
+  //           if (enemy.isDead()) {
+  //             enemy.playAnimationOnce(enemy.ENEMY_DEAD);
+  //             setTimeout(() => {
+  //               world.level.enemies.splice(i, 1);
+  //             }, 500);
+  //           }
+  //         }
+  //       });
+  //     }
+  //   }
 }

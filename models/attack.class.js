@@ -29,6 +29,7 @@ class Attack extends MovableObject {
       if (world.attack.length > 0) {
         this.checkEnemiesForHit(currentAttack);
         this.checkMinionsForHit(currentAttack);
+        this.checkBossForHit(currentAttack);
 
       }
     }
@@ -48,6 +49,12 @@ class Attack extends MovableObject {
         this.handleMinionHit(minion, i);
       }
     });
+  }
+
+  checkBossForHit(currentAttack) {
+      if (world.level.boss.isCollidingSword(currentAttack)) {
+        this.handleBossHit(world.level.boss);
+      }
   }
 
   handleEnemyHit(target, index) {
@@ -78,6 +85,19 @@ class Attack extends MovableObject {
     }
   }
 
+  handleBossHit(target) {
+    target.bossHit();
+    setTimeout(() => {
+      this.spliceCurrentAttack();
+    }, 100);
+    if (target.isDead()) {
+      target.playAnimationOnce(target.BOSS_DEAD);
+      // setTimeout(() => {
+      //   this.removeBoss();
+      // }, 500);
+    }
+  }
+
   spliceCurrentAttack() {
     world.attack.splice(0, 1);
   }
@@ -89,4 +109,8 @@ class Attack extends MovableObject {
   removeMinion(index) {
     world.level.minions.splice(index, 1);
   }
+
+  // removeBoss() {
+  //   world.level.minions = null;
+  // }
 }

@@ -141,23 +141,29 @@ class World {
   }
 
   enemyHitBySpell() {
-    if (this.spell.length > 0) {
-      let currentSpell = this.spell[0];
-      this.level.enemies.forEach((enemy, i) => {
-        if (enemy.isCollidingSpell(currentSpell) && !enemy.hasBeenHit) {
-          enemy.hit();
-          enemy.hasBeenHit = true;
-          setTimeout(() => {
-            this.spliceSpells();
-          }, 10);
-          if (enemy.isDead()) {
-            enemy.playAnimationOnce(enemy.ENEMY_DEAD);
+    for (
+      let activeCastSpell = 0;
+      activeCastSpell < this.spell.length;
+      activeCastSpell++
+    ) {
+      let currentSpell = this.spell[activeCastSpell];
+      if (this.spell.length > 0) {
+        this.level.enemies.forEach((enemy, i) => {
+          if (enemy.isCollidingSpell(currentSpell) && !enemy.hasBeenHit) {
+            enemy.hit();
+            enemy.hasBeenHit = true;
             setTimeout(() => {
-              this.level.enemies.splice(i, 1);
-            }, 500);
+              this.spliceSpells();
+            }, 10);
+            if (enemy.isDead()) {
+              enemy.playAnimationOnce(enemy.ENEMY_DEAD);
+              setTimeout(() => {
+                this.level.enemies.splice(i, 1);
+              }, 500);
+            }
           }
-        }
-      });
+        });
+      }
     }
   }
 
@@ -183,22 +189,25 @@ class World {
   }
 
   bossHitBySpell() {
-    if (this.spell.length > 0) {
-      let currentSpell = this.spell[0];
-      if (
-        this.level.boss.isCollidingSpell(currentSpell) &&
-        !this.level.boss.hasBeenHit
-      ) {
-        this.level.boss.bossHit();
-        this.level.boss.hasBeenHit = true;
-        setTimeout(() => {
-          this.spliceSpells();
-        }, 10);
-        if (this.level.boss.isDead()) {
-          this.level.boss.playAnimationOnce(this.level.boss.BOSS_DEAD);
-          // setTimeout(() => {
-          //   this.level.boss.splice(i, 1);
-          // }, 500);
+    for (
+      let activeCastSpell = 0;
+      activeCastSpell < this.spell.length;
+      activeCastSpell++
+    ) {
+      let currentSpell = this.spell[activeCastSpell];
+      if (this.spell.length > 0) {
+        if (
+          this.level.boss.isCollidingSpell(currentSpell)) {
+          this.level.boss.bossHit();
+          setTimeout(() => {
+            this.spliceSpells();
+          }, 10);
+          if (this.level.boss.isDead()) {
+            this.level.boss.playAnimationOnce(this.level.boss.BOSS_DEAD);
+            // setTimeout(() => {
+            //   this.level.boss.splice(i, 1);
+            // }, 500);
+          }
         }
       }
     }

@@ -36,7 +36,7 @@ class Boss extends MovableObject {
   constructor(imagePath, x) {
     super().loadImage(imagePath);
     this.x = x;
-    this.speed = 0.5 + Math.random();
+    this.speed = 0.5;
     this.loadImages(this.BOSS_WALKING);
     this.loadImages(this.BOSS_HURT);
     this.loadImages(this.BOSS_DEAD);
@@ -60,9 +60,9 @@ class Boss extends MovableObject {
       }
     }, 1000 / 60);
     setInterval(() => {
-      if (world.character.x > 90 || !this.firstContact) {
+      if ((world.character.x > 90 || !this.firstContact) && (!this.bossGotHit() || !this.isDead()) ) {
         this.playAnimation(this.BOSS_WALKING);
-        this.walkingSound.play();
+        // this.walkingSound.play();
         this.walkingSound.volume = 0.05;
         this.walkingSound.playbackRate = 0.8;
         this.firstContact = true;
