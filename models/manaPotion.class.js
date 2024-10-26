@@ -27,9 +27,10 @@ class Manapotion extends MovableObject {
   }
 
   manaPotionGathered() {
-    world.manaBar.manaPoints += 0.2;
     if (world.manaBar.manaPoints == 1) {
-        world.manaBar.manaPoints = 1;
+        return;
+    } else {
+        world.manaBar.manaPoints += 0.2;
     }
   }
 }
