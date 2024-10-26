@@ -37,7 +37,7 @@ class Enemy extends MovableObject {
   }
   animate() {
     setInterval(() => {
-      // this.moveLeft();
+      this.moveLeft();
     }, 1000 / 60);
     setInterval(() => {
       if (this.gotHit()) {
@@ -45,6 +45,7 @@ class Enemy extends MovableObject {
       } if (this.isDead()) {
         this.playAnimationOnce(this.CHARACTER_ATTACK_SPELL_HIT);
         this.playAnimationOnce(this.ENEMY_DEAD);
+        this.isEnemyDead();
       } else {
         this.playAnimation(this.ENEMY_WALKING);
         // this.walkingSound.play();
@@ -52,5 +53,13 @@ class Enemy extends MovableObject {
         this.walkingSound.playbackRate = 0.8;
       }
     }, 500 / 4);
+  }
+
+  isEnemyDead(){
+    if (this.isDead()) {
+      let dropManaPotion = new Manapotion(this.x)
+      world.manaPoints.push(dropManaPotion);
+      this.speed = 0;
+    }
   }
 }
