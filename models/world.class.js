@@ -6,6 +6,7 @@ class World {
     "assets/png/character/characterDefault/characterDefault1.png",
     0.1
   );
+  manaPoints = new Manapotion("assets/png/potion/manaPotion.png", 0);
   musicTheme = new Audio("assets/sounds/backgroundMusic.mp3");
   attack = [];
   spell = [];
@@ -84,6 +85,7 @@ class World {
 
     this.addToMap(this.character);
     this.addToMap(this.level.boss);
+    this.addToMap(this.manaPoints);
     this.ctx.translate(-this.cameraX, 0);
 
     let self = this;

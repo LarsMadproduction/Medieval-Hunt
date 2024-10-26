@@ -4,7 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Medieval Hunt</title>
-    <link rel="icon" type="image/x-icon" href="./assets/png/character/characterChargeSkill/characterChargeSkill2.png">
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="./assets/png/character/characterChargeSkill/characterChargeSkill2.png"
+    />
     <link rel="stylesheet" href="./style.css" />
     <script src="./models/world.class.js"></script>
     <script src="./models/drawableObjects.class.js"></script>
@@ -22,14 +26,17 @@
     <script src="./models/enemy.class.js"></script>
     <script src="./models/minions.class.js"></script>
     <script src="./models/boss.class.js"></script>
+    <script src="./models/manaPotion.class.js"></script>
     <script src="./models/level.class.js"></script>
     <script src="./levels/level1.js"></script>
     <script src="./script.js"></script>
   </head>
   <body>
     <h1>Medieval Hunt</h1>
-    <canvas id="canvas" width="4315" height="480"></canvas>
+    <div>
+      <canvas id="canvas" width="4320" height="480"></canvas>
       <button onclick="initLevel(), init()">Start</button>
       <button onclick="initLevel(), restart()">Restart</button>
+    </div>
   </body>
 </html>
