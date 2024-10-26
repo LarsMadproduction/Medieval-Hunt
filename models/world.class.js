@@ -6,7 +6,7 @@ class World {
     "assets/png/character/characterDefault/characterDefault1.png",
     0.1
   );
-  manaPoints = [];
+  manaPotions = [];
   musicTheme = new Audio("assets/sounds/backgroundMusic.mp3");
   attack = [];
   spell = [];
@@ -75,7 +75,7 @@ class World {
     this.addObjectsToMap(this.level.minions);
     this.addObjectsToMap(this.attack);
     this.addObjectsToMap(this.spell);
-    this.addObjectsToMap(this.manaPoints);
+    this.addObjectsToMap(this.manaPotions);
     this.addObjectsToMap(this.level.coins);
 
     this.ctx.translate(-this.cameraX, 0);

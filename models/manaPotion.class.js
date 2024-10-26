@@ -15,14 +15,21 @@ class Manapotion extends MovableObject {
     this.gatherMana();
     this.x = x;
   }
-  gatherMana(){
+  gatherMana() {
     setInterval(() => {
-      world.manaPoints.forEach((manaPotion, i) => {
+      world.manaPotions.forEach((manaPotion, i) => {
         if (world.character.isCollidingPotion(manaPotion)) {
-          world.manaPoints.splice(i, 1);
-          // this.coinsCollected++;
+          world.manaPotions.splice(i, 1);
+          this.manaPotionGathered();
         }
       });
     }, 0);
+  }
+
+  manaPotionGathered() {
+    world.manaBar.manaPoints += 0.2;
+    if (world.manaBar.manaPoints == 1) {
+        world.manaBar.manaPoints = 1;
+    }
   }
 }

@@ -59,7 +59,7 @@ class Enemy extends MovableObject {
   isEnemyDead(){
     if (this.isDead() && !this.hasDroppedManaPotion) {
       let dropManaPotion = new Manapotion(this.x)
-      world.manaPoints.push(dropManaPotion);
+      world.manaPotions.push(dropManaPotion);
       this.speed = 0;
       this.hasDroppedManaPotion = true;
     }
