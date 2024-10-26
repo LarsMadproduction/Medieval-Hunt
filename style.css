@@ -1,51 +1,76 @@
 body {
-    /* display: flex; */
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: #00000094;
-    background-image: url("assets/png/background/bright/mainBackground.png");
-    background-repeat: no-repeat;
-    height: 100vh;
-    margin: 0;
-    background-position: center;
-    font-family: 'pixelFont', Arial, Helvetica, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #00000094;
+  background-image: url("assets/png/background/bright/mainBackground.png");
+  background-repeat: no-repeat;
+  height: 100vh;
+  margin: 0;
+  background-position: center;
+  font-family: "pixelFont", Arial, Helvetica, sans-serif;
 }
 
-h1{
-    font-size: 64px;
-    letter-spacing: 5px;
-    text-shadow: 2px 2px 8px rgb(255, 255, 255,0.5);
+.start-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-image: url("assets/png/background/startScreen/startScreen.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 480px;
+  width: 720px;
+}
+
+h1 {
+  font-size: 64px;
+  text-shadow: 2px 2px 8px rgb(255, 255, 255);
 }
 
 canvas {
-    background-color: black;
-    display: block;
+  background-color: black;
+  display: block;
+}
+
+button {
+  cursor: pointer;
+  font-family: "pixelFont";
+  color: white;
+  border: none;
+  height: 34px;
+  width: 120px;
+  box-shadow: -3px 0 0 0 black, 3px 0 0 0 black, 0 -3px 0 0 black,
+    0 3px 0 0 black;
+  background-image: url("assets/png/assets/button.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.d-none {
+  display: none;
 }
 
 @font-face {
-    font-family: 'pixelFont';
-    src: url('assets/font/joystixMonospace.otf') format('opentype');
-    font-weight: normal;
-    font-style: normal;
+  font-family: "pixelFont";
+  src: url("assets/font/joystixMonospace.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
 }
 
 @media only screen and (max-width: 720px) {
-    canvas{
-        width: 100%;
-    }
-    h1{
-        display: none;
-     }
+  canvas {
+    width: 100%;
+  }
+  h1 {
+    display: none;
+  }
 }
 
 @media only screen and (max-width: 480px) {
-    canvas{
-        height: 100vh;
-    }
-     h1{
-        display: none;
-     }
+  canvas {
+    height: 100vh;
+  }
+  h1 {
+    display: none;
+  }
 }
-
-

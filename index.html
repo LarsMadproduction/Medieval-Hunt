@@ -32,11 +32,13 @@
     <script src="./script.js"></script>
   </head>
   <body>
-    <h1>Medieval Hunt</h1>
-    <div>
-      <canvas id="canvas" width="4320" height="480"></canvas>
-      <button onclick="initLevel(), init()">Start</button>
-      <button onclick="initLevel(), restart()">Restart</button>
+    <div id="start_screen" class="start-screen">
+      <h1 id="h1">Medieval Hunt</h1>
+      <div>
+        <canvas class="d-none" id="canvas" width="720" height="480"></canvas>
+        <button id="start_button" onclick="initLevel(), init()">Start</button>
+        <button id="restart_button" onclick="initLevel(), restart()">Restart</button>
+      </div>
     </div>
   </body>
 </html>
