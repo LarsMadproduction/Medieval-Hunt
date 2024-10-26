@@ -29,8 +29,6 @@ class World {
     this.swordAttack();
   }
   setWorld() {
-    this.lifeBar.world = this;
-    this.manaBar.world = this;
     this.collectedCoins.world = this;
     this.character.world = this;
     // this.musicTheme.play();
@@ -39,18 +37,18 @@ class World {
 
   static clear() {
     if (World.instance) {
-      const instance = World.instance;
-      instance.lifeBar = null;
-      instance.manaBar = null;
-      instance.collectedCoins = null;
-      instance.character = null;
-      instance.musicTheme.pause();
-      instance.musicTheme.currentTime = 0;
-      instance.attack.length = 0;
-      instance.spell.length = 0;
-      instance.enemies = [];
-      instance.attacks = [];
-      instance.imageCache = {};
+       World.instance = null
+      // instance.lifeBar = null;
+      // instance.manaBar = null;
+      // instance.collectedCoins = null;
+      // instance.character = null;
+      // instance.musicTheme.pause();
+      // instance.musicTheme.currentTime = 0;
+      // instance.attack.length = 0;
+      // instance.spell.length = 0;
+      // instance.enemies = [];
+      // instance.attacks = [];
+      // instance.imageCache = {};
     }
   }
   checkCollisions() {
@@ -77,13 +75,13 @@ class World {
     this.addObjectsToMap(this.spell);
     this.addObjectsToMap(this.manaPotions);
     this.addObjectsToMap(this.level.coins);
-
     this.ctx.translate(-this.cameraX, 0);
+
     this.addToMap(this.lifeBar);
     this.addToMap(this.manaBar);
     this.addToMap(this.collectedCoins);
+    
     this.ctx.translate(this.cameraX, 0);
-
     this.addToMap(this.character);
     this.addToMap(this.level.boss);
     this.ctx.translate(-this.cameraX, 0);

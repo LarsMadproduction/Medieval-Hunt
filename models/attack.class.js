@@ -51,7 +51,7 @@ class Attack extends MovableObject {
   }
 
   checkBossForHit(currentAttack) {
-    if (world.level.boss.isCollidingSword(currentAttack)) {
+    if (world.level.boss.isCollidingSword(currentAttack) && !world.level.boss.hasBeenHit) {
       this.handleBossHit(world.level.boss);
     }
   }
@@ -80,6 +80,7 @@ class Attack extends MovableObject {
 
   handleBossHit(target) {
     target.bossHitSword();
+    target.hasBeenHit = true;
     if (target.isDead()) {
       target.playAnimationOnce(target.BOSS_DEAD);
     }

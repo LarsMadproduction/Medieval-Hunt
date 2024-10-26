@@ -23,8 +23,8 @@ class MovableObject extends DrawableObject {
     "assets/png/character/characterChargeSkill/characterChargeSkill13.png",
   ];
 
-  constructor(world) {
-    super(world);
+  constructor() {
+    super();
     this.loadImages(this.CHARACTER_ATTACK_SPELL_HIT);
   }
 
