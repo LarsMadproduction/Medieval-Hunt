@@ -86,6 +86,15 @@ class MovableObject extends DrawableObject {
     );
   }
 
+  isCollidingPotion(mo) {
+    return (
+      this.x + 35 + this.width - 150 > mo.x &&
+      this.x + 35 < mo.x + mo.width &&
+      this.y + 120 + this.height - 120 > mo.y &&
+      this.y + 120 < mo.y + mo.height
+    );
+  }
+
   isCollidingEnemy(mo) {
     return (
       this.x + 45 + this.width - 150 > mo.x - 30 &&

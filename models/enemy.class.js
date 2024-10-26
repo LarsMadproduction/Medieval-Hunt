@@ -34,10 +34,11 @@ class Enemy extends MovableObject {
     this.loadImages(this.ENEMY_DEAD);
     this.animate();
     this.otherDirection = true;
+    this.hasDroppedManaPotion = false;
   }
   animate() {
     setInterval(() => {
-      this.moveLeft();
+      // this.moveLeft();
     }, 1000 / 60);
     setInterval(() => {
       if (this.gotHit()) {
@@ -56,10 +57,11 @@ class Enemy extends MovableObject {
   }
 
   isEnemyDead(){
-    if (this.isDead()) {
+    if (this.isDead() && !this.hasDroppedManaPotion) {
       let dropManaPotion = new Manapotion(this.x)
       world.manaPoints.push(dropManaPotion);
       this.speed = 0;
+      this.hasDroppedManaPotion = true;
     }
   }
 }

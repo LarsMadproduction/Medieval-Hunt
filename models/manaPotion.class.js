@@ -12,6 +12,17 @@ class Manapotion extends MovableObject {
     super().loadImage("assets/png/potion/manaPotion.png");
     this.loadImages(this.MANA_POTIONS);
     this.applyGravity();
+    this.gatherMana();
     this.x = x;
+  }
+  gatherMana(){
+    setInterval(() => {
+      world.manaPoints.forEach((manaPotion, i) => {
+        if (world.character.isCollidingPotion(manaPotion)) {
+          world.manaPoints.splice(i, 1);
+          // this.coinsCollected++;
+        }
+      });
+    }, 0);
   }
 }

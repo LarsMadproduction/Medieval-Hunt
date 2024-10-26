@@ -73,6 +73,16 @@ class DrawableObject {
     }
   }
 
+  hitBoxManapotion(ctx) {
+    if (this instanceof Manapotion) {
+      ctx.beginPath();
+      ctx.lineWidth = "3";
+      ctx.strokeStyle = "blue";
+      ctx.rect(this.x, this.y, this.width, this.height);
+      ctx.stroke();
+    }
+  }
+
   hitBoxTarget() {
     return (
       this instanceof Spell ||

@@ -108,6 +108,7 @@ class World {
     mo.hitBoxCharacterSword(this.ctx);
     mo.hitBoxEnemy(this.ctx);
     mo.hitBoxMinion(this.ctx);
+    mo.hitBoxManapotion(this.ctx)
     mo.progressLifeBar(this.ctx);
     mo.progressManaBar(this.ctx);
     mo.gatheredCoins(this.ctx);
