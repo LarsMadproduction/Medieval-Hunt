@@ -158,34 +158,13 @@ class DrawableObject {
     ctx.stroke();
   }
 
-  drawStatusBarFillWidth(
-    ctx,
-    x,
-    y,
-    fillWidth,
-    height,
-    radius,
-    fillPercentage,
-    statusColor
-  ) {
+  drawStatusBarFillWidth(ctx, x, y, fillWidth, height, radius, fillPercentage, statusColor) {
     ctx.beginPath();
     ctx.moveTo(x + radius, y);
     ctx.lineTo(x + fillWidth - radius, y);
-    ctx.arc(
-      x + fillWidth - radius,
-      y + radius,
-      radius,
-      Math.PI * 1.5,
-      Math.PI * 2
-    );
+    ctx.arc(x + fillWidth - radius, y + radius, radius, Math.PI * 1.5, Math.PI * 2);
     ctx.lineTo(x + fillWidth, y + height - radius);
-    ctx.arc(
-      x + fillWidth - radius,
-      y + height - radius,
-      radius,
-      0,
-      Math.PI * 0.5
-    );
+    ctx.arc( x + fillWidth - radius, y + height - radius, radius, 0, Math.PI * 0.5);
     ctx.lineTo(x + radius, y + height);
     ctx.arc(x + radius, y + height - radius, radius, Math.PI * 0.5, Math.PI);
     ctx.lineTo(x, y + radius);
@@ -218,7 +197,7 @@ class DrawableObject {
 
   drawCoinAmount(ctx) {
     let number = this.coinsCollected;
-    ctx.font = "bold 32px Arial";
+    ctx.font = "32px pixelFont";
     ctx.strokeStyle = "#fff";
     ctx.lineWidth = 2;
     ctx.strokeText(number, this.x + 65, this.y + 28);
@@ -228,7 +207,7 @@ class DrawableObject {
 
   drawXTime(ctx) {
     let xTimes = "X";
-    ctx.font = "bold 16px Arial";
+    ctx.font = "16px pixelFont";
     ctx.strokeStyle = "#fff";
     ctx.lineWidth = 2;
     ctx.strokeText(xTimes, this.x + 45, this.y + 28);

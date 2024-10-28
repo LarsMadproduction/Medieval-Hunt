@@ -135,7 +135,7 @@ class Character extends MovableObject {
   }
 
   characterBaseAttackAnimation() {
-    if (this.world.keyboard.HIT && !this.world.keyboard.RIGHT && !this.world.keyboard.LEFT) {
+    if (this.world.keyboard.HIT) {
       this.playAnimationOnce(this.CHARACTER_BASE_ATTACK);
     
     }

@@ -60,7 +60,7 @@ function cooldownAttack() {
     return;
   }
   let actionEnd = currentTime - actionAttackStart;
-  if (actionEnd > 500) {
+  if (actionEnd > 200) {
     executeAttack();
     actionAttackStart = currentTime;
   }

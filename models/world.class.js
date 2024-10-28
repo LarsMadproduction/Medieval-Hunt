@@ -204,9 +204,7 @@ class World {
     let currentTime = new Date().getTime();
     if (
       this.keyboard.HIT &&
-      !this.character.isDead() &&
-      !this.keyboard.RIGHT &&
-      !this.keyboard.LEFT
+      !this.character.isDead()
     ) {
       if (currentTime - this.lastAttackTime >= this.attackInterval) {
         this.performAttack();
