@@ -20,6 +20,9 @@ class Attack extends MovableObject {
   }
 
   hitted() {
+    setTimeout(() => {
+      world.level.boss.hasBeenHit = false;
+    }, 500);
     for (
       let activeAttack = 0;
       activeAttack < world.attack.length;
@@ -51,7 +54,10 @@ class Attack extends MovableObject {
   }
 
   checkBossForHit(currentAttack) {
-    if (world.level.boss.isCollidingSword(currentAttack) && !world.level.boss.hasBeenHit) {
+    if (
+      world.level.boss.isCollidingSword(currentAttack) &&
+      !world.level.boss.hasBeenHit
+    ) {
       this.handleBossHit(world.level.boss);
     }
   }
@@ -88,7 +94,6 @@ class Attack extends MovableObject {
 
   removeEnemy(index) {
     world.level.enemies.splice(index, 1);
-    
   }
 
   removeMinion(index) {
