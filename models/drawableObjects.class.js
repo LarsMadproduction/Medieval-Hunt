@@ -141,6 +141,30 @@ class DrawableObject {
     }
   }
 
+  progressBossLifeBar(ctx) {
+    if (this instanceof Boss) {
+      let x = this.x + 70;
+      let y = this.y +100;
+      let width = this.width * 0.5;
+      let height = 20;
+      let radius = 10;
+      let fillPercentage = this.healthPoints;
+      let fillWidth = width * fillPercentage;
+      let statusColor = "darkred";
+      this.drawStatusBarBackground(ctx, x, y, width, height, radius);
+      this.drawStatusBarFillWidth(
+        ctx,
+        x,
+        y,
+        fillWidth,
+        height,
+        radius,
+        fillPercentage,
+        statusColor
+      );
+    }
+  }
+
   drawStatusBarBackground(ctx, x, y, width, height, radius) {
     ctx.beginPath();
     ctx.moveTo(x + radius, y);
@@ -153,10 +177,10 @@ class DrawableObject {
     ctx.lineTo(x, y + radius);
     ctx.arc(x + radius, y + radius, radius, Math.PI, Math.PI * 1.5);
     ctx.closePath();
-    ctx.fillStyle = "black";
+    ctx.fillStyle = "#121B36";
     ctx.fill();
     ctx.lineWidth = "5";
-    ctx.strokeStyle = "black";
+    ctx.strokeStyle = "#121B36";
     ctx.stroke();
   }
 
@@ -183,7 +207,7 @@ class DrawableObject {
   }
 
   outOfManaOrLife(ctx, fillPercentage, statusColor) {
-    if (fillPercentage < 0.2) {
+    if (fillPercentage < 0.05) {
       ctx.fillStyle = "transparent";
     } else {
       ctx.fillStyle = statusColor;

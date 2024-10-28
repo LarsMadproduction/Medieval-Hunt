@@ -92,6 +92,7 @@ class Character extends MovableObject {
   characterMoveStatemants() {
     if (this.gotHit()) {
       this.playAnimationOnce(this.CHARACTER_HURT);
+      this.x -= this.speed +30
     } else if (this.isDead()) {
       this.playAnimationOnce(
         this.CHARACTER_DEAD,

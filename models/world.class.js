@@ -110,6 +110,7 @@ class World {
     mo.hitBoxManapotion(this.ctx);
     mo.progressLifeBar(this.ctx);
     mo.progressManaBar(this.ctx);
+    mo.progressBossLifeBar(this.ctx);
     mo.gatheredCoins(this.ctx);
     if (mo.otherDirection) {
       this.reverseMirrorImage(mo);
