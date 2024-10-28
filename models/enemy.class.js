@@ -23,8 +23,6 @@ class Enemy extends MovableObject {
     "assets/png/enemy/enemyDead/enemyDead2.png",
     "assets/png/enemy/enemyDead/enemyDead3.png",
   ];
-  world;
-  level;
   walkingSound = new Audio("assets/sounds/enemySteps.mp3");
   constructor(imagePath, x) {
     super().loadImage(imagePath);

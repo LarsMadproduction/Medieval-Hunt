@@ -37,20 +37,16 @@ class World {
 
   static clear() {
     if (World.instance) {
-       World.instance = null
-      // instance.lifeBar = null;
-      // instance.manaBar = null;
-      // instance.collectedCoins = null;
-      // instance.character = null;
-      // instance.musicTheme.pause();
-      // instance.musicTheme.currentTime = 0;
-      // instance.attack.length = 0;
-      // instance.spell.length = 0;
-      // instance.enemies = [];
-      // instance.attacks = [];
-      // instance.imageCache = {};
+      World.instance = null;
     }
   }
+
+  gameOver() {
+    setTimeout(() => {
+      clearAllIntervals();
+    }, 1500);
+  }
+
   checkCollisions() {
     setInterval(() => {
       if (!this.immortal) {
@@ -80,7 +76,7 @@ class World {
     this.addToMap(this.lifeBar);
     this.addToMap(this.manaBar);
     this.addToMap(this.collectedCoins);
-    
+
     this.ctx.translate(this.cameraX, 0);
     this.addToMap(this.character);
     this.addToMap(this.level.boss);
@@ -106,7 +102,7 @@ class World {
     mo.hitBoxCharacterSword(this.ctx);
     mo.hitBoxEnemy(this.ctx);
     mo.hitBoxMinion(this.ctx);
-    mo.hitBoxManapotion(this.ctx)
+    mo.hitBoxManapotion(this.ctx);
     mo.progressLifeBar(this.ctx);
     mo.progressManaBar(this.ctx);
     mo.gatheredCoins(this.ctx);
@@ -202,10 +198,7 @@ class World {
 
   checkSwordSwing() {
     let currentTime = new Date().getTime();
-    if (
-      this.keyboard.HIT &&
-      !this.character.isDead()
-    ) {
+    if (this.keyboard.HIT && !this.character.isDead()) {
       if (currentTime - this.lastAttackTime >= this.attackInterval) {
         this.performAttack();
       }

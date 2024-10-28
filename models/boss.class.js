@@ -61,6 +61,7 @@ class Boss extends MovableObject {
         else if (this.isDead()) {
             this.playAnimationOnce(this.CHARACTER_ATTACK_SPELL_HIT);
             this.playAnimationOnce(this.BOSS_DEAD, "assets/png/character/characterDead/characterDead4.png");
+            world.gameOver();
             world.immortal = true;
         } 
         else if (!this.bossGotHit() && !this.isDead()) {

@@ -97,6 +97,7 @@ class Character extends MovableObject {
         this.CHARACTER_DEAD,
         "assets/png/character/characterDead/characterDead4.png"
       );
+      this.world.gameOver();
     } else if (
       (this.world.keyboard.RIGHT &&
         !this.isAboveGround() &&
