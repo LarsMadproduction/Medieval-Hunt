@@ -7,6 +7,8 @@ class DrawableObject {
   imageCache = {};
   currentImage = 0;
   coinsCollected = 0;
+  healthPoints = 1;
+  manaPoints = 1;
 
   loadImage(path) {
     this.img = new Image();

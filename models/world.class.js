@@ -44,6 +44,11 @@ class World {
   gameOver() {
     setTimeout(() => {
       clearAllIntervals();
+      document.getElementById("start_screen").classList.add("start-screen");
+      document.getElementById("h1").classList.remove("d-none");
+      document.getElementById("start_button").classList.add("d-none");
+      document.getElementById('restart_button').classList.remove('d-none');
+      canvas.classList.add("d-none");
     }, 1500);
   }
 
@@ -156,12 +161,8 @@ class World {
   }
 
   checkSpellCasting() {
-    const currentTime = new Date().getTime();
-    if (
-      this.manaBar.manaPoints > 0 &&
-      this.keyboard.SPELL &&
-      !this.character.isDead()
-    ) {
+    let currentTime = new Date().getTime();
+    if (this.keyboard.SPELL && !this.character.isDead()) {
       if (currentTime - this.lastCastTime >= this.castInterval) {
         this.performSpell();
       }

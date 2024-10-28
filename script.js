@@ -10,7 +10,7 @@ function init() {
   document.getElementById('start_screen').classList.remove('start-screen');
   document.getElementById('h1').classList.add('d-none');
   document.getElementById('start_button').classList.add('d-none');
-  // document.getElementById('restart_button').classList.add('d-none');
+  document.getElementById('restart_button').classList.add('d-none');
   canvas.classList.remove('d-none');
 }
 

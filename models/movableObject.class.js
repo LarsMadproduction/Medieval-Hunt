@@ -6,8 +6,7 @@ class MovableObject extends DrawableObject {
   lastHit = 0;
   lastBossHit = 0;
   lastSpell = 0;
-  healthPoints = 1;
-  manaPoints = 1;
+
   i = 0;
   spellIntervals = [];
   hasBeenHit = false;
@@ -40,12 +39,6 @@ class MovableObject extends DrawableObject {
   isAboveGround() {
     return this.y < 100;
   }
-
-  // togglePause() {
-  //   if (!this.keyboard.PAUSE) {
-  //   } else if (this.keyboard.PAUSE) {
-  //   }
-  // }
 
   playAnimation(images) {
     let i = this.currentImage % images.length;
