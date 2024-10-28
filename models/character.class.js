@@ -1,5 +1,7 @@
 class Character extends MovableObject {
   speed = 3.8;
+  characterAfk = false;
+  lastActiveTime = Date.now();
   CHARACTER_DEFAULT = [
     "assets/png/character/characterDefault/characterDefault1.png",
     "assets/png/character/characterDefault/characterDefault2.png",
@@ -8,6 +10,14 @@ class Character extends MovableObject {
     "assets/png/character/characterDefault/characterDefault5.png",
     "assets/png/character/characterDefault/characterDefault6.png",
     "assets/png/character/characterDefault/characterDefault7.png",
+  ];
+  CHARACTER_AFK = [
+    "assets/png/character/characterJump/characterJump1.png",
+    "assets/png/character/characterJump/characterJump2.png",
+    "assets/png/character/characterJump/characterJump3.png",
+    "assets/png/character/characterJump/characterJump3.png",
+    "assets/png/character/characterJump/characterJump2.png",
+    "assets/png/character/characterJump/characterJump1.png",
   ];
   CHARACTER_WALKING = [
     "assets/png/character/characterWalk/characterWalk01.png",
@@ -55,6 +65,7 @@ class Character extends MovableObject {
     this.applyGravity();
     this.x = x;
     this.loadImages(this.CHARACTER_DEFAULT);
+    this.loadImages(this.CHARACTER_AFK);
     this.loadImages(this.CHARACTER_WALKING);
     this.loadImages(this.CHARACTER_JUMP);
     this.loadImages(this.CHARACTER_CHARGE_SPELL);
@@ -75,23 +86,31 @@ class Character extends MovableObject {
     setInterval(() => {
       this.characterMoveStatemants();
     }, 700 / 4);
+    setInterval(() => {
+      this.isAfk();
+    }, 0);
   }
 
   characterMovement() {
     if (world.keyboard.RIGHT && this.x < this.world.level.levelEndX) {
       this.moveRight();
+      this.backInAction();
     }
     if (this.world.keyboard.LEFT && this.x > 0) {
       this.moveLeft();
+      this.backInAction();
     }
     if (this.world.keyboard.JUMP && !this.isAboveGround()) {
       this.jump();
+      this.backInAction();
     }
     this.world.cameraX = -this.x + 0;
   }
 
   characterMoveStatemants() {
-    if (this.gotHit()) {
+    if (this.characterAfk) {
+      this.playAnimation(this.CHARACTER_AFK);
+    } else if (this.gotHit()) {
       this.playAnimationOnce(this.CHARACTER_HURT);
     } else if (this.isDead()) {
       this.playAnimationOnce(
@@ -122,9 +141,9 @@ class Character extends MovableObject {
     }
   }
 
-  characterKnockBackAnimation(){
+  characterKnockBackAnimation() {
     if (this.gotHit()) {
-      this.x -= this.speed + 2
+      this.x -= this.speed + 2;
       setTimeout(() => {
         world.immortal = false;
       }, 500);
@@ -139,6 +158,7 @@ class Character extends MovableObject {
         !this.lastAnimationTime ||
         currentTime - this.lastAnimationTime >= animationInterval
       ) {
+        this.backInAction();
         this.playAnimationOnce(this.CHARACTER_CHARGE_SPELL);
         this.lastAnimationTime = currentTime;
       }
@@ -147,8 +167,8 @@ class Character extends MovableObject {
 
   characterBaseAttackAnimation() {
     if (this.world.keyboard.HIT) {
+      this.backInAction();
       this.playAnimationOnce(this.CHARACTER_BASE_ATTACK);
-    
     }
   }
 
@@ -156,5 +176,19 @@ class Character extends MovableObject {
     this.walkingSound.play();
     this.walkingSound.playbackRate = 2.5;
     this.walkingSound.volume = 1;
+  }
+
+  isAfk() {
+    let currentAfkTime = Date.now();
+    if (currentAfkTime - this.lastActiveTime < 8000) {
+      this.characterAfk = false;
+    } else {
+      this.characterAfk = true;
+    }
+  }
+
+  backInAction() {
+    this.lastActiveTime = Date.now();
+    this.characterAfk = false;
   }
 }
