@@ -57,6 +57,7 @@ class Boss extends MovableObject {
         }
         if (this.bossGotHit()) {
             this.playAnimationOnce(this.BOSS_HURT);
+            world.attack = [];
         } 
         else if (this.isDead()) {
             this.playAnimationOnce(this.CHARACTER_ATTACK_SPELL_HIT);

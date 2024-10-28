@@ -59,7 +59,7 @@ class World {
         this.hitByMinion();
         this.hitByBoss();
       }
-    }, 800);
+    }, 0);
   }
 
   stopMusic() {
@@ -133,6 +133,7 @@ class World {
   hitByEnemy() {
     this.level.enemies.forEach((enemy) => {
       if (this.character.isCollidingEnemy(enemy)) {
+        this.immortal = true
         this.character.hit();
         this.lifeBar.hit();
       }
@@ -142,6 +143,7 @@ class World {
   hitByMinion() {
     this.level.minions.forEach((minions) => {
       if (this.character.isCollidingMinion(minions)) {
+        this.immortal = true
         this.character.hit();
         this.lifeBar.hit();
       }
@@ -150,6 +152,7 @@ class World {
 
   hitByBoss() {
     if (this.character.isCollidingBoss(this.level.boss)) {
+      this.immortal = true
       this.character.hit();
       this.lifeBar.hit();
     }
@@ -216,7 +219,7 @@ class World {
   }
 
   clearExistingAttacks() {
-    world.attack.length = 0;
+    world.attack = [];
     setTimeout(() => {
       this.immortal = false;
     }, 500);

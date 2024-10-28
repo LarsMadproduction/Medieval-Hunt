@@ -69,6 +69,7 @@ class Character extends MovableObject {
         this.characterMovement();
         this.characterSpellAnimation();
         this.characterBaseAttackAnimation();
+        this.characterKnockBackAnimation();
       }
     }, 1000 / 60);
     setInterval(() => {
@@ -92,7 +93,6 @@ class Character extends MovableObject {
   characterMoveStatemants() {
     if (this.gotHit()) {
       this.playAnimationOnce(this.CHARACTER_HURT);
-      this.x -= this.speed +30
     } else if (this.isDead()) {
       this.playAnimationOnce(
         this.CHARACTER_DEAD,
@@ -119,6 +119,15 @@ class Character extends MovableObject {
     } else if (this.isAboveGround()) {
       this.playAnimationOnce(this.CHARACTER_JUMP);
       this.world.keyboard.HIT = false;
+    }
+  }
+
+  characterKnockBackAnimation(){
+    if (this.gotHit()) {
+      this.x -= this.speed + 2
+      setTimeout(() => {
+        world.immortal = false;
+      }, 500);
     }
   }
 
