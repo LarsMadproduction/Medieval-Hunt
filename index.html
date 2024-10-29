@@ -29,15 +29,61 @@
     <script src="./models/manaPotion.class.js"></script>
     <script src="./models/level.class.js"></script>
     <script src="./levels/level1.js"></script>
+    <script src="./scripts/buttons.js"></script>
+    <script src="./scripts/controlTemplate.js"></script>
     <script src="./script.js"></script>
   </head>
   <body>
     <div id="start_screen" class="start-screen">
       <h1 id="h1">Medieval Hunt</h1>
-      <div>
+      <div class=" pos-rel">
         <canvas class="d-none" id="canvas" width="720" height="480"></canvas>
         <button id="start_button" onclick="initLevel(), init()">Start</button>
-        <button class="d-none" id="restart_button" onclick="restart()">Restart</button>
+        <button class="d-none" id="restart_button" onclick="restart()">
+          Restart
+        </button>
+        <button class="controls-button" id="controls_button" onclick="openControls()">Controls</button>
+        <button class="d-none left-button" id="left_button">Left</button>
+        <button class="d-none right-button" id="right_button">Right</button>
+        <button class="d-none spell-button" id="spell_button">Spell</button>
+        <button class="d-none sword-button" id="sword_button">Sword</button>
+        <button class="d-none jump-button" id="jump_button">Jump</button>
+      </div>
+    </div>
+    <div id="control_overlay" onclick="closeControls()" class="control-overlay d-none">
+      <div id="control_table" class="control-table">
+        <table onclick="bubblingPrevention(event)">
+          <tr>
+            <th>Keyboard Control</th>
+            <th>Action</th>
+            <th>Touch control alternative</th>
+          </tr>
+          <tr>
+            <td>"A"</td>
+            <td>Move Left</td>
+            <td>Left Icon</td>
+          </tr>
+          <tr>
+            <td>"D"</td>
+            <td>Move Right</td>
+            <td>Right Icon</td>
+          </tr>
+          <tr>
+            <td>"Spacebar"</td>
+            <td>Jump</td>
+            <td>Jump Icon</td>
+          </tr>
+          <tr>
+            <td>"W"</td>
+            <td>Magic Attack</td>
+            <td>Spell Icon</td>
+          </tr>
+          <tr>
+            <td>"S"</td>
+            <td>Sword Attack</td>
+            <td>Attack Icon</td>
+          </tr>
+        </table>
       </div>
     </div>
   </body>

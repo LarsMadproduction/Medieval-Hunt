@@ -12,6 +12,12 @@ function init() {
   document.getElementById('start_button').classList.add('d-none');
   document.getElementById('restart_button').classList.add('d-none');
   canvas.classList.remove('d-none');
+  controlsButton();
+  moveLeftButton ();
+  moveRightButton();
+  spellButton();
+  swordButton();
+  jumpButton();
 }
 
 function restart() {
