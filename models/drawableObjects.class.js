@@ -126,7 +126,6 @@ class DrawableObject {
       let fillPercentage = this.manaPoints;
       let fillWidth = width * fillPercentage;
       let statusColor = "#0089F3";
-      // this.disableSpellButton(fillPercentage);
       this.drawStatusBarBackground(ctx, x, y, width, height, radius);
       this.drawStatusBarFillWidth(
         ctx,
@@ -199,12 +198,6 @@ class DrawableObject {
     this.outOfManaOrLife(ctx, fillPercentage, statusColor);
     ctx.fill();
   }
-
-  // disableSpellButton(fillPercentage) {
-  //   if (fillPercentage == 0) {
-  //     world.keyboard.SPELL = false;
-  //   }
-  // }
 
   outOfManaOrLife(ctx, fillPercentage, statusColor) {
     if (fillPercentage < 0.05) {
