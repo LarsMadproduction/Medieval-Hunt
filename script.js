@@ -3,17 +3,31 @@ let world;
 let keyboard = new Keyboard();
 let actionSpellStart = null;
 let actionAttackStart = null;
+let x = window.matchMedia("(max-width: 720px)");
 
 function init() {
   canvas = document.getElementById("canvas");
   world = new World(canvas, keyboard);
   showStartScreenContent();
   controlsButton();
-  moveLeftButton();
-  moveRightButton();
-  spellButton();
-  swordButton();
-  jumpButton();
+
+  myFunction(x);
+}
+
+function mobileButtons(x) {
+  if (x.matches) {
+    moveLeftButton();
+    moveRightButton();
+    spellButton();
+    swordButton();
+    jumpButton();
+  } else {
+    moveLeftButton();
+    moveRightButton();
+    spellButton();
+    swordButton();
+    jumpButton();
+  }
 }
 
 function showStartScreenContent() {
@@ -156,4 +170,8 @@ window.addEventListener("keydown", function (k) {
   if (k.key === " " && k.target == document.body) {
     k.preventDefault();
   }
+});
+
+x.addEventListener("change", function () {
+  mobileButtons(x);
 });
