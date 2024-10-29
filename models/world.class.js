@@ -15,7 +15,6 @@ class World {
   ctx;
   keyboard;
   cameraX = 0;
-  immortal = false;
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -47,19 +46,19 @@ class World {
       document.getElementById("start_screen").classList.add("start-screen");
       document.getElementById("h1").classList.remove("d-none");
       document.getElementById("start_button").classList.add("d-none");
-      document.getElementById('restart_button').classList.remove('d-none');
+      document.getElementById("restart_button").classList.remove("d-none");
       canvas.classList.add("d-none");
     }, 1500);
   }
 
   checkCollisions() {
     setInterval(() => {
-      if (!this.immortal) {
+      if (!this.character.immortal) {
         this.hitByEnemy();
         this.hitByMinion();
         this.hitByBoss();
       }
-    }, 0);
+    }, 100);
   }
 
   stopMusic() {
@@ -133,9 +132,14 @@ class World {
   hitByEnemy() {
     this.level.enemies.forEach((enemy) => {
       if (this.character.isCollidingEnemy(enemy)) {
-        this.immortal = true
-        this.character.hit();
-        this.lifeBar.hit();
+        if (!this.character.immortal) {
+          this.character.immortal = true;
+          this.character.hit();
+          this.lifeBar.hit();
+          setTimeout(() => {
+            this.character.immortal = false;
+          }, 500);
+        }
       }
     });
   }
@@ -143,18 +147,28 @@ class World {
   hitByMinion() {
     this.level.minions.forEach((minions) => {
       if (this.character.isCollidingMinion(minions)) {
-        this.immortal = true
-        this.character.hit();
-        this.lifeBar.hit();
+        if (!this.character.immortal) {
+          this.character.immortal = true;
+          this.character.hit();
+          this.lifeBar.hit();
+          setTimeout(() => {
+            this.character.immortal = false;
+          }, 500);
+        }
       }
     });
   }
 
   hitByBoss() {
     if (this.character.isCollidingBoss(this.level.boss)) {
-      this.immortal = true
-      this.character.hit();
-      this.lifeBar.hit();
+      if (!this.character.immortal) {
+        this.character.immortal = true;
+        this.character.hit();
+        this.lifeBar.hit();
+        setTimeout(() => {
+          this.character.immortal = false;
+        }, 500);
+      }
     }
   }
 
@@ -166,7 +180,13 @@ class World {
 
   checkSpellCasting() {
     let currentTime = new Date().getTime();
-    if (this.keyboard.SPELL && !this.character.isDead()) {
+    if (
+      this.keyboard.SPELL &&
+      !this.character.isDead() &&
+      this.manaBar.manaPoints > 0
+    ) {
+      console.log(this.character.manaPoints);
+
       if (currentTime - this.lastCastTime >= this.castInterval) {
         this.performSpell();
       }
@@ -214,14 +234,14 @@ class World {
   performAttack() {
     this.swordHitRight();
     this.swordHitLeft();
-    this.immortal = true;
+    this.character.immortal = true;
     this.lastAttackTime = new Date().getTime();
   }
 
   clearExistingAttacks() {
     world.attack = [];
     setTimeout(() => {
-      this.immortal = false;
+      this.character.immortal = false;
     }, 500);
   }
 

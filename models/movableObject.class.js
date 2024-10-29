@@ -176,8 +176,10 @@ class MovableObject extends DrawableObject {
 
   isSpellUsed() {
     this.manaPoints -= 0.2;
-    if (this.manaPoints < 0.2) {
+    world.character.manaPoints -= 0.2;
+    if (this.manaPoints < 0.1 || world.character.manaPoints < 0.1)  {
       this.manaPoints = 0;
+      world.character.manaPoints = 0;
     } else {
       this.lastSpell = new Date().getTime();
     }

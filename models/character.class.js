@@ -2,6 +2,7 @@ class Character extends MovableObject {
   speed = 3.8;
   characterAfk = false;
   lastActiveTime = Date.now();
+  immortal = false;
   CHARACTER_DEFAULT = [
     "assets/png/character/characterDefault/characterDefault1.png",
     "assets/png/character/characterDefault/characterDefault2.png",
@@ -73,6 +74,7 @@ class Character extends MovableObject {
     this.loadImages(this.CHARACTER_DEAD);
     this.loadImages(this.CHARACTER_BASE_ATTACK);
     this.animate();
+
   }
   animate() {
     setInterval(() => {
@@ -143,25 +145,14 @@ class Character extends MovableObject {
 
   characterKnockBackAnimation() {
     if (this.gotHit()) {
-      this.x -= this.speed + 2;
-      setTimeout(() => {
-        world.immortal = false;
-      }, 500);
+      this.x -= this.speed + 3;
     }
   }
 
   characterSpellAnimation() {
-    let currentTime = new Date().getTime();
-    let animationInterval = 1000 / 60;
     if (this.world.keyboard.SPELL) {
-      if (
-        !this.lastAnimationTime ||
-        currentTime - this.lastAnimationTime >= animationInterval
-      ) {
         this.backInAction();
         this.playAnimationOnce(this.CHARACTER_CHARGE_SPELL);
-        this.lastAnimationTime = currentTime;
-      }
     }
   }
 
