@@ -14,35 +14,34 @@ function bubblingPrevention(event) {
 
 function controlsButton() {
   let controlButton = document.getElementById("controls_button");
-  controlButton.classList.add("pos-abs");
+  controlButton.classList.toggle("pos-abs");
 }
 
 function moveLeftButton() {
   let moveLeftButton = document.getElementById("left_button");
-  moveLeftButton.classList.add("pos-abs");
-  moveLeftButton.classList.remove("d-none");
+  moveLeftButton.classList.toggle("d-none");
 }
 
 function moveRightButton() {
   let moveLeftButton = document.getElementById("right_button");
-  moveLeftButton.classList.add("pos-abs");
-  moveLeftButton.classList.remove("d-none");
+  moveLeftButton.classList.toggle("d-none");
 }
 
 function spellButton() {
   let moveLeftButton = document.getElementById("spell_button");
-  moveLeftButton.classList.add("pos-abs");
-  moveLeftButton.classList.remove("d-none");
+  moveLeftButton.classList.toggle("d-none");
 }
 
 function swordButton() {
   let moveLeftButton = document.getElementById("sword_button");
-  moveLeftButton.classList.add("pos-abs");
-  moveLeftButton.classList.remove("d-none");
+  moveLeftButton.classList.toggle("d-none");
 }
 
 function jumpButton() {
   let moveLeftButton = document.getElementById("jump_button");
-  moveLeftButton.classList.add("pos-abs");
-  moveLeftButton.classList.remove("d-none");
+  moveLeftButton.classList.toggle("d-none");
+}
+
+function removeButtons(){
+
 }

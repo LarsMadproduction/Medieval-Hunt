@@ -7,17 +7,29 @@ let actionAttackStart = null;
 function init() {
   canvas = document.getElementById("canvas");
   world = new World(canvas, keyboard);
-  document.getElementById('start_screen').classList.remove('start-screen');
-  document.getElementById('h1').classList.add('d-none');
-  document.getElementById('start_button').classList.add('d-none');
-  document.getElementById('restart_button').classList.add('d-none');
-  canvas.classList.remove('d-none');
+  showStartScreenContent();
   controlsButton();
-  moveLeftButton ();
+  moveLeftButton();
   moveRightButton();
   spellButton();
   swordButton();
   jumpButton();
+}
+
+function showStartScreenContent() {
+  document.getElementById("start_screen").classList.remove("start-screen");
+  document.getElementById("h1").classList.add("d-none");
+  document.getElementById("start_button").classList.add("d-none");
+  document.getElementById("restart_button").classList.add("d-none");
+  canvas.classList.remove("d-none");
+}
+
+function showEndScreenContent() {
+  document.getElementById("start_screen").classList.add("start-screen");
+  document.getElementById("h1").classList.remove("d-none");
+  document.getElementById("start_button").classList.add("d-none");
+  document.getElementById("restart_button").classList.remove("d-none");
+  canvas.classList.add("d-none");
 }
 
 function restart() {
@@ -78,33 +90,33 @@ window.addEventListener("keydown", (k) => {
     keyboard.RIGHT = true;
     attackTimeout = setTimeout(() => {
       keyboard.HIT = false;
-  }, 100);
+    }, 100);
   }
   if (k.key === "a") {
     keyboard.LEFT = true;
     attackTimeout = setTimeout(() => {
       keyboard.HIT = false;
-  }, 100);
+    }, 100);
   }
   if (k.key === " ") {
     keyboard.JUMP = true;
     attackTimeout = setTimeout(() => {
       keyboard.HIT = false;
-  }, 100);
+    }, 100);
   }
 
   if (k.key === "w") {
     cooldownSpell();
     attackTimeout = setTimeout(() => {
       keyboard.HIT = false;
-  }, 100);
+    }, 100);
   }
 
   if (k.key === "s") {
     cooldownAttack();
     attackTimeout = setTimeout(() => {
       keyboard.HIT = false;
-  }, 100);
+    }, 100);
   }
 
   if (k.key === "p") {

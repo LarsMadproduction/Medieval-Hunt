@@ -43,11 +43,13 @@ class World {
   gameOver() {
     setTimeout(() => {
       clearAllIntervals();
-      document.getElementById("start_screen").classList.add("start-screen");
-      document.getElementById("h1").classList.remove("d-none");
-      document.getElementById("start_button").classList.add("d-none");
-      document.getElementById("restart_button").classList.remove("d-none");
-      canvas.classList.add("d-none");
+      showEndScreenContent();
+      controlsButton();
+      moveLeftButton();
+      moveRightButton();
+      spellButton();
+      swordButton();
+      jumpButton();
     }, 1500);
   }
 
