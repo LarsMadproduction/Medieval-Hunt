@@ -102,6 +102,11 @@ td {
   right: 16px;
 }
 
+.music-button-on, .music-button-off{
+  top: 16px;
+  right: 150px;
+}
+
 .left-button {
   bottom: 16px;
   left: 16px;

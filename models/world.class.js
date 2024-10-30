@@ -43,7 +43,7 @@ class World {
       clearAllIntervals();
       MUSIC_THEME.pause();
       showEndScreenContent();
-      controlsButton();
+      controlButtons();
       world.gameStarted = false;
       x.removeEventListener("change", mediaQueryListener);
       hideMoveLeftButton();

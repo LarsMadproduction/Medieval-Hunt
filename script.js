@@ -13,7 +13,7 @@ function init() {
   canvas = document.getElementById("canvas");
   world = new World(canvas, keyboard);
   showStartScreenContent();
-  controlsButton();
+  controlButtons();
   gameStarted = true;
   mobileButtons(x);
   tochButtons();

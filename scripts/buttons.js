@@ -12,9 +12,21 @@ function bubblingPrevention(event) {
   event.stopPropagation();
 }
 
-function controlsButton() {
+function toggleSounds() {
+  let muteButtonOn = document.getElementById("music_button_on");
+  let muteButtonOff = document.getElementById("music_button_off");
+  muteButtonOn.classList.toggle("d-none");
+  muteButtonOff.classList.toggle("d-none");
+}
+
+function controlButtons() {
   let controlButton = document.getElementById("controls_button");
+  let muteButtonOn = document.getElementById("music_button_on");
+  let muteButtonOff = document.getElementById("music_button_off");
   controlButton.classList.toggle("pos-abs");
+  muteButtonOn.classList.toggle("pos-abs");
+  muteButtonOff.classList.toggle("pos-abs");
+
 }
 
 function hideMoveLeftButton() {
@@ -76,28 +88,37 @@ function tochButtons() {
     e.preventDefault();
     world.keyboard.LEFT = false;
   });
-  document.getElementById("right_button").addEventListener("touchstart", (e) => {
-    e.preventDefault();
-    world.keyboard.RIGHT = true;
-  });
+  document
+    .getElementById("right_button")
+    .addEventListener("touchstart", (e) => {
+      e.preventDefault();
+      world.keyboard.RIGHT = true;
+    });
   document.getElementById("right_button").addEventListener("touchend", (e) => {
     e.preventDefault();
     world.keyboard.RIGHT = false;
-  });document.getElementById("spell_button").addEventListener("touchstart", (e) => {
-    e.preventDefault();
-    world.keyboard.SPELL = true;
   });
+  document
+    .getElementById("spell_button")
+    .addEventListener("touchstart", (e) => {
+      e.preventDefault();
+      world.keyboard.SPELL = true;
+    });
   document.getElementById("spell_button").addEventListener("touchend", (e) => {
     e.preventDefault();
     world.keyboard.SPELL = false;
-  });document.getElementById("sword_button").addEventListener("touchstart", (e) => {
-    e.preventDefault();
-    world.keyboard.HIT = true;
   });
+  document
+    .getElementById("sword_button")
+    .addEventListener("touchstart", (e) => {
+      e.preventDefault();
+      world.keyboard.HIT = true;
+    });
   document.getElementById("sword_button").addEventListener("touchend", (e) => {
     e.preventDefault();
     world.keyboard.HIT = false;
-  });document.getElementById("jump_button").addEventListener("touchstart", (e) => {
+  });
+  document.getElementById("jump_button").addEventListener("touchstart", (e) => {
     e.preventDefault();
     world.keyboard.JUMP = true;
   });
