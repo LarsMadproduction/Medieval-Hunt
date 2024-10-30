@@ -18,7 +18,7 @@ function initLevel() {
       new Minion("assets/png/enemy/enemyWalk/enemyWalk1.png", 3880),
       new Minion("assets/png/enemy/enemyWalk/enemyWalk1.png", 4280),
     ],
-    new Boss("assets/png/boss/bossWalk/bossWalk1.png", 4520),
+    new Boss("assets/png/boss/bossWalk/bossWalk1.png", 520),
     [
       //COINSET 1
       new Coin("assets/png/coin/gold1.png", 430, 180),

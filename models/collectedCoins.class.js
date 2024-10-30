@@ -26,7 +26,6 @@ class CollectedCoins extends MovableObject {
   }
   animate() {
     setInterval(() => {
-      // this.walkingSound.play();
       this.playAnimation(this.COIN_FLIPP);
     }, 800 / 6);
   }
@@ -34,10 +33,12 @@ class CollectedCoins extends MovableObject {
     setInterval(() => {
       this.world.level.coins.forEach((coin, i) => {
         if (this.world.character.isCollidingCoin(coin)) {
+          SOUND_COIN_COLLECTED.currentTime = 0;
+          SOUND_COIN_COLLECTED.play();
           this.world.level.coins.splice(i, 1);
           this.coinsCollected++;
         }
       });
-    }, 0);
+    }, 100);
   }
 }

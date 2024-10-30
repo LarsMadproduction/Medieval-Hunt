@@ -28,10 +28,14 @@ class Manapotion extends MovableObject {
 
   manaPotionGathered() {
     if (world.manaBar.manaPoints == 1) {
-        return;
+      SOUND_MANA_SPILL.currentTime = 0;
+      SOUND_MANA_SPILL.play();
+      return;
     } else {
-        world.character.manaPoints += 0.2;
-        world.manaBar.manaPoints += 0.2;
+      world.character.manaPoints += 0.2;
+      world.manaBar.manaPoints += 0.2;
+      SOUND_MANA_SPILL.currentTime = 0;
+      SOUND_MANA_SPILL.play();
     }
   }
 }

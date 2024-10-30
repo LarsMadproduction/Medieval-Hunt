@@ -23,7 +23,6 @@ class Enemy extends MovableObject {
     "assets/png/enemy/enemyDead/enemyDead2.png",
     "assets/png/enemy/enemyDead/enemyDead3.png",
   ];
-  walkingSound = new Audio("assets/sounds/enemySteps.mp3");
   constructor(imagePath, x) {
     super().loadImage(imagePath);
     this.x = x;
@@ -47,9 +46,6 @@ class Enemy extends MovableObject {
         this.isEnemyDead();
       } else {
         this.playAnimation(this.ENEMY_WALKING);
-        this.walkingSound.play();
-        this.walkingSound.volume = 0.01;
-        this.walkingSound.playbackRate = 0.8;
       }
     }, 500 / 4);
   }

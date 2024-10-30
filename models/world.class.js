@@ -7,7 +7,6 @@ class World {
     0.1
   );
   manaPotions = [];
-  musicTheme = new Audio("assets/sounds/backgroundMusic.mp3");
   attack = [];
   spell = [];
   level = level1;
@@ -22,7 +21,6 @@ class World {
     this.keyboard = keyboard;
     this.draw();
     this.setWorld();
-    this.musicTheme.loop = true;
     this.checkCollisions();
     this.castSpell();
     this.swordAttack();
@@ -30,8 +28,7 @@ class World {
   setWorld() {
     this.collectedCoins.world = this;
     this.character.world = this;
-    this.musicTheme.play();
-    this.musicTheme.volume = 0.05;
+    MUSIC_THEME.play();
   }
 
   static clear() {
@@ -44,7 +41,7 @@ class World {
   gameOver() {
     setTimeout(() => {
       clearAllIntervals();
-      this.musicTheme.pause();
+      MUSIC_THEME.pause();
       showEndScreenContent();
       controlsButton();
       world.gameStarted = false;
@@ -67,10 +64,6 @@ class World {
     }, 100);
   }
 
-  stopMusic() {
-    this.musicTheme.pause();
-    this.musicTheme.currentTime = 0;
-  }
   draw() {
     this.deletFrame(this.ctx);
     this.ctx.translate(this.cameraX, 0);

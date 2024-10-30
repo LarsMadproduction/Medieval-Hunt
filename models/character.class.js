@@ -60,7 +60,6 @@ class Character extends MovableObject {
     "assets/png/character/characterBaseAttack/characterBaseAttack4.png",
   ];
   world;
-  walkingSound = new Audio("assets/sounds/characterSteps.mp3");
   constructor(imagePath, x) {
     super().loadImage(imagePath);
     this.applyGravity();
@@ -74,7 +73,6 @@ class Character extends MovableObject {
     this.loadImages(this.CHARACTER_DEAD);
     this.loadImages(this.CHARACTER_BASE_ATTACK);
     this.animate();
-
   }
   animate() {
     setInterval(() => {
@@ -115,6 +113,7 @@ class Character extends MovableObject {
     } else if (this.gotHit()) {
       this.playAnimationOnce(this.CHARACTER_HURT);
     } else if (this.isDead()) {
+      SOUND_CHARACTER_DEAD.play();
       this.playAnimationOnce(
         this.CHARACTER_DEAD,
         "assets/png/character/characterDead/characterDead4.png"
@@ -129,13 +128,13 @@ class Character extends MovableObject {
         !this.world.keyboard.SPELL)
     ) {
       this.playAnimation(this.CHARACTER_WALKING);
-      this.playSoundSteps();
+      SOUND_CHARACTER_STEPS.play();
     } else if (
       !this.isAboveGround() &&
       !this.world.keyboard.SPELL &&
       !this.world.keyboard.HIT
     ) {
-      this.walkingSound.pause();
+      SOUND_CHARACTER_STEPS.pause();
       this.playAnimation(this.CHARACTER_DEFAULT);
     } else if (this.isAboveGround()) {
       this.playAnimationOnce(this.CHARACTER_JUMP);
@@ -146,27 +145,24 @@ class Character extends MovableObject {
   characterKnockBackAnimation() {
     if (this.gotHit()) {
       this.x -= this.speed + 3;
+      SOUND_CHARACTER_HIT.play();
     }
   }
 
   characterSpellAnimation() {
     if (this.world.keyboard.SPELL) {
-        this.backInAction();
-        this.playAnimationOnce(this.CHARACTER_CHARGE_SPELL);
+      this.backInAction();
+      SOUND_CHARACTER_FIRE_SPELL.play();
+      this.playAnimationOnce(this.CHARACTER_CHARGE_SPELL);
     }
   }
 
   characterBaseAttackAnimation() {
     if (this.world.keyboard.HIT) {
       this.backInAction();
+      SOUND_CHARACTER_SWORD_SWING.play();
       this.playAnimationOnce(this.CHARACTER_BASE_ATTACK);
     }
-  }
-
-  playSoundSteps() {
-    this.walkingSound.play();
-    this.walkingSound.playbackRate = 2.5;
-    this.walkingSound.volume = 1;
   }
 
   isAfk() {

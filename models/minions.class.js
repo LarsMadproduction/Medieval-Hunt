@@ -30,15 +30,12 @@ class Minion extends MovableObject {
     "assets/png/minion/minionDead/minionDead3.png",
     "assets/png/minion/minionDead/minionDead4.png",
   ];
-  walkingSound = new Audio("assets/sounds/characterSteps.mp3");
   constructor(imagePath, x) {
     super().loadImage(imagePath);
-
     this.x = x;
     this.speed = 0.4 + Math.random() * 0.7;
     this.loadImages(this.MINION_WALKING);
     this.loadImages(this.MINION_DEAD);
-
     this.animate();
     this.otherDirection = true;
   }
@@ -56,9 +53,6 @@ class Minion extends MovableObject {
         this.playAnimationOnce(this.MINION_DEAD);
       } else {
         this.playAnimation(this.MINION_WALKING);
-        this.walkingSound.play();
-        this.walkingSound.volume = 0.01;
-        this.walkingSound.playbackRate = 0.8;
       }
     }, 500 / 4);
   }

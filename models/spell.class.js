@@ -83,6 +83,7 @@ class Spell extends MovableObject {
         world.level.enemies.forEach((enemy, i) => {
           if (enemy.isCollidingSpell(currentSpell) && !enemy.hasBeenHit) {
             enemy.hit();
+            ENEMY_DEAD.play();
             enemy.hasBeenHit = true;
             setTimeout(() => {
               this.spliceSpells();
@@ -110,6 +111,7 @@ class Spell extends MovableObject {
         world.level.minions.forEach((minion, i) => {
           if (minion.isCollidingSpell(currentSpell) && !minion.hasBeenHit) {
             minion.hit();
+            MINION_DEAD.play();
             minion.hasBeenHit = true;
             setTimeout(() => {
               this.spliceSpells();
@@ -136,10 +138,12 @@ class Spell extends MovableObject {
       if (world.spell.length > 0) {
         if (world.level.boss.isCollidingSpell(currentSpell)) {
           world.level.boss.bossHitSpell();
+          BOSS_HIT.play();
           setTimeout(() => {
             this.spliceSpells();
           }, 10);
           if (world.level.boss.isDead()) {
+            BOSS_DEAD.play();
             world.level.boss.playAnimationOnce(world.level.boss.BOSS_DEAD);
           }
         }

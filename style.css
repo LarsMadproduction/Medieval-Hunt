@@ -98,33 +98,33 @@ td {
 }
 
 .controls-button {
-  top: 0px;
-  right: 0px;
+  top: 16px;
+  right: 16px;
 }
 
 .left-button {
-  bottom: 0px;
-  left: 0px;
+  bottom: 16px;
+  left: 16px;
 }
 
 .right-button {
-  bottom: 0px;
-  left: 128px;
+  bottom: 16px;
+  left: 150px;
 }
 
 .spell-button {
-  bottom: 0px;
-  right: 128px;
+  bottom: 16px;
+  right: 150px;
 }
 
 .sword-button {
-  bottom: 40px;
-  right: 0px;
+  bottom: 64px;
+  right: 16px;
 }
 
 .jump-button {
-  bottom: 0px;
-  right: 0px;
+  bottom: 16px;
+  right: 16px;
 }
 
 @font-face {
