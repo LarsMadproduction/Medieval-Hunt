@@ -27,70 +27,70 @@ class DrawableObject {
     ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
   }
 
-  hitBoxCoin(ctx) {
-    if (this.hitBoxTarget()) {
-      ctx.beginPath();
-      ctx.lineWidth = "3";
-      ctx.strokeStyle = "green";
-      ctx.rect(this.x + 75, this.y + 120, this.width - 100, this.height - 235);
-      ctx.stroke();
-    }
-  }
-  hitBoxCharacter(ctx) {
-    if (this instanceof Character) {
-      ctx.beginPath();
-      ctx.lineWidth = "3";
-      ctx.strokeStyle = "blue";
-      ctx.rect(this.x + 45, this.y + 120, this.width - 150, this.height - 120);
-      ctx.stroke();
-    }
-  }
-  hitBoxCharacterSword(ctx) {
-    if (this instanceof Attack) {
-      ctx.beginPath();
-      ctx.lineWidth = "3";
-      ctx.strokeStyle = "darkblue";
-      ctx.rect(this.x + 115, this.y + 180, this.width - 150, this.height - 240);
-      ctx.stroke();
-    }
-  }
+  // hitBoxCoin(ctx) {
+  //   if (this.hitBoxTarget()) {
+  //     ctx.beginPath();
+  //     ctx.lineWidth = "3";
+  //     ctx.strokeStyle = "green";
+  //     ctx.rect(this.x + 75, this.y + 120, this.width - 100, this.height - 235);
+  //     ctx.stroke();
+  //   }
+  // }
+  // hitBoxCharacter(ctx) {
+  //   if (this instanceof Character) {
+  //     ctx.beginPath();
+  //     ctx.lineWidth = "3";
+  //     ctx.strokeStyle = "blue";
+  //     ctx.rect(this.x + 45, this.y + 120, this.width - 150, this.height - 120);
+  //     ctx.stroke();
+  //   }
+  // }
+  // hitBoxCharacterSword(ctx) {
+  //   if (this instanceof Attack) {
+  //     ctx.beginPath();
+  //     ctx.lineWidth = "3";
+  //     ctx.strokeStyle = "darkblue";
+  //     ctx.rect(this.x + 115, this.y + 180, this.width - 150, this.height - 240);
+  //     ctx.stroke();
+  //   }
+  // }
 
-  hitBoxEnemy(ctx) {
-    if (this instanceof Enemy) {
-      ctx.beginPath();
-      ctx.lineWidth = "3";
-      ctx.strokeStyle = "red";
-      ctx.rect(this.x + 60, this.y + 100, this.width - 100, this.height - 100);
-      ctx.stroke();
-    }
-  }
+  // hitBoxEnemy(ctx) {
+  //   if (this instanceof Enemy) {
+  //     ctx.beginPath();
+  //     ctx.lineWidth = "3";
+  //     ctx.strokeStyle = "red";
+  //     ctx.rect(this.x + 60, this.y + 100, this.width - 100, this.height - 100);
+  //     ctx.stroke();
+  //   }
+  // }
 
-  hitBoxMinion(ctx) {
-    if (this instanceof Minion) {
-      ctx.beginPath();
-      ctx.lineWidth = "3";
-      ctx.strokeStyle = "darkred";
-      ctx.rect(this.x + 60, this.y + 120, this.width - 85, this.height - 120);
-      ctx.stroke();
-    }
-  }
+  // hitBoxMinion(ctx) {
+  //   if (this instanceof Minion) {
+  //     ctx.beginPath();
+  //     ctx.lineWidth = "3";
+  //     ctx.strokeStyle = "darkred";
+  //     ctx.rect(this.x + 60, this.y + 120, this.width - 85, this.height - 120);
+  //     ctx.stroke();
+  //   }
+  // }
 
-  hitBoxManapotion(ctx) {
-    if (this instanceof Manapotion) {
-      ctx.beginPath();
-      ctx.lineWidth = "3";
-      ctx.strokeStyle = "blue";
-      ctx.rect(this.x, this.y, this.width, this.height);
-      ctx.stroke();
-    }
-  }
+  // hitBoxManapotion(ctx) {
+  //   if (this instanceof Manapotion) {
+  //     ctx.beginPath();
+  //     ctx.lineWidth = "3";
+  //     ctx.strokeStyle = "blue";
+  //     ctx.rect(this.x, this.y, this.width, this.height);
+  //     ctx.stroke();
+  //   }
+  // }
 
-  hitBoxTarget() {
-    return (
-      this instanceof Spell ||
-      this instanceof Boss
-    );
-  }
+  // hitBoxTarget() {
+  //   return (
+  //     this instanceof Spell ||
+  //     this instanceof Boss
+  //   );
+  // }
 
   progressLifeBar(ctx) {
     if (this instanceof Lifebar) {

@@ -36,7 +36,7 @@ class Enemy extends MovableObject {
   }
   animate() {
     setInterval(() => {
-      // this.moveLeft();
+      this.moveLeft();
     }, 1000 / 60);
     setInterval(() => {
       if (this.gotHit()) {
@@ -47,7 +47,7 @@ class Enemy extends MovableObject {
         this.isEnemyDead();
       } else {
         this.playAnimation(this.ENEMY_WALKING);
-        // this.walkingSound.play();
+        this.walkingSound.play();
         this.walkingSound.volume = 0.01;
         this.walkingSound.playbackRate = 0.8;
       }

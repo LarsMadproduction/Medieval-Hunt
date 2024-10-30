@@ -44,7 +44,7 @@ class Minion extends MovableObject {
   }
   animate() {
     setInterval(() => {
-      // this.moveLeft();
+      this.moveLeft();
     }, 1000 / 60);
 
     setInterval(() => {
@@ -56,7 +56,7 @@ class Minion extends MovableObject {
         this.playAnimationOnce(this.MINION_DEAD);
       } else {
         this.playAnimation(this.MINION_WALKING);
-        // this.walkingSound.play();
+        this.walkingSound.play();
         this.walkingSound.volume = 0.01;
         this.walkingSound.playbackRate = 0.8;
       }

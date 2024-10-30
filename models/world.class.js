@@ -30,7 +30,7 @@ class World {
   setWorld() {
     this.collectedCoins.world = this;
     this.character.world = this;
-    // this.musicTheme.play();
+    this.musicTheme.play();
     this.musicTheme.volume = 0.05;
   }
 
@@ -44,6 +44,7 @@ class World {
   gameOver() {
     setTimeout(() => {
       clearAllIntervals();
+      this.musicTheme.pause();
       showEndScreenContent();
       controlsButton();
       world.gameStarted = false;
@@ -106,12 +107,12 @@ class World {
       this.mirrorImage(mo);
     }
     mo.drawObjects(this.ctx);
-    mo.hitBoxCoin(this.ctx);
-    mo.hitBoxCharacter(this.ctx);
-    mo.hitBoxCharacterSword(this.ctx);
-    mo.hitBoxEnemy(this.ctx);
-    mo.hitBoxMinion(this.ctx);
-    mo.hitBoxManapotion(this.ctx);
+    // mo.hitBoxCoin(this.ctx);
+    // mo.hitBoxCharacter(this.ctx);
+    // mo.hitBoxCharacterSword(this.ctx);
+    // mo.hitBoxEnemy(this.ctx);
+    // mo.hitBoxMinion(this.ctx);
+    // mo.hitBoxManapotion(this.ctx);
     mo.progressLifeBar(this.ctx);
     mo.progressManaBar(this.ctx);
     mo.progressBossLifeBar(this.ctx);
