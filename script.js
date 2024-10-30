@@ -3,7 +3,7 @@ let world;
 let keyboard = new Keyboard();
 let actionSpellStart = null;
 let actionAttackStart = null;
-let x = window.matchMedia("(max-width: 768px)");
+let x = window.matchMedia("(max-width: 1024px)");
 let gameStarted = false;
 const mediaQueryListener = function () {
   mobileButtons(x);
@@ -16,6 +16,7 @@ function init() {
   controlsButton();
   gameStarted = true;
   mobileButtons(x);
+  tochButtons();
 }
 
 function mobileButtons(x) {

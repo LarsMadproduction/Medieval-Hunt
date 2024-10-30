@@ -67,4 +67,42 @@ function showJumpButton() {
   moveLeftButton.classList.remove("d-none");
 }
 
-function removeButtons() {}
+function tochButtons() {
+  document.getElementById("left_button").addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    world.keyboard.LEFT = true;
+  });
+  document.getElementById("left_button").addEventListener("touchend", (e) => {
+    e.preventDefault();
+    world.keyboard.LEFT = false;
+  });
+  document.getElementById("right_button").addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    world.keyboard.RIGHT = true;
+  });
+  document.getElementById("right_button").addEventListener("touchend", (e) => {
+    e.preventDefault();
+    world.keyboard.RIGHT = false;
+  });document.getElementById("spell_button").addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    world.keyboard.SPELL = true;
+  });
+  document.getElementById("spell_button").addEventListener("touchend", (e) => {
+    e.preventDefault();
+    world.keyboard.SPELL = false;
+  });document.getElementById("sword_button").addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    world.keyboard.HIT = true;
+  });
+  document.getElementById("sword_button").addEventListener("touchend", (e) => {
+    e.preventDefault();
+    world.keyboard.HIT = false;
+  });document.getElementById("jump_button").addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    world.keyboard.JUMP = true;
+  });
+  document.getElementById("jump_button").addEventListener("touchend", (e) => {
+    e.preventDefault();
+    world.keyboard.JUMP = false;
+  });
+}
