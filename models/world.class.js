@@ -46,11 +46,7 @@ class World {
       controlButtons();
       world.gameStarted = false;
       x.removeEventListener("change", mediaQueryListener);
-      hideMoveLeftButton();
-      hideMoveRightButton();
-      hideSpellButton();
-      hideSwordButton();
-      hideJumpButton();
+      hideMobileButtons();
     }, 1500);
   }
 

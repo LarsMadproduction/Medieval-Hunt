@@ -17,6 +17,15 @@ function toggleSounds() {
   let muteButtonOff = document.getElementById("music_button_off");
   muteButtonOn.classList.toggle("d-none");
   muteButtonOff.classList.toggle("d-none");
+  muteAllSound(muteButtonOn);
+}
+
+function muteAllSound(muteButtonOn) {
+  if (muteButtonOn.classList.contains("d-none")) {
+    muteSound();
+  } else {
+    playSound();
+  }
 }
 
 function controlButtons() {

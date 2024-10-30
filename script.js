@@ -21,20 +21,28 @@ function init() {
 
 function mobileButtons(x) {
   if (gameStarted) {
-      if (x.matches) {
-          showMoveLeftButton();
-          showMoveRightButton();
-          showSpellButton();
-          showSwordButton();
-          showJumpButton();
-      } else {
-          hideMoveLeftButton();
-          hideMoveRightButton();
-          hideSpellButton();
-          hideSwordButton();
-          hideJumpButton();
-      }
+    if (x.matches) {
+      showMobileButtons();
+    } else {
+      hideMobileButtons();
+    }
   }
+}
+
+function showMobileButtons() {
+  showMoveLeftButton();
+  showMoveRightButton();
+  showSpellButton();
+  showSwordButton();
+  showJumpButton();
+}
+
+function hideMobileButtons() {
+  hideMoveLeftButton();
+  hideMoveRightButton();
+  hideSpellButton();
+  hideSwordButton();
+  hideJumpButton();
 }
 
 function showStartScreenContent() {
