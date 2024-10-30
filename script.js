@@ -3,30 +3,36 @@ let world;
 let keyboard = new Keyboard();
 let actionSpellStart = null;
 let actionAttackStart = null;
-let x = window.matchMedia("(max-width: 720px)");
+let x = window.matchMedia("(max-width: 768px)");
+let gameStarted = false;
+const mediaQueryListener = function () {
+  mobileButtons(x);
+};
 
 function init() {
   canvas = document.getElementById("canvas");
   world = new World(canvas, keyboard);
   showStartScreenContent();
   controlsButton();
-
-  myFunction(x);
+  gameStarted = true;
+  mobileButtons(x);
 }
 
 function mobileButtons(x) {
-  if (x.matches) {
-    moveLeftButton();
-    moveRightButton();
-    spellButton();
-    swordButton();
-    jumpButton();
-  } else {
-    moveLeftButton();
-    moveRightButton();
-    spellButton();
-    swordButton();
-    jumpButton();
+  if (gameStarted) {
+      if (x.matches) {
+          showMoveLeftButton();
+          showMoveRightButton();
+          showSpellButton();
+          showSwordButton();
+          showJumpButton();
+      } else {
+          hideMoveLeftButton();
+          hideMoveRightButton();
+          hideSpellButton();
+          hideSwordButton();
+          hideJumpButton();
+      }
   }
 }
 
@@ -172,6 +178,10 @@ window.addEventListener("keydown", function (k) {
   }
 });
 
-x.addEventListener("change", function () {
+x.addEventListener("change", mediaQueryListener);
+
+if (gameStarted) {
   mobileButtons(x);
-});
+} else {
+  mobileButtons(x);
+}

@@ -37,6 +37,7 @@ class World {
   static clear() {
     if (World.instance) {
       World.instance = null;
+      world.gameStarted = false;
     }
   }
 
@@ -45,11 +46,13 @@ class World {
       clearAllIntervals();
       showEndScreenContent();
       controlsButton();
-      moveLeftButton();
-      moveRightButton();
-      spellButton();
-      swordButton();
-      jumpButton();
+      world.gameStarted = false;
+      x.removeEventListener("change", mediaQueryListener);
+      hideMoveLeftButton();
+      hideMoveRightButton();
+      hideSpellButton();
+      hideSwordButton();
+      hideJumpButton();
     }, 1500);
   }
 

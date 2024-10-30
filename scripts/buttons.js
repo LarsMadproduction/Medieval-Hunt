@@ -17,31 +17,54 @@ function controlsButton() {
   controlButton.classList.toggle("pos-abs");
 }
 
-function moveLeftButton() {
+function hideMoveLeftButton() {
   let moveLeftButton = document.getElementById("left_button");
-  moveLeftButton.classList.toggle("d-none");
+  moveLeftButton.classList.add("d-none");
 }
 
-function moveRightButton() {
+function hideMoveRightButton() {
   let moveLeftButton = document.getElementById("right_button");
-  moveLeftButton.classList.toggle("d-none");
+  moveLeftButton.classList.add("d-none");
 }
 
-function spellButton() {
+function hideSpellButton() {
   let moveLeftButton = document.getElementById("spell_button");
-  moveLeftButton.classList.toggle("d-none");
+  moveLeftButton.classList.add("d-none");
 }
 
-function swordButton() {
+function hideSwordButton() {
   let moveLeftButton = document.getElementById("sword_button");
-  moveLeftButton.classList.toggle("d-none");
+  moveLeftButton.classList.add("d-none");
 }
 
-function jumpButton() {
+function hideJumpButton() {
   let moveLeftButton = document.getElementById("jump_button");
-  moveLeftButton.classList.toggle("d-none");
+  moveLeftButton.classList.add("d-none");
 }
 
-function removeButtons(){
-
+function showMoveLeftButton() {
+  let moveLeftButton = document.getElementById("left_button");
+  moveLeftButton.classList.remove("d-none");
 }
+
+function showMoveRightButton() {
+  let moveLeftButton = document.getElementById("right_button");
+  moveLeftButton.classList.remove("d-none");
+}
+
+function showSpellButton() {
+  let moveLeftButton = document.getElementById("spell_button");
+  moveLeftButton.classList.remove("d-none");
+}
+
+function showSwordButton() {
+  let moveLeftButton = document.getElementById("sword_button");
+  moveLeftButton.classList.remove("d-none");
+}
+
+function showJumpButton() {
+  let moveLeftButton = document.getElementById("jump_button");
+  moveLeftButton.classList.remove("d-none");
+}
+
+function removeButtons() {}
