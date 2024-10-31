@@ -10,14 +10,13 @@ class Attack extends MovableObject {
   }
 
   baseAttack() {
-    if (world.keyboard.HIT && this.hitted() && !world.character.isDead()) {
+    if (world.keyboard.HIT && !world.character.isDead()) {
       world.character.playAnimationOnce(world.character.CHARACTER_BASE_ATTACK);
-      // this.hitted();
+      this.hitted();
     }
   }
 
   hitted() {
-      world.level.boss.hasBeenHit = false;
     for (let activeAttack = 0; activeAttack < world.attack.length; activeAttack++) {
       let currentAttack = world.attack[activeAttack];
       if (world.attack.length > 0) {
@@ -84,6 +83,9 @@ class Attack extends MovableObject {
       BOSS_DEAD.play();
       target.playAnimationOnce(target.BOSS_DEAD);
     }
+    setTimeout(() => {
+      world.level.boss.hasBeenHit = false;
+    }, 500);
   }
 
   removeEnemy(index) {

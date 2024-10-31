@@ -14,8 +14,7 @@ class World {
   ctx;
   keyboard;
   cameraX = 0;
-  swordSwing = false;
-
+  
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
@@ -24,7 +23,6 @@ class World {
     this.setWorld();
     this.checkCollisions();
     this.castSpell();
-    this.swordAttack();
   }
   setWorld() {
     this.collectedCoins.world = this;
@@ -220,59 +218,5 @@ class World {
       this.manaBar.isSpellUsed();
       this.spell.push(spellsLeft);
     }
-  }
-
-  //---------------------------------------------------------------------------------------------------
-  //---------------------------------------------------------------------------------------------------
-  //---------------------------------------------------------------------------------------------------
-
-  swordAttack() {
-    setInterval(() => {
-      if (!this.swordSwing) {
-        this.checkSwordSwing(); 
-      }
-    }, 100);
-   
-  }
-
-  checkSwordSwing() {
-    if (this.keyboard.HIT && !this.character.isDead()) {
-        this.performAttack();
-        this.swordSwing = true;
-    }
-  }
-
-  performAttack() {
-    this.swordHitRight();
-    this.swordHitLeft();
-    this.character.immortal = true;
-  }
-
-  swordHitRight() {
-    if (!this.character.otherDirection && this.keyboard.HIT && !world.character.isDead()) {
-      let swordHitting = new Attack(this.character.x, this.character.y);
-      this.clearExistingAttacks();
-      this.attack.push(swordHitting);
-    }
-  }
-
-  swordHitLeft() {
-    if (
-      this.character.otherDirection &&
-      this.keyboard.HIT &&
-      !world.character.isDead()
-    ) {
-      let swordHitting = new Attack(this.character.x - 180, this.character.y);
-      this.clearExistingAttacks();
-      this.attack.push(swordHitting);
-    }
-  }
-
-  clearExistingAttacks() {
-    world.attack = [];
-    setTimeout(() => {
-      this.character.immortal = false;
-      this.swordSwing = false;
-    }, 500);
   }
 }

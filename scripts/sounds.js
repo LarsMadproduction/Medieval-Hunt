@@ -9,7 +9,7 @@ SOUND_CHARACTER_STEPS.volume = 1;
 SOUND_CHARACTER_STEPS.muted = false;
 
 const SOUND_CHARACTER_SWORD_SWING = new Audio("assets/sounds/swordSwing.mp3");
-SOUND_CHARACTER_SWORD_SWING.playbackRate = 2.5;
+SOUND_CHARACTER_SWORD_SWING.playbackRate = 0.8;
 SOUND_CHARACTER_SWORD_SWING.volume = 0.5;
 SOUND_CHARACTER_SWORD_SWING.muted = false;
 

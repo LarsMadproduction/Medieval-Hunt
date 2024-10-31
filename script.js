@@ -130,7 +130,6 @@ window.addEventListener("keydown", (k) => {
   }
 
   if (k.key === "s") {
-    // keyboard.HIT = true;
     cooldownAttack();
   }
 

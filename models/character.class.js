@@ -3,6 +3,7 @@ class Character extends MovableObject {
   characterAfk = false;
   lastActiveTime = Date.now();
   immortal = false;
+  swordSwingAnimation = false;
   CHARACTER_DEFAULT = [
     "assets/png/character/characterDefault/characterDefault1.png",
     "assets/png/character/characterDefault/characterDefault2.png",
@@ -81,6 +82,7 @@ class Character extends MovableObject {
         this.characterSpellAnimation();
         this.characterKnockBackAnimation();
         this.characterBaseAttackAnimation();
+        this.characterBaseAttack();
       }
     }, 1000 / 60);
     setInterval(() => {
@@ -111,8 +113,10 @@ class Character extends MovableObject {
     if (this.characterAfk) {
       this.playAnimation(this.CHARACTER_AFK);
     } else if (this.gotHit()) {
+      this.backInAction();
       this.playAnimationOnce(this.CHARACTER_HURT);
     } else if (this.isDead()) {
+      this.backInAction();
       SOUND_CHARACTER_DEAD.play();
       this.playAnimationOnce(
         this.CHARACTER_DEAD,
@@ -157,28 +161,54 @@ class Character extends MovableObject {
     }
   }
 
+  characterBaseAttack() {
+    if (this.world.keyboard.HIT && !this.swordSwingAnimation) {
+      this.swordSwingAnimation = true;
+      this.speed = 0;
+      this.backInAction();
+    }
+  }
   characterBaseAttackAnimation() {
     if (this.world.keyboard.HIT) {
-      this.speed = 0
       this.backInAction();
       SOUND_CHARACTER_SWORD_SWING.play();
+      this.performAttack();
       this.playAnimationOnce(this.CHARACTER_BASE_ATTACK);
-    } else {
-      this.speed = 3.8;
     }
   }
 
   isAfk() {
     let currentAfkTime = Date.now();
-    if (currentAfkTime - this.lastActiveTime < 8000) {
-      this.characterAfk = false;
-    } else {
-      this.characterAfk = true;
-    }
+    this.characterAfk = currentAfkTime - this.lastActiveTime >= 8000;
   }
 
   backInAction() {
     this.lastActiveTime = Date.now();
     this.characterAfk = false;
+  }
+
+  performAttack() {
+    this.swordHit(this.otherDirection ? "left" : "right");
+    this.immortal = true;
+  }
+
+  swordHit(direction) {
+    if (this.world.keyboard.HIT && !this.isDead()) {
+      let offsetX = direction === "left" ? -180 : 0;
+      let swordHitting = new Attack(this.x + offsetX, this.y);
+      this.clearExistingAttacks();
+      this.world.attack.push(swordHitting);
+    }
+  }
+
+  clearExistingAttacks() {
+    world.attack = [];
+    setTimeout(() => {
+      if (this.swordSwingAnimation) this.immortal = false;
+      this.swordSwingAnimation = false;
+      this.world.keyboard.HIT = false; 
+      SOUND_CHARACTER_SWORD_SWING.currentTime = 0;
+      this.speed = 3.8;
+    }, 500);
   }
 }
