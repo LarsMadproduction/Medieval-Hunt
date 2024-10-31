@@ -6,11 +6,9 @@ class MovableObject extends DrawableObject {
   lastHit = 0;
   lastBossHit = 0;
   lastSpell = 0;
-
   i = 0;
   spellIntervals = [];
   hasBeenHit = false;
-
   CHARACTER_ATTACK_SPELL_HIT = [
     "assets/png/character/characterChargeSkill/characterChargeSkill6.png",
     "assets/png/character/characterChargeSkill/characterChargeSkill7.png",
@@ -69,67 +67,65 @@ class MovableObject extends DrawableObject {
   jump() {
     this.speedY = 28;
   }
-
   isCollidingCoin(mo) {
     return (
-      this.x + 35 + this.width - 150 > mo.x &&
-      this.x + 35 < mo.x + mo.width &&
-      this.y + 120 + this.height - 120 > mo.y &&
-      this.y + 120 < mo.y + mo.height
+      this.x + 65 + this.width - 180 > mo.x &&
+      this.x + 65 < mo.x + mo.width &&
+      this.y + 140 + this.height - 140 > mo.y &&
+      this.y + 140 < mo.y + mo.height
     );
   }
 
   isCollidingPotion(mo) {
     return (
-      this.x + 35 + this.width - 150 > mo.x &&
-      this.x + 35 < mo.x + mo.width &&
-      this.y + 120 + this.height - 120 > mo.y &&
-      this.y + 120 < mo.y + mo.height
+      this.x + 65 + this.width - 180 > mo.x &&
+      this.x + 65 < mo.x + mo.width &&
+      this.y + 140 + this.height - 140 > mo.y &&
+      this.y + 140 < mo.y + mo.height
     );
   }
 
   isCollidingEnemy(mo) {
     return (
-      this.x + 45 + this.width - 150 > mo.x - 30 &&
-      this.x + 45 < mo.x - 30 + mo.width - 100 &&
-      this.y + 120 + this.height - 120 > mo.y + 100 &&
-      this.y + 120 < mo.y + 100 + mo.height - 100
+      this.x + 65 + this.width - 180 > mo.x &&
+      this.x + 65 < mo.x + mo.width - 120 &&
+      this.y + 140 + this.height - 140 > mo.y + 100 &&
+      this.y + 140 < mo.y + 100 + mo.height - 100
     );
   }
 
   isCollidingMinion(mo) {
     return (
-      this.x + 45 + this.width - 150 > mo.x - 40 &&
-      this.x + 45 < mo.x - 40 + mo.width - 90 &&
-      this.y + 120 + this.height - 120 > mo.y + 120 &&
-      this.y + 120 < mo.y + 120 + mo.height - 120
+      this.x + 65 + this.width - 180 > mo.x - 10 &&
+      this.x + 65 < mo.x - 10 + mo.width - 100 &&
+      this.y + 140 + this.height - 140 > mo.y + 120 &&
+      this.y + 140 < mo.y + 120 + mo.height - 120
     );
   }
-
   isCollidingBoss(mo) {
     return (
-      this.x + 45 + this.width - 150 > mo.x - 40 &&
-      this.x + 45 < mo.x - 40 + mo.width - 100 &&
-      this.y + 120 + this.height - 120 > mo.y &&
-      this.y + 120 < mo.y + mo.height
+      this.x + 65 + this.width - 180 > mo.x + 20 &&
+      this.x + 65 < mo.x + 20 + mo.width - 150 &&
+      this.y + 140 + this.height - 140 > mo.y + 130 &&
+      this.y + 140 < mo.y + 130 + mo.height - 130
     );
   }
 
   isCollidingSpell(mo) {
     return (
-      this.x + 45 + this.width - 150 > mo.x + 160 &&
-      this.x + 45 < mo.x + 160 + mo.width - 100 &&
-      this.y + 120 + this.height - 120 > mo.y + 120 &&
-      this.y + 120 < mo.y + 120 + mo.height - 235
+      this.x + 65 + this.width - 180 > mo.x + 105 &&
+      this.x + 65 < mo.x + 105 + mo.width - 100 &&
+      this.y + 140 + this.height - 140 > mo.y + 140 &&
+      this.y + 140 < mo.y + 140 + mo.height - 235
     );
   }
 
   isCollidingSword(mo) {
     return (
-      this.x + 45 + this.width - 150 > mo.x + 165 &&
-      this.x + 45 < mo.x + 165 + mo.width - 150 &&
-      this.y + 120 + this.height - 120 > mo.y + 180 &&
-      this.y + 120 < mo.y + 180 + mo.height - 240
+      this.x + 65 + this.width - 120 > mo.x + 195 &&
+      this.x + 65 < mo.x + 195 + mo.width - 150 &&
+      this.y + 140 + this.height - 120 > mo.y + 180 &&
+      this.y + 140 < mo.y + 180 + mo.height - 240
     );
   }
 
@@ -177,7 +173,7 @@ class MovableObject extends DrawableObject {
   isSpellUsed() {
     this.manaPoints -= 0.2;
     world.character.manaPoints -= 0.2;
-    if (this.manaPoints < 0.1 || world.character.manaPoints < 0.1)  {
+    if (this.manaPoints < 0.1 || world.character.manaPoints < 0.1) {
       this.manaPoints = 0;
       world.character.manaPoints = 0;
     } else {

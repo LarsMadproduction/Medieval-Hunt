@@ -14,6 +14,7 @@ class World {
   ctx;
   keyboard;
   cameraX = 0;
+  swordSwing = false;
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -96,12 +97,14 @@ class World {
       this.mirrorImage(mo);
     }
     mo.drawObjects(this.ctx);
-    // mo.hitBoxCoin(this.ctx);
-    // mo.hitBoxCharacter(this.ctx);
-    // mo.hitBoxCharacterSword(this.ctx);
-    // mo.hitBoxEnemy(this.ctx);
-    // mo.hitBoxMinion(this.ctx);
-    // mo.hitBoxManapotion(this.ctx);
+    mo.hitBoxCoin(this.ctx);
+    mo.hitBoxSpell(this.ctx);
+    mo.hitBoxBoss(this.ctx);
+    mo.hitBoxCharacter(this.ctx);
+    mo.hitBoxCharacterSword(this.ctx);
+    mo.hitBoxEnemy(this.ctx);
+    mo.hitBoxMinion(this.ctx);
+    mo.hitBoxManapotion(this.ctx);
     mo.progressLifeBar(this.ctx);
     mo.progressManaBar(this.ctx);
     mo.progressBossLifeBar(this.ctx);
@@ -120,9 +123,14 @@ class World {
     mo.x = mo.x * -1;
     this.ctx.restore();
   }
+
   deletFrame(ctx) {
     return ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
   }
+
+  //---------------------------------------------------------------------------------------------------
+  //---------------------------------------------------------------------------------------------------
+  //---------------------------------------------------------------------------------------------------
 
   hitByEnemy() {
     this.level.enemies.forEach((enemy) => {
@@ -167,6 +175,10 @@ class World {
     }
   }
 
+  //---------------------------------------------------------------------------------------------------
+  //---------------------------------------------------------------------------------------------------
+  //---------------------------------------------------------------------------------------------------
+
   castSpell() {
     this.lastCastTime = 0;
     this.castInterval = 1000;
@@ -210,42 +222,34 @@ class World {
     }
   }
 
+  //---------------------------------------------------------------------------------------------------
+  //---------------------------------------------------------------------------------------------------
+  //---------------------------------------------------------------------------------------------------
+
   swordAttack() {
-    this.lastAttackTime = 0;
-    this.attackInterval = 1000 / 60;
-    this.checkSwordSwing();
+    setInterval(() => {
+      if (!this.swordSwing) {
+        this.checkSwordSwing(); 
+      }
+    }, 100);
+   
   }
 
   checkSwordSwing() {
-    let currentTime = new Date().getTime();
     if (this.keyboard.HIT && !this.character.isDead()) {
-      if (currentTime - this.lastAttackTime >= this.attackInterval) {
         this.performAttack();
-      }
+        this.swordSwing = true;
     }
-    requestAnimationFrame(this.checkSwordSwing.bind(this));
   }
 
   performAttack() {
     this.swordHitRight();
     this.swordHitLeft();
     this.character.immortal = true;
-    this.lastAttackTime = new Date().getTime();
-  }
-
-  clearExistingAttacks() {
-    world.attack = [];
-    setTimeout(() => {
-      this.character.immortal = false;
-    }, 500);
   }
 
   swordHitRight() {
-    if (
-      !this.character.otherDirection &&
-      this.keyboard.HIT &&
-      !world.character.isDead()
-    ) {
+    if (!this.character.otherDirection && this.keyboard.HIT && !world.character.isDead()) {
       let swordHitting = new Attack(this.character.x, this.character.y);
       this.clearExistingAttacks();
       this.attack.push(swordHitting);
@@ -262,5 +266,13 @@ class World {
       this.clearExistingAttacks();
       this.attack.push(swordHitting);
     }
+  }
+
+  clearExistingAttacks() {
+    world.attack = [];
+    setTimeout(() => {
+      this.character.immortal = false;
+      this.swordSwing = false;
+    }, 500);
   }
 }

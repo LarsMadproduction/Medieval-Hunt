@@ -144,23 +144,16 @@ td {
     width: 100%;
     height: 100vh;
   }
-  .start-screen {
-    height: 100vh;
-  }
+  
   h1{
     font-size: 56px;
   }
 }
 
-/* @media only screen and (max-height: 1024px) {
-  canvas {
-    width: 100%;
-    height: 100vh;
-  }
+@media only screen and (max-height: 768px) {
+
   .start-screen {
     height: 100vh;
   }
-  h1{
-    font-size: 56px;
-  }
-} */
+
+}

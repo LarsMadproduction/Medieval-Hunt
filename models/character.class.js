@@ -79,8 +79,8 @@ class Character extends MovableObject {
       if (!this.isDead()) {
         this.characterMovement();
         this.characterSpellAnimation();
-        this.characterBaseAttackAnimation();
         this.characterKnockBackAnimation();
+        this.characterBaseAttackAnimation();
       }
     }, 1000 / 60);
     setInterval(() => {
@@ -88,7 +88,7 @@ class Character extends MovableObject {
     }, 700 / 4);
     setInterval(() => {
       this.isAfk();
-    }, 0);
+    }, 100);
   }
 
   characterMovement() {
@@ -159,9 +159,12 @@ class Character extends MovableObject {
 
   characterBaseAttackAnimation() {
     if (this.world.keyboard.HIT) {
+      this.speed = 0
       this.backInAction();
       SOUND_CHARACTER_SWORD_SWING.play();
       this.playAnimationOnce(this.CHARACTER_BASE_ATTACK);
+    } else {
+      this.speed = 3.8;
     }
   }
 

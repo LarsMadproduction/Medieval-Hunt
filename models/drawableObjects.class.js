@@ -27,70 +27,87 @@ class DrawableObject {
     ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
   }
 
-  // hitBoxCoin(ctx) {
-  //   if (this.hitBoxTarget()) {
-  //     ctx.beginPath();
-  //     ctx.lineWidth = "3";
-  //     ctx.strokeStyle = "green";
-  //     ctx.rect(this.x + 75, this.y + 120, this.width - 100, this.height - 235);
-  //     ctx.stroke();
-  //   }
-  // }
-  // hitBoxCharacter(ctx) {
-  //   if (this instanceof Character) {
-  //     ctx.beginPath();
-  //     ctx.lineWidth = "3";
-  //     ctx.strokeStyle = "blue";
-  //     ctx.rect(this.x + 45, this.y + 120, this.width - 150, this.height - 120);
-  //     ctx.stroke();
-  //   }
-  // }
-  // hitBoxCharacterSword(ctx) {
-  //   if (this instanceof Attack) {
-  //     ctx.beginPath();
-  //     ctx.lineWidth = "3";
-  //     ctx.strokeStyle = "darkblue";
-  //     ctx.rect(this.x + 115, this.y + 180, this.width - 150, this.height - 240);
-  //     ctx.stroke();
-  //   }
-  // }
+  hitBoxCoin(ctx) {
+    if (this instanceof Coin) {
+      ctx.beginPath();
+      ctx.lineWidth = "3";
+      ctx.strokeStyle = "gold";
+      ctx.rect(this.x, this.y, this.width, this.height);
+      ctx.stroke();
+    }
+  }
 
-  // hitBoxEnemy(ctx) {
-  //   if (this instanceof Enemy) {
-  //     ctx.beginPath();
-  //     ctx.lineWidth = "3";
-  //     ctx.strokeStyle = "red";
-  //     ctx.rect(this.x + 60, this.y + 100, this.width - 100, this.height - 100);
-  //     ctx.stroke();
-  //   }
-  // }
+  hitBoxSpell(ctx) {
+    if (this instanceof Spell) {
+      ctx.beginPath();
+      ctx.lineWidth = "3";
+      ctx.strokeStyle = "orange";
+      ctx.rect(this.x + 75, this.y + 120, this.width - 100, this.height - 235);
+      ctx.stroke();
+    }
+  }
 
-  // hitBoxMinion(ctx) {
-  //   if (this instanceof Minion) {
-  //     ctx.beginPath();
-  //     ctx.lineWidth = "3";
-  //     ctx.strokeStyle = "darkred";
-  //     ctx.rect(this.x + 60, this.y + 120, this.width - 85, this.height - 120);
-  //     ctx.stroke();
-  //   }
-  // }
+  hitBoxBoss(ctx) {
+    if (this instanceof Boss) {
+      ctx.beginPath();
+      ctx.lineWidth = "3";
+      ctx.strokeStyle = "black";
+      ctx.rect(this.x + 70, this.y + 130, this.width - 150, this.height - 130);
+      ctx.stroke();
+    }
+  }
+  hitBoxCharacter(ctx) {
+    if (this instanceof Character) {
+      ctx.beginPath();
+      ctx.lineWidth = "3";
+      ctx.strokeStyle = "blue";
+      ctx.rect(this.x + 65, this.y + 140, this.width - 180, this.height - 140);
+      ctx.stroke();
+    }
+  }
+  hitBoxCharacterSword(ctx) {
+    if (this instanceof Attack) {
+      ctx.beginPath();
+      ctx.lineWidth = "3";
+      ctx.strokeStyle = "darkblue";
+      ctx.rect(this.x + 115, this.y + 180, this.width - 120, this.height - 240);
+      ctx.stroke();
+    }
+  }
 
-  // hitBoxManapotion(ctx) {
-  //   if (this instanceof Manapotion) {
-  //     ctx.beginPath();
-  //     ctx.lineWidth = "3";
-  //     ctx.strokeStyle = "blue";
-  //     ctx.rect(this.x, this.y, this.width, this.height);
-  //     ctx.stroke();
-  //   }
-  // }
+  hitBoxEnemy(ctx) {
+    if (this instanceof Enemy) {
+      ctx.beginPath();
+      ctx.lineWidth = "3";
+      ctx.strokeStyle = "red";
+      ctx.rect(this.x + 60, this.y + 100, this.width - 100, this.height - 100);
+      ctx.stroke();
+    }
+  }
 
-  // hitBoxTarget() {
-  //   return (
-  //     this instanceof Spell ||
-  //     this instanceof Boss
-  //   );
-  // }
+  hitBoxMinion(ctx) {
+    if (this instanceof Minion) {
+      ctx.beginPath();
+      ctx.lineWidth = "3";
+      ctx.strokeStyle = "darkred";
+      ctx.rect(this.x + 60, this.y + 120, this.width - 85, this.height - 120);
+      ctx.stroke();
+    }
+  }
+
+  hitBoxManapotion(ctx) {
+    if (this instanceof Manapotion) {
+      ctx.beginPath();
+      ctx.lineWidth = "3";
+      ctx.strokeStyle = "blue";
+      ctx.rect(this.x, this.y, this.width, this.height);
+      ctx.stroke();
+    }
+  }
+
+  hitBoxTarget() {
+    return this instanceof Spell || this instanceof Boss;
+  }
 
   progressLifeBar(ctx) {
     if (this instanceof Lifebar) {
@@ -143,7 +160,7 @@ class DrawableObject {
   progressBossLifeBar(ctx) {
     if (this instanceof Boss) {
       let x = this.x + 70;
-      let y = this.y +100;
+      let y = this.y + 100;
       let width = this.width * 0.5;
       let height = 20;
       let radius = 10;
@@ -183,13 +200,34 @@ class DrawableObject {
     ctx.stroke();
   }
 
-  drawStatusBarFillWidth(ctx, x, y, fillWidth, height, radius, fillPercentage, statusColor) {
+  drawStatusBarFillWidth(
+    ctx,
+    x,
+    y,
+    fillWidth,
+    height,
+    radius,
+    fillPercentage,
+    statusColor
+  ) {
     ctx.beginPath();
     ctx.moveTo(x + radius, y);
     ctx.lineTo(x + fillWidth - radius, y);
-    ctx.arc(x + fillWidth - radius, y + radius, radius, Math.PI * 1.5, Math.PI * 2);
+    ctx.arc(
+      x + fillWidth - radius,
+      y + radius,
+      radius,
+      Math.PI * 1.5,
+      Math.PI * 2
+    );
     ctx.lineTo(x + fillWidth, y + height - radius);
-    ctx.arc( x + fillWidth - radius, y + height - radius, radius, 0, Math.PI * 0.5);
+    ctx.arc(
+      x + fillWidth - radius,
+      y + height - radius,
+      radius,
+      0,
+      Math.PI * 0.5
+    );
     ctx.lineTo(x + radius, y + height);
     ctx.arc(x + radius, y + height - radius, radius, Math.PI * 0.5, Math.PI);
     ctx.lineTo(x, y + radius);
