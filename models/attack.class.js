@@ -58,6 +58,7 @@ class Attack extends MovableObject {
     ENEMY_DEAD.play();
     target.hasBeenHit = true;
     if (target.isDead()) {
+      target.playAnimationOnce(target.ENEMY_DEAD);
       setTimeout(() => {
         this.removeEnemy(index);
       }, 500);

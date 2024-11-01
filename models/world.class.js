@@ -14,7 +14,7 @@ class World {
   ctx;
   keyboard;
   cameraX = 0;
-  
+
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
@@ -95,14 +95,14 @@ class World {
       this.mirrorImage(mo);
     }
     mo.drawObjects(this.ctx);
-    mo.hitBoxCoin(this.ctx);
-    mo.hitBoxSpell(this.ctx);
-    mo.hitBoxBoss(this.ctx);
-    mo.hitBoxCharacter(this.ctx);
-    mo.hitBoxCharacterSword(this.ctx);
-    mo.hitBoxEnemy(this.ctx);
-    mo.hitBoxMinion(this.ctx);
-    mo.hitBoxManapotion(this.ctx);
+    // mo.hitBoxCoin(this.ctx);
+    // mo.hitBoxSpell(this.ctx);
+    // mo.hitBoxBoss(this.ctx);
+    // mo.hitBoxCharacter(this.ctx);
+    // mo.hitBoxCharacterSword(this.ctx);
+    // mo.hitBoxEnemy(this.ctx);
+    // mo.hitBoxMinion(this.ctx);
+    // mo.hitBoxManapotion(this.ctx);
     mo.progressLifeBar(this.ctx);
     mo.progressManaBar(this.ctx);
     mo.progressBossLifeBar(this.ctx);
@@ -133,7 +133,7 @@ class World {
   hitByEnemy() {
     this.level.enemies.forEach((enemy) => {
       if (this.character.isCollidingEnemy(enemy)) {
-        if (!this.character.immortal) {
+        if (!this.character.immortal && !enemy.hasBeenHit) {
           this.character.immortal = true;
           this.character.hit();
           this.lifeBar.hit();
@@ -146,9 +146,9 @@ class World {
   }
 
   hitByMinion() {
-    this.level.minions.forEach((minions) => {
-      if (this.character.isCollidingMinion(minions)) {
-        if (!this.character.immortal) {
+    this.level.minions.forEach((minion) => {
+      if (this.character.isCollidingMinion(minion)) {
+        if (!this.character.immortal && !minion.hasBeenHit) {
           this.character.immortal = true;
           this.character.hit();
           this.lifeBar.hit();

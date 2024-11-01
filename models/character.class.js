@@ -148,8 +148,14 @@ class Character extends MovableObject {
 
   characterKnockBackAnimation() {
     if (this.gotHit()) {
-      this.x -= this.speed + 3;
-      SOUND_CHARACTER_HIT.play();
+      if (this.x > 0.1) {
+        this.x -= this.speed + 3;
+        SOUND_CHARACTER_HIT.play();
+      } else {
+        this.backInAction();
+        this.playAnimationOnce(this.CHARACTER_HURT);
+        SOUND_CHARACTER_HIT.play();
+      }
     }
   }
 
@@ -206,7 +212,7 @@ class Character extends MovableObject {
     setTimeout(() => {
       if (this.swordSwingAnimation) this.immortal = false;
       this.swordSwingAnimation = false;
-      this.world.keyboard.HIT = false; 
+      this.world.keyboard.HIT = false;
       this.speed = 3.8;
     }, 500);
   }

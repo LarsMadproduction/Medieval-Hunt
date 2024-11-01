@@ -45,7 +45,7 @@ class Boss extends MovableObject {
 
   animate() {
     setInterval(() => {
-      if ((world.character.x > 3500 || this.firstContact) && !this.isDead()) {
+      if ((world.character.x > 3000 || this.firstContact) && !this.isDead()) {
         this.moveLeft();
         BOSS_STEP.play();
         if (!this.firstContact) {
@@ -56,11 +56,9 @@ class Boss extends MovableObject {
         this.playAnimationOnce(this.BOSS_HURT);
         world.attack = [];
       } else if (this.isDead()) {
+        world.character.speed = 0;
         this.playAnimationOnce(this.CHARACTER_ATTACK_SPELL_HIT);
-        this.playAnimationOnce(
-          this.BOSS_DEAD,
-          "assets/png/character/characterDead/characterDead4.png"
-        );
+        this.playAnimationOnce(this.BOSS_DEAD);
         world.gameOver();
         world.character.immortal = true;
       } else if (!this.bossGotHit() && !this.isDead()) {

@@ -34,58 +34,101 @@
     <script src="./script.js"></script>
   </head>
   <body>
+    <div class="landscape-warning" id="landscapeWarning">
+      Please turn your device
+    </div>
     <div id="start_screen" class="start-screen">
       <h1 id="h1">Medieval Hunt</h1>
-      <div class=" pos-rel">
+      <h2 class="d-none" id="h2">Game Over</h2>
+      <div class="pos-rel">
         <canvas class="d-none" id="canvas" width="720" height="480"></canvas>
-        <button id="start_button" onclick="initLevel(), init()">Start</button>
-        <button class="d-none" id="restart_button" onclick="restart()">
+        <div class="test-button"></div>
+        <button id="start_button" onclick="initLevel(), init()">
+          Start
+        </button>
+        <button
+          class="d-none"
+          id="restart_button"
+          onclick="restart()"
+        >
           Restart
         </button>
-        <button class="controls-button" id="controls_button" onclick="openControls()">Controls</button>
-        <button class="music-button-on" id="music_button_on" onclick="toggleSounds()">Sound On</button>
-        <button class="music-button-off d-none" id="music_button_off" onclick="toggleSounds()">Sound Off</button>
-        <button class="d-none pos-abs left-button" id="left_button">Left</button>
-        <button class="d-none pos-abs right-button" id="right_button">Right</button>
-        <button class="d-none pos-abs spell-button" id="spell_button">Spell</button>
-        <button class="d-none pos-abs sword-button" id="sword_button">Sword</button>
-        <button class="d-none pos-abs jump-button" id="jump_button">Jump</button>
+        <button
+          class="controls-button"
+          id="controls_button"
+          onclick="openControls()"
+        >
+          Controls
+        </button>
+        <button
+          class="music-button-on"
+          id="music_button_on"
+          onclick="toggleSounds()"
+        >
+          Sound On
+        </button>
+        <button
+          class="music-button-off d-none"
+          id="music_button_off"
+          onclick="toggleSounds()"
+        >
+          Sound Off
+        </button>
+        <button class="d-none pos-abs left-button mobile-button" id="left_button">
+          
+        </button>
+        <button class="d-none pos-abs right-button mobile-button arrow-right" id="right_button">
+          
+        </button>
+        <button class="d-none pos-abs spell-button mobile-button" id="spell_button">
+          
+        </button>
+        <button class="d-none pos-abs sword-button mobile-button" id="sword_button">
+          
+        </button>
+        <button class="d-none pos-abs jump-button mobile-button" id="jump_button">
+          
+        </button>
       </div>
-    </div>
-    <div id="control_overlay" onclick="closeControls()" class="control-overlay d-none">
-      <div id="control_table" class="control-table">
-        <table onclick="bubblingPrevention(event)">
-          <tr>
-            <th>Keyboard Control</th>
-            <th>Action</th>
-            <th>Touch control alternative</th>
-          </tr>
-          <tr>
-            <td>"A"</td>
-            <td>Move Left</td>
-            <td>Left Icon</td>
-          </tr>
-          <tr>
-            <td>"D"</td>
-            <td>Move Right</td>
-            <td>Right Icon</td>
-          </tr>
-          <tr>
-            <td>"Spacebar"</td>
-            <td>Jump</td>
-            <td>Jump Icon</td>
-          </tr>
-          <tr>
-            <td>"W"</td>
-            <td>Magic Attack</td>
-            <td>Spell Icon</td>
-          </tr>
-          <tr>
-            <td>"S"</td>
-            <td>Sword Attack</td>
-            <td>Attack Icon</td>
-          </tr>
-        </table>
+      <div
+        id="control_overlay"
+        onclick="closeControls()"
+        class="control-overlay d-none"
+      >
+        <div id="control_table" class="control-table">
+          <table onclick="bubblingPrevention(event)">
+            <tr>
+              <th>Keyboard Control</th>
+              <th>Action</th>
+              <th>Touch control alternative</th>
+            </tr>
+            <tr>
+              <td>"A"</td>
+              <td>Move Left</td>
+              <td><img src="assets/png/assets/moveLeftButton1.png" alt="Left Icon"></td>
+            </tr>
+            <tr>
+              <td>"D"</td>
+              <td>Move Right</td>
+              <td><img src="assets/png/assets/moveRightButton1.png" alt="Right Icon"></td>
+            </tr>
+            <tr>
+              <td>"Spacebar"</td>
+              <td>Jump</td>
+              <td><img src="assets/png/assets/jumpButton1.png" alt="Jump Icon"></td>
+            </tr>
+            <tr>
+              <td>"W"</td>
+              <td>Magic Attack</td>
+              <td><img src="assets/png/assets/spellButton.png" alt="Spell Icon"></td>
+            </tr>
+            <tr>
+              <td>"S"</td>
+              <td>Sword Attack</td>
+              <td><img src="assets/png/assets/swordButton1.png" alt="Attack Icon"></td>
+            </tr>
+          </table>
+        </div>
       </div>
     </div>
   </body>

@@ -1,3 +1,5 @@
+let buttons = document.querySelectorAll('button');
+
 function openControls() {
   let control = document.getElementById("control_overlay");
   control.classList.remove("d-none");
@@ -35,7 +37,6 @@ function controlButtons() {
   controlButton.classList.toggle("pos-abs");
   muteButtonOn.classList.toggle("pos-abs");
   muteButtonOff.classList.toggle("pos-abs");
-
 }
 
 function hideMoveLeftButton() {
@@ -136,3 +137,15 @@ function tochButtons() {
     world.keyboard.JUMP = false;
   });
 }
+// Alle Buttons auf der Seite auswählen
+
+// Ereignisse für jeden Button hinzufügen
+buttons.forEach((button) => {
+  button.addEventListener("touchstart", () => {
+    button.classList.add("active");
+  });
+
+  button.addEventListener("touchend", () => {
+    button.classList.remove("active");
+  });
+});
