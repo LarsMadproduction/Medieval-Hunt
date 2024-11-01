@@ -207,7 +207,6 @@ class Character extends MovableObject {
       if (this.swordSwingAnimation) this.immortal = false;
       this.swordSwingAnimation = false;
       this.world.keyboard.HIT = false; 
-      SOUND_CHARACTER_SWORD_SWING.currentTime = 0;
       this.speed = 3.8;
     }, 500);
   }

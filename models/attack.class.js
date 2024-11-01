@@ -12,6 +12,7 @@ class Attack extends MovableObject {
   baseAttack() {
     if (world.keyboard.HIT && !world.character.isDead()) {
       world.character.playAnimationOnce(world.character.CHARACTER_BASE_ATTACK);
+      SOUND_CHARACTER_SWORD_SWING.currentTime = 0;
       this.hitted();
     }
   }
@@ -23,7 +24,7 @@ class Attack extends MovableObject {
         this.checkEnemiesForHit(currentAttack);
         this.checkMinionsForHit(currentAttack);
         this.checkBossForHit(currentAttack);
-      }
+      } 
     }
   }
 

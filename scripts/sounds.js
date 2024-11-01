@@ -58,6 +58,11 @@ BOSS_DEAD.playbackRate = 1.2;
 BOSS_DEAD.volume = 0.5;
 BOSS_DEAD.muted = false;
 
+const BOSS_STEP = new Audio("assets/sounds/bossStep.mp3");
+BOSS_STEP.playbackRate = 0.2;
+BOSS_STEP.volume = 0.1;
+BOSS_STEP.muted = false;
+
 function muteSound() {
   MUSIC_THEME.muted = true;
   SOUND_CHARACTER_DEAD.muted = true;
@@ -71,6 +76,7 @@ function muteSound() {
   MINION_DEAD.muted = true;
   BOSS_HIT.muted = true;
   BOSS_DEAD.muted = true;
+  BOSS_STEP.muted = true;
 }
 
 function playSound() {
@@ -86,4 +92,5 @@ function playSound() {
     MINION_DEAD.muted = false;
     BOSS_HIT.muted = false;
     BOSS_DEAD.muted = false;
+    BOSS_STEP.muted = false;
   }

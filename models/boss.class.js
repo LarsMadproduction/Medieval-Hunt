@@ -32,7 +32,6 @@ class Boss extends MovableObject {
     "assets/png/boss/bossDead/bossDead4.png",
   ];
   world;
-  walkingSound = new Audio("assets/sounds/enemySteps.mp3");
   constructor(imagePath, x) {
     super().loadImage(imagePath);
     this.x = x;
@@ -48,9 +47,7 @@ class Boss extends MovableObject {
     setInterval(() => {
       if ((world.character.x > 3500 || this.firstContact) && !this.isDead()) {
         this.moveLeft();
-        this.walkingSound.play();
-        this.walkingSound.volume = 0.05;
-        this.walkingSound.playbackRate = 0.8;
+        BOSS_STEP.play();
         if (!this.firstContact) {
           this.firstContact = true;
         }
