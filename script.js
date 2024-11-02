@@ -19,6 +19,13 @@ function init() {
   tochButtons();
 }
 
+function restart() {
+  clearAllIntervals();
+  World.clear();
+  initLevel();
+  init();
+}
+
 function mobileButtons(x) {
   if (gameStarted) {
     if (x.matches) {
@@ -63,21 +70,8 @@ function showEndScreenContent() {
   canvas.classList.add("d-none");
 }
 
-function restart() {
-  clearAllIntervals();
-  World.clear();
-  initLevel();
-  init();
-}
-
 function clearAllIntervals() {
   for (let i = 1; i < 9999; i++) window.clearInterval(i);
-}
-
-function toggleRestart() {
-  if (keyboard.RESTART) {
-    window.location.reload();
-  }
 }
 
 function executeSpell() {
@@ -134,14 +128,6 @@ window.addEventListener("keydown", (k) => {
   if (k.key === "s") {
     cooldownAttack();
   }
-
-  if (k.key === "p") {
-    keyboard.PAUSE = true;
-  }
-  if (k.key === "r") {
-    keyboard.RESTART = true;
-    toggleRestart();
-  }
 });
 
 window.addEventListener("keyup", (k) => {
@@ -160,12 +146,6 @@ window.addEventListener("keyup", (k) => {
   if (k.key === "s") {
     keyboard.HIT = false;
   }
-  if (k.key === "p") {
-    keyboard.PAUSE = false;
-  }
-  if (k.key === "r") {
-    keyboard.RESTART = false;
-  }
 });
 
 window.addEventListener("keydown", function (k) {
@@ -174,80 +154,27 @@ window.addEventListener("keydown", function (k) {
   }
 });
 
-x.addEventListener("change", mediaQueryListener);
-
-if (gameStarted) {
-  mobileButtons(x);
-} else {
-  mobileButtons(x);
+function handleLandscapeWarning() {
+  let warning = document.getElementById("landscape_warning");
+  if (warning) {
+    if (landscapeRequirement()) {
+      warning.style.display = "flex";
+    } else {
+      warning.style.display = "none";
+    }
+  }
 }
+
+function landscapeRequirement() {
+  return (window.matchMedia("(orientation: portrait)").matches);
+}
+
+x.addEventListener("change", mediaQueryListener);
 
 document.addEventListener("DOMContentLoaded", () => {
   function checkOrientation() {
-    let warning = document.getElementById("landscapeWarning");
-  
-    if (warning) { // Sicherstellen, dass das Element existiert
-      if (window.innerWidth <= 1024 && window.matchMedia("(orientation: portrait)").matches) {
-        // Hochformat und max-width 1024px -> Nachricht anzeigen
-        warning.style.display = "flex";
-      } else {
-        // Querformat oder größere Breite -> Nachricht ausblenden
-        warning.style.display = "none";
-      }
-    }
+    handleLandscapeWarning();
   }
-
-  // Überprüfung der Ausrichtung bei Fensteränderung
   window.addEventListener("resize", checkOrientation);
-
-  // Überprüfung der Ausrichtung bei Seitenaufruf
   checkOrientation();
 });
-
-// function startGame() {
-//   let canvas = document.getElementById("start_screen");
-
-//   // Prüfen, ob das Gerät im Landscape-Modus ist und die Breite kleiner oder gleich 1024px ist
-//   if (isLandscape()) {
-//     enterFullscreen(canvas);
-//   } 
-
-// }
-
-// // Prüft, ob das Gerät im Landscape-Modus ist und die Breite maximal 1024px beträgt
-// function isLandscape() {
-//   return window.innerWidth > window.innerHeight && window.innerWidth <= 1024;
-// }
-
-// function enterFullscreen(element) {
-//   // Nur Vollbildmodus aktivieren, wenn Landscape aktiv und Breite <= 1024px ist
-//   if (isLandscape()) {
-//     if (element.requestFullscreen) {
-//       element.requestFullscreen();
-//     } else if (element.mozRequestFullScreen) { // Firefox
-//       element.mozRequestFullScreen();
-//     } else if (element.webkitRequestFullscreen) { // Chrome, Safari, Opera
-//       element.webkitRequestFullscreen();
-//     } else if (element.msRequestFullscreen) { // IE/Edge
-//       element.msRequestFullscreen();
-//     }
-//   } else {
-//     console.log("Vollbild nicht aktiviert, da die Breite zu groß ist oder das Gerät im Hochformat ist.");
-//   }
-// }
-
-// // Optional: Vollbildmodus verlassen, wenn nötig
-// function exitFullscreen() {
-//   const canvas = document.getElementById("start_screen");
-
-//   if (document.fullscreenElement) {
-//     document.exitFullscreen();
-
-//   }
-// }
-
-
-
-
-
-
