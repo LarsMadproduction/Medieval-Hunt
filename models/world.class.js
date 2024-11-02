@@ -185,11 +185,7 @@ class World {
 
   checkSpellCasting() {
     let currentTime = new Date().getTime();
-    if (
-      this.keyboard.SPELL &&
-      !this.character.isDead() &&
-      this.manaBar.manaPoints > 0
-    ) {
+    if (this.keyboard.SPELL && !this.character.isDead() && this.manaBar.manaPoints > 0 && !this.character.isAboveGround()) {
       console.log(this.character.manaPoints);
 
       if (currentTime - this.lastCastTime >= this.castInterval) {

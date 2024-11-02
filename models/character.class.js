@@ -36,7 +36,6 @@ class Character extends MovableObject {
     "assets/png/character/characterSkillLaunche/characterSkillLaunche8.png",
   ];
   CHARACTER_JUMP = [
-    "assets/png/character/characterJump/characterJump4.png",
     "assets/png/character/characterJump/characterJump5.png",
     "assets/png/character/characterJump/characterJump6.png",
     "assets/png/character/characterJump/characterJump7.png",
@@ -119,30 +118,17 @@ class Character extends MovableObject {
       this.backInAction();
       SOUND_CHARACTER_DEAD.play();
       this.playAnimationOnce(
-        this.CHARACTER_DEAD,
-        "assets/png/character/characterDead/characterDead4.png"
-      );
+        this.CHARACTER_DEAD);
       this.world.gameOver();
-    } else if (
-      (this.world.keyboard.RIGHT &&
-        !this.isAboveGround() &&
-        !this.world.keyboard.SPELL) ||
-      (this.world.keyboard.LEFT &&
-        !this.isAboveGround() &&
-        !this.world.keyboard.SPELL)
-    ) {
+    } else if ((this.world.keyboard.RIGHT && !this.isAboveGround() && !this.world.keyboard.SPELL && !this.world.keyboard.HIT) ||
+     (this.world.keyboard.LEFT && !this.isAboveGround() && !this.world.keyboard.SPELL && !this.world.keyboard.HIT)) {
       this.playAnimation(this.CHARACTER_WALKING);
       SOUND_CHARACTER_STEPS.play();
-    } else if (
-      !this.isAboveGround() &&
-      !this.world.keyboard.SPELL &&
-      !this.world.keyboard.HIT
-    ) {
+    } else if (!this.isAboveGround() && !this.world.keyboard.SPELL && !this.world.keyboard.HIT) {
       SOUND_CHARACTER_STEPS.pause();
       this.playAnimation(this.CHARACTER_DEFAULT);
     } else if (this.isAboveGround()) {
       this.playAnimationOnce(this.CHARACTER_JUMP);
-      this.world.keyboard.HIT = false;
     }
   }
 
@@ -160,7 +146,7 @@ class Character extends MovableObject {
   }
 
   characterSpellAnimation() {
-    if (this.world.keyboard.SPELL) {
+    if (this.world.keyboard.SPELL  && !this.isAboveGround()) {
       this.backInAction();
       SOUND_CHARACTER_FIRE_SPELL.play();
       this.playAnimationOnce(this.CHARACTER_CHARGE_SPELL);
@@ -168,14 +154,14 @@ class Character extends MovableObject {
   }
 
   characterBaseAttack() {
-    if (this.world.keyboard.HIT && !this.swordSwingAnimation) {
+    if (this.world.keyboard.HIT && !this.swordSwingAnimation && !this.isAboveGround()) {
       this.swordSwingAnimation = true;
       this.speed = 0;
       this.backInAction();
     }
   }
   characterBaseAttackAnimation() {
-    if (this.world.keyboard.HIT) {
+    if (this.world.keyboard.HIT  && !this.isAboveGround()) {
       this.backInAction();
       SOUND_CHARACTER_SWORD_SWING.play();
       this.performAttack();

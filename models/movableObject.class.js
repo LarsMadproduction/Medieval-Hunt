@@ -51,6 +51,7 @@ class MovableObject extends DrawableObject {
       let path = images[this.i];
       this.img = this.imageCache[path];
       this.i++;
+      this.currentImage = 0;
     }
   }
 

@@ -10,7 +10,7 @@ class Attack extends MovableObject {
   }
 
   baseAttack() {
-    if (world.keyboard.HIT && !world.character.isDead()) {
+    if (world.keyboard.HIT && !world.character.isDead() && !this.isAboveGround()) {
       world.character.playAnimationOnce(world.character.CHARACTER_BASE_ATTACK);
       SOUND_CHARACTER_SWORD_SWING.currentTime = 0;
       this.hitted();
