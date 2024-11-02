@@ -21,140 +21,108 @@ class Spell extends MovableObject {
   }
 
   chargeSpell() {
-    if (
-      !world.character.otherDirection &&
+    if (this.canCastSpell()) {
+      let direction = this.getSpellDirection();
+      this.launchSpell(direction);
+    }
+  }
+
+  canCastSpell() {
+    return (
       world.manaBar.manaPoints > 0 &&
       world.keyboard.SPELL &&
       !world.character.isDead()
-    ) {
-      let spellRightInterval = setInterval(() => {
-        this.playAnimation(this.CHARACTER_SPELL);
-        this.x += this.speed;
-        if (
-          this.x > world.character.x + 400 ||
-          this.enemyHitBySpell() ||
-          this.minionHitBySpell() ||
-          this.bossHitBySpell()
-        ) {
-          this.spliceSpells();
-          clearInterval(spellRightInterval);
-          this.spellIntervals.splice(
-            this.spellIntervals.indexOf(spellRightInterval),
-            1
-          );
-        }
-      }, 1000 / 10);
-    }
+    );
+  }
 
-    if (
-      world.character.otherDirection &&
-      world.manaBar.manaPoints > 0 &&
-      world.keyboard.SPELL &&
-      !world.character.isDead()
-    ) {
-      let spellLeftInterval = setInterval(() => {
-        this.playAnimationOnce(this.CHARACTER_SPELL);
-        this.x -= this.speed;
-        if (
-          this.x < world.character.x - 400 ||
-          this.enemyHitBySpell() ||
-          this.minionHitBySpell() ||
-          this.bossHitBySpell()
-        ) {
-          this.spliceSpells();
-          clearInterval(spellLeftInterval);
-          this.spellIntervals.splice(
-            this.spellIntervals.indexOf(spellLeftInterval),
-            1
-          );
-        }
-      }, 1000 / 10);
+  getSpellDirection() {
+    return world.character.otherDirection ? -1 : 1;
+  }
+
+  launchSpell(direction) {
+    let spellInterval = setInterval(() => {
+      this.updateSpellPosition(direction);
+      if (
+        this.isSpellOutOfBounds(direction) ||
+        this.checkAllSpellCollisions()
+      ) {
+        this.cleanupAfterSpell(spellInterval);
+      }
+    }, 1000 / 10);
+  }
+
+  updateSpellPosition(direction) {
+    this.playAnimation(this.CHARACTER_SPELL);
+    this.x += this.speed * direction;
+  }
+
+  isSpellOutOfBounds(direction) {
+    let offset = direction === 1 ? 400 : -400;
+    return Math.abs(this.x - world.character.x) > offset;
+  }
+
+  cleanupAfterSpell(spellInterval) {
+    this.spliceSpells();
+    clearInterval(spellInterval);
+    this.removeInterval(spellInterval);
+  }
+
+  removeInterval(interval) {
+    let index = this.spellIntervals.indexOf(interval);
+    if (index !== -1) {
+      this.spellIntervals.splice(index, 1);
     }
   }
 
-  enemyHitBySpell() {
-    for (
-      let activeCastSpell = 0;
-      activeCastSpell < world.spell.length;
-      activeCastSpell++
-    ) {
-      let currentSpell = world.spell[activeCastSpell];
-      if (world.spell.length > 0) {
-        world.level.enemies.forEach((enemy, i) => {
-          if (enemy.isCollidingSpell(currentSpell) && !enemy.hasBeenHit) {
-            enemy.hit();
-            ENEMY_DEAD.play();
-            enemy.hasBeenHit = true;
-            setTimeout(() => {
-              this.spliceSpells();
-            }, 10);
-            if (enemy.isDead()) {
-              enemy.playAnimationOnce(enemy.ENEMY_DEAD);
-              setTimeout(() => {
-                world.level.enemies.splice(i, 1);
-              }, 500);
-            }
-          }
-        });
-      }
-    }
+  checkAllSpellCollisions() {
+    return ["enemies", "minions", "boss"].some((type) =>
+      this.checkCollisionsForType(type)
+    );
   }
 
-  minionHitBySpell() {
-    for (
-      let activeCastSpell = 0;
-      activeCastSpell < world.spell.length;
-      activeCastSpell++
-    ) {
-      let currentSpell = world.spell[activeCastSpell];
-      if (world.spell.length > 0) {
-        world.level.minions.forEach((minion, i) => {
-          if (minion.isCollidingSpell(currentSpell) && !minion.hasBeenHit) {
-            minion.hit();
-            MINION_DEAD.play();
-            minion.hasBeenHit = true;
-            setTimeout(() => {
-              this.spliceSpells();
-            }, 10);
-            if (minion.isDead()) {
-              minion.playAnimationOnce(minion.MINION_DEAD);
-              setTimeout(() => {
-                world.level.minions.splice(i, 1);
-              }, 500);
-            }
-          }
-        });
-      }
-    }
+  checkCollisionsForType(type) {
+    let soundMap = {
+      enemies: SOUND_ENEMY_DEAD,
+      minions: SOUND_MINION_DEAD,
+      boss: SOUND_BOSS_HURT,
+    };
+    let isBoss = type === "boss";
+    return world.spell.some((currentSpell) =>
+      this.handleCollisions(currentSpell, type, soundMap[type], isBoss)
+    );
   }
 
-  bossHitBySpell() {
-    for (
-      let activeCastSpell = 0;
-      activeCastSpell < world.spell.length;
-      activeCastSpell++
-    ) {
-      let currentSpell = world.spell[activeCastSpell];
-      if (world.spell.length > 0) {
-        if (world.level.boss.isCollidingSpell(currentSpell)) {
-          world.level.boss.bossHitSpell();
-          BOSS_HIT.play();
-          setTimeout(() => {
-            this.spliceSpells();
-          }, 10);
-          if (world.level.boss.isDead()) {
-            BOSS_DEAD.play();
-            world.level.boss.playAnimationOnce(world.level.boss.BOSS_DEAD);
-          }
-        }
-      }
+  handleCollisions(spell, targetType, targetSound, isBoss) {
+    let targets = Array.isArray(world.level[targetType])
+      ? world.level[targetType]
+      : [world.level[targetType]];
+    return targets.some((target, index) =>
+      this.processCollision(target, spell, targetSound, isBoss, targets, index)
+    );
+  }
+
+  processCollision(target, spell, sound, isBoss, targets, index) {
+    if (target.isCollidingSpell(spell) && !target.hasBeenHit) {
+      target.hit();
+      sound.play();
+      if (isBoss) target.playAnimationOnce(target.BOSS_HURT);
+      target.hasBeenHit = true;
+      setTimeout(() => {
+        this.removeSpell(spell);
+        if (isBoss) target.hasBeenHit = false;
+      }, 10);
+      if (target.isDead()) setTimeout(() => targets.splice(index, 1), 500);
+      return true;
     }
+    return false;
+  }
+
+  removeSpell(spell) {
+    let index = world.spell.indexOf(spell);
+    if (index !== -1) world.spell.splice(index, 1);
   }
 
   spliceSpells() {
-    for (let activeSpell = 0; activeSpell < world.spell.length; activeSpell++) {
-      let currentSpell = world.spell[activeSpell];
-      world.spell.splice(currentSpell, 1);
-    }
+    world.spell.length = 0;
   }
 }

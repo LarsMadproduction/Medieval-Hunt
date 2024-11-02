@@ -47,7 +47,7 @@ class Boss extends MovableObject {
     setInterval(() => {
       if ((world.character.x > 3000 || this.firstContact) && !this.isDead()) {
         this.moveLeft();
-        BOSS_STEP.play();
+        SOUND_BOSS_STEP.play();
         if (!this.firstContact) {
           this.firstContact = true;
         }

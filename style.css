@@ -101,7 +101,7 @@ button {
   border-radius: 50%;
   height: 80px;
   width: 80px;
-  background-size: contain;
+  background-size: auto;
   background-repeat: no-repeat;
   background-position: center;
   background-color: #834d469c;

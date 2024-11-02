@@ -1,12 +1,14 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
-let actionSpellStart = null;
-let actionAttackStart = null;
 let x = window.matchMedia("(max-width: 1024px)");
 let gameStarted = false;
-const mediaQueryListener = function () {
+let mediaQueryListener = function () {
   mobileButtons(x);
+};
+let actions = {
+  SPELL: { cooldown: 1000, lastAction: null },
+  HIT: { cooldown: 500, lastAction: null },
 };
 
 function init() {
@@ -24,32 +26,6 @@ function restart() {
   World.clear();
   initLevel();
   init();
-}
-
-function mobileButtons(x) {
-  if (gameStarted) {
-    if (x.matches) {
-      showMobileButtons();
-    } else {
-      hideMobileButtons();
-    }
-  }
-}
-
-function showMobileButtons() {
-  showMoveLeftButton();
-  showMoveRightButton();
-  showSpellButton();
-  showSwordButton();
-  showJumpButton();
-}
-
-function hideMobileButtons() {
-  hideMoveLeftButton();
-  hideMoveRightButton();
-  hideSpellButton();
-  hideSwordButton();
-  hideJumpButton();
 }
 
 function showStartScreenContent() {
@@ -74,40 +50,23 @@ function clearAllIntervals() {
   for (let i = 1; i < 9999; i++) window.clearInterval(i);
 }
 
-function executeSpell() {
-  keyboard.SPELL = true;
+function executeAction(action) {
+  let currentTime = Date.now();
+  if (
+    !actions[action].lastAction ||
+    currentTime - actions[action].lastAction >= actions[action].cooldown
+  ) {
+    keyboard[action] = true;
+    actions[action].lastAction = currentTime;
+  }
 }
 
 function cooldownSpell() {
-  let currentTime = new Date().getTime();
-  if (actionSpellStart === null) {
-    actionSpellStart = currentTime;
-    executeSpell();
-    return;
-  }
-  let actionEnd = currentTime - actionSpellStart;
-  if (actionEnd > 1000) {
-    executeSpell();
-    actionSpellStart = currentTime;
-  }
-}
-
-function executeAttack() {
-  keyboard.HIT = true;
+  executeAction("SPELL");
 }
 
 function cooldownAttack() {
-  let currentTime = new Date().getTime();
-  if (actionAttackStart === null) {
-    actionAttackStart = currentTime;
-    executeAttack();
-    return;
-  }
-  let actionEnd = currentTime - actionAttackStart;
-  if (actionEnd > 500) {
-    executeAttack();
-    actionAttackStart = currentTime;
-  }
+  executeAction("HIT");
 }
 
 window.addEventListener("keydown", (k) => {
@@ -166,7 +125,7 @@ function handleLandscapeWarning() {
 }
 
 function landscapeRequirement() {
-  return (window.matchMedia("(orientation: portrait)").matches);
+  return window.matchMedia("(orientation: portrait)").matches;
 }
 
 x.addEventListener("change", mediaQueryListener);

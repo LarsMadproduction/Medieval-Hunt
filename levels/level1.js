@@ -1,98 +1,57 @@
-let level1;
+const ENEMY_IMAGE = "assets/png/enemy/enemyWalk/enemyWalk1.png";
+const MINION_IMAGE = "assets/png/minion/minionWalk/minionWalk1.png";
+const BOSS_IMAGE = "assets/png/boss/bossWalk/bossWalk1.png";
+const COIN_IMAGE = "assets/png/coin/gold1.png";
+const BACKGROUND_IMAGES = [
+  "assets/png/background/bright/bg.png",
+  "assets/png/background/bright/mountains.png",
+  "assets/png/background/bright/wall@windows.png",
+  "assets/png/background/bright/candeliar.png",
+  "assets/png/background/bright/floor.png",
+  "assets/png/background/bright/dragon.png",
+  "assets/png/background/bright/columns&falgs.png",
+];
+
+function createEnemies() {
+  let positions = [730, 1130, 1930, 2730, 3130, 3930];
+  return positions.map((pos) => new Enemy(ENEMY_IMAGE, pos));
+}
+
+function createMinions() {
+  let positions = [1080, 1880, 2280, 3080, 3880, 4280];
+  return positions.map((pos) => new Minion(MINION_IMAGE, pos));
+}
+
+function createCoins() {
+  let coinLowestY = 180;
+  let coinLowY = 120;
+  let coinMidY = 90;
+  let coinUpperY = 75;
+  let coinSets = [
+    [430, coinLowestY], [450, coinLowY], [500, coinMidY], [550, coinUpperY], [600, coinMidY], [650, coinLowY], [670, coinLowestY],
+    [1530, coinLowestY], [1550, coinLowY], [1600, coinMidY], [1650, coinUpperY], [1700, coinMidY], [1750, coinLowY], [1770, coinLowestY],
+    [2630, coinLowestY], [2650, coinLowY], [2700, coinMidY], [2750, coinUpperY], [2800, coinMidY], [2850, coinLowY], [2870, coinLowestY],
+  ];
+
+  return coinSets.map(([x, y]) => new Coin(COIN_IMAGE, x, y));
+}
+
+function createBackgrounds() {
+  let backgrounds = [];
+  for (let i = 0; i < BACKGROUND_IMAGES.length; i++) {
+    for (let j = 0; j <= 10; j++) {
+      backgrounds.push(new Background(BACKGROUND_IMAGES[i], j * 719));
+    }
+  }
+  return backgrounds;
+}
 
 function initLevel() {
   level1 = new Level(
-    [
-      new Enemy("assets/png/enemy/enemyWalk/enemyWalk1.png", 730),
-      new Enemy("assets/png/enemy/enemyWalk/enemyWalk1.png", 1130),
-      new Enemy("assets/png/enemy/enemyWalk/enemyWalk1.png", 1930),
-      new Enemy("assets/png/enemy/enemyWalk/enemyWalk1.png", 2730),
-      new Enemy("assets/png/enemy/enemyWalk/enemyWalk1.png", 3130),
-      new Enemy("assets/png/enemy/enemyWalk/enemyWalk1.png", 3930),
-    ],
-    [
-      new Minion("assets/png/minion/minionWalk/minionWalk1.png", 1080),
-      new Minion("assets/png/minion/minionWalk/minionWalk1.png", 1880),
-      new Minion("assets/png/minion/minionWalk/minionWalk1.png", 2280),
-      new Minion("assets/png/minion/minionWalk/minionWalk1.png", 3080),
-      new Minion("assets/png/minion/minionWalk/minionWalk1.png", 3880),
-      new Minion("assets/png/minion/minionWalk/minionWalk1.png", 4280),
-    ],
-    new Boss("assets/png/boss/bossWalk/bossWalk1.png", 4520),
-    [
-      //COINSET 1
-      new Coin("assets/png/coin/gold1.png", 430, 180),
-      new Coin("assets/png/coin/gold1.png", 450, 120),
-      new Coin("assets/png/coin/gold1.png", 500, 90),
-      new Coin("assets/png/coin/gold1.png", 550, 75),
-      new Coin("assets/png/coin/gold1.png", 600, 90),
-      new Coin("assets/png/coin/gold1.png", 650, 120),
-      new Coin("assets/png/coin/gold1.png", 670, 180),
-      //COINSET 2
-      new Coin("assets/png/coin/gold1.png", 1530, 180),
-      new Coin("assets/png/coin/gold1.png", 1550, 120),
-      new Coin("assets/png/coin/gold1.png", 1600, 90),
-      new Coin("assets/png/coin/gold1.png", 1650, 75),
-      new Coin("assets/png/coin/gold1.png", 1700, 90),
-      new Coin("assets/png/coin/gold1.png", 1750, 120),
-      new Coin("assets/png/coin/gold1.png", 1770, 180),
-      //COINSET 3
-      new Coin("assets/png/coin/gold1.png", 2630, 180),
-      new Coin("assets/png/coin/gold1.png", 2650, 120),
-      new Coin("assets/png/coin/gold1.png", 2700, 90),
-      new Coin("assets/png/coin/gold1.png", 2750, 75),
-      new Coin("assets/png/coin/gold1.png", 2800, 90),
-      new Coin("assets/png/coin/gold1.png", 2850, 120),
-      new Coin("assets/png/coin/gold1.png", 2870, 180),
-    ],
-    [
-      new Background("assets/png/background/bright/bg.png", 0),
-      new Background("assets/png/background/bright/bg.png", 719),
-      new Background("assets/png/background/bright/bg.png", 719 * 2),
-      new Background("assets/png/background/bright/bg.png", 719 * 3),
-      new Background("assets/png/background/bright/bg.png", 719 * 4),
-      new Background("assets/png/background/bright/bg.png", 719 * 5),
-      new Mountain("assets/png/background/bright/mountains.png", 0),
-      new Mountain("assets/png/background/bright/mountains.png", 719),
-      new Mountain("assets/png/background/bright/mountains.png", 719 * 2),
-      new Mountain("assets/png/background/bright/mountains.png", 719 * 3),
-      new Mountain("assets/png/background/bright/mountains.png", 719 * 4),
-      new Mountain("assets/png/background/bright/mountains.png", 719 * 5),
-      new Mountain("assets/png/background/bright/mountains.png", 719 * 6),
-      new Mountain("assets/png/background/bright/mountains.png", 719 * 7),
-      new Mountain("assets/png/background/bright/mountains.png", 719 * 8),
-      new Mountain("assets/png/background/bright/mountains.png", 719 * 9),
-      new Mountain("assets/png/background/bright/mountains.png", 719 * 10),
-      new Background("assets/png/background/bright/wall@windows.png", 0),
-      new Background("assets/png/background/bright/wall@windows.png", 719),
-      new Background("assets/png/background/bright/wall@windows.png", 719 * 2),
-      new Background("assets/png/background/bright/wall@windows.png", 719 * 3),
-      new Background("assets/png/background/bright/wall@windows.png", 719 * 4),
-      new Background("assets/png/background/bright/wall@windows.png", 719 * 5),
-      new Background("assets/png/background/bright/candeliar.png", 0),
-      new Background("assets/png/background/bright/candeliar.png", 719),
-      new Background("assets/png/background/bright/candeliar.png", 719 * 2),
-      new Background("assets/png/background/bright/candeliar.png", 719 * 3),
-      new Background("assets/png/background/bright/candeliar.png", 719 * 4),
-      new Background("assets/png/background/bright/candeliar.png", 719 * 5),
-      new Background("assets/png/background/bright/floor.png", 0),
-      new Background("assets/png/background/bright/floor.png", 719),
-      new Background("assets/png/background/bright/floor.png", 719 * 2),
-      new Background("assets/png/background/bright/floor.png", 719 * 3),
-      new Background("assets/png/background/bright/floor.png", 719 * 4),
-      new Background("assets/png/background/bright/floor.png", 719 * 5),
-      new Background("assets/png/background/bright/dragon.png", 0),
-      new Background("assets/png/background/bright/dragon.png", 719),
-      new Background("assets/png/background/bright/dragon.png", 719 * 2),
-      new Background("assets/png/background/bright/dragon.png", 719 * 3),
-      new Background("assets/png/background/bright/dragon.png", 719 * 4),
-      new Background("assets/png/background/bright/dragon.png", 719 * 5),
-      new Background("assets/png/background/bright/columns&falgs.png", 0),
-      new Background("assets/png/background/bright/columns&falgs.png", 719),
-      new Background("assets/png/background/bright/columns&falgs.png", 719 * 2),
-      new Background("assets/png/background/bright/columns&falgs.png", 719 * 3),
-      new Background("assets/png/background/bright/columns&falgs.png", 719 * 4),
-      new Background("assets/png/background/bright/columns&falgs.png", 719 * 5),
-    ]
+    createEnemies(),
+    createMinions(),
+    new Boss(BOSS_IMAGE, 4450),
+    createCoins(),
+    createBackgrounds()
   );
 }

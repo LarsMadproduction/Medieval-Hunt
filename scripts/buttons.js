@@ -30,6 +30,32 @@ function muteAllSound(muteButtonOn) {
   }
 }
 
+function mobileButtons(x) {
+  if (gameStarted) {
+    if (x.matches) {
+      showMobileButtons();
+    } else {
+      hideMobileButtons();
+    }
+  }
+}
+
+function showMobileButtons() {
+  showMoveLeftButton();
+  showMoveRightButton();
+  showSpellButton();
+  showSwordButton();
+  showJumpButton();
+}
+
+function hideMobileButtons() {
+  hideMoveLeftButton();
+  hideMoveRightButton();
+  hideSpellButton();
+  hideSwordButton();
+  hideJumpButton();
+}
+
 function controlButtons() {
   let controlButton = document.getElementById("controls_button");
   let muteButtonOn = document.getElementById("music_button_on");
@@ -137,9 +163,7 @@ function tochButtons() {
     world.keyboard.JUMP = false;
   });
 }
-// Alle Buttons auf der Seite auswählen
 
-// Ereignisse für jeden Button hinzufügen
 buttons.forEach((button) => {
   button.addEventListener("touchstart", () => {
     button.classList.add("active");

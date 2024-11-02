@@ -55,7 +55,7 @@ class Attack extends MovableObject {
 
   handleEnemyHit(target, index) {
     target.hit();
-    ENEMY_DEAD.play();
+    SOUND_ENEMY_DEAD.play();
     target.hasBeenHit = true;
     if (target.isDead()) {
       target.playAnimationOnce(target.ENEMY_DEAD);
@@ -67,7 +67,7 @@ class Attack extends MovableObject {
 
   handleMinionHit(target, index) {
     target.hit();
-    MINION_DEAD.play();
+    SOUND_MINION_DEAD.play();
     target.hasBeenHit = true;
     if (target.isDead()) {
       target.playAnimationOnce(target.MINION_DEAD);
@@ -79,10 +79,10 @@ class Attack extends MovableObject {
 
   handleBossHit(target) {
     target.bossHitSword();
-    BOSS_HIT.play();
+    SOUND_BOSS_HURT.play();
     target.hasBeenHit = true;
     if (target.isDead()) {
-      BOSS_DEAD.play();
+      SOUND_BOSS_DEAD.play();
       target.playAnimationOnce(target.BOSS_DEAD);
     }
     setTimeout(() => {
