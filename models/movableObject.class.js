@@ -68,57 +68,38 @@ class MovableObject extends DrawableObject {
   jump() {
     this.speedY = 28;
   }
-  isCollidingCoin(mo) {
+
+  isColliding(mo, offsetX = 0, offsetY = 0, offsetW = 0, offsetH = 0) {
     return (
-      this.x + 65 + this.width - 180 > mo.x &&
-      this.x + 65 < mo.x + mo.width &&
-      this.y + 140 + this.height - 140 > mo.y &&
-      this.y + 140 < mo.y + mo.height
+      this.x + 65 + this.width - 180 > mo.x + offsetX &&
+      this.x + 65 < mo.x + offsetX + mo.width + offsetW &&
+      this.y + 140 + this.height - 140 > mo.y + offsetY &&
+      this.y + 140 < mo.y + offsetY + mo.height + offsetH
     );
+  }
+
+  isCollidingCoin(mo) {
+    return this.isColliding(mo);
   }
 
   isCollidingPotion(mo) {
-    return (
-      this.x + 65 + this.width - 180 > mo.x &&
-      this.x + 65 < mo.x + mo.width &&
-      this.y + 140 + this.height - 140 > mo.y &&
-      this.y + 140 < mo.y + mo.height
-    );
+    return this.isColliding(mo);
   }
 
   isCollidingEnemy(mo) {
-    return (
-      this.x + 65 + this.width - 180 > mo.x &&
-      this.x + 65 < mo.x + mo.width - 120 &&
-      this.y + 140 + this.height - 140 > mo.y + 100 &&
-      this.y + 140 < mo.y + 100 + mo.height - 100
-    );
+    return this.isColliding(mo, 0, 100, -120, -100);
   }
 
   isCollidingMinion(mo) {
-    return (
-      this.x + 65 + this.width - 180 > mo.x - 10 &&
-      this.x + 65 < mo.x - 10 + mo.width - 100 &&
-      this.y + 140 + this.height - 140 > mo.y + 120 &&
-      this.y + 140 < mo.y + 120 + mo.height - 120
-    );
+    return this.isColliding(mo, -10, 120, -100, -120);
   }
+
   isCollidingBoss(mo) {
-    return (
-      this.x + 65 + this.width - 180 > mo.x + 20 &&
-      this.x + 65 < mo.x + 20 + mo.width - 150 &&
-      this.y + 140 + this.height - 140 > mo.y + 130 &&
-      this.y + 140 < mo.y + 130 + mo.height - 130
-    );
+    return this.isColliding(mo, 20, 130, -150, -130);
   }
 
   isCollidingSpell(mo) {
-    return (
-      this.x + 65 + this.width - 180 > mo.x + 105 &&
-      this.x + 65 < mo.x + 105 + mo.width - 100 &&
-      this.y + 140 + this.height - 140 > mo.y + 140 &&
-      this.y + 140 < mo.y + 140 + mo.height - 235
-    );
+    return this.isColliding(mo, 105, 140, -100, -240);
   }
 
   isCollidingSword(mo) {

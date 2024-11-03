@@ -161,6 +161,4 @@ class World {
       this.manaBar.isSpellUsed();
       this.spell.push(spell);
     }
-  
-  
 }
