@@ -1,7 +1,3 @@
-/**
- * All button elements on the page.
- * @type {NodeListOf<HTMLButtonElement>}
- */
 let buttons = document.querySelectorAll("button");
 
 /**
