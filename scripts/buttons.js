@@ -1,19 +1,36 @@
+/**
+ * All button elements on the page.
+ * @type {NodeListOf<HTMLButtonElement>}
+ */
 let buttons = document.querySelectorAll("button");
 
+/**
+ * Opens the control overlay.
+ */
 function openControls() {
   let control = document.getElementById("control_overlay");
   control.classList.remove("d-none");
 }
 
+/**
+ * Closes the control overlay.
+ */
 function closeControls() {
   let control = document.getElementById("control_overlay");
   control.classList.add("d-none");
 }
 
+/**
+ * Prevents event bubbling.
+ * @param {Event} event - The event object.
+ */
 function bubblingPrevention(event) {
   event.stopPropagation();
 }
 
+/**
+ * Toggles sound buttons visibility and mutes/unmutes all sounds.
+ */
 function toggleSounds() {
   let muteButtonOn = document.getElementById("music_button_on");
   let muteButtonOff = document.getElementById("music_button_off");
@@ -22,6 +39,10 @@ function toggleSounds() {
   muteAllSound(muteButtonOn);
 }
 
+/**
+ * Mutes or unmutes all sounds based on the visibility of the mute button.
+ * @param {HTMLElement} muteButtonOn - The mute button element.
+ */
 function muteAllSound(muteButtonOn) {
   if (muteButtonOn.classList.contains("d-none")) {
     muteSound();
@@ -30,6 +51,10 @@ function muteAllSound(muteButtonOn) {
   }
 }
 
+/**
+ * Shows or hides mobile buttons based on media query matches.
+ * @param {MediaQueryList} x - Media query object for screen width.
+ */
 function mobileButtons(x) {
   if (gameStarted) {
     if (x.matches) {
@@ -40,6 +65,9 @@ function mobileButtons(x) {
   }
 }
 
+/**
+ * Shows all mobile control buttons.
+ */
 function showMobileButtons() {
   showMoveLeftButton();
   showMoveRightButton();
@@ -48,6 +76,9 @@ function showMobileButtons() {
   showJumpButton();
 }
 
+/**
+ * Hides all mobile control buttons.
+ */
 function hideMobileButtons() {
   hideMoveLeftButton();
   hideMoveRightButton();
@@ -56,6 +87,9 @@ function hideMobileButtons() {
   hideJumpButton();
 }
 
+/**
+ * Toggles position of control and mute buttons.
+ */
 function controlButtons() {
   let controlButton = document.getElementById("controls_button");
   let muteButtonOn = document.getElementById("music_button_on");
@@ -65,56 +99,89 @@ function controlButtons() {
   muteButtonOff.classList.toggle("pos-abs");
 }
 
+/**
+ * Hides the move-left button.
+ */
 function hideMoveLeftButton() {
   let moveLeftButton = document.getElementById("left_button");
   moveLeftButton.classList.add("d-none");
 }
 
+/**
+ * Hides the move-right button.
+ */
 function hideMoveRightButton() {
-  let moveLeftButton = document.getElementById("right_button");
-  moveLeftButton.classList.add("d-none");
+  let moveRightButton = document.getElementById("right_button");
+  moveRightButton.classList.add("d-none");
 }
 
+/**
+ * Hides the spell button.
+ */
 function hideSpellButton() {
-  let moveLeftButton = document.getElementById("spell_button");
-  moveLeftButton.classList.add("d-none");
+  let spellButton = document.getElementById("spell_button");
+  spellButton.classList.add("d-none");
 }
 
+/**
+ * Hides the sword button.
+ */
 function hideSwordButton() {
-  let moveLeftButton = document.getElementById("sword_button");
-  moveLeftButton.classList.add("d-none");
+  let swordButton = document.getElementById("sword_button");
+  swordButton.classList.add("d-none");
 }
 
+/**
+ * Hides the jump button.
+ */
 function hideJumpButton() {
-  let moveLeftButton = document.getElementById("jump_button");
-  moveLeftButton.classList.add("d-none");
+  let jumpButton = document.getElementById("jump_button");
+  jumpButton.classList.add("d-none");
 }
 
+/**
+ * Shows the move-left button.
+ */
 function showMoveLeftButton() {
   let moveLeftButton = document.getElementById("left_button");
   moveLeftButton.classList.remove("d-none");
 }
 
+/**
+ * Shows the move-right button.
+ */
 function showMoveRightButton() {
-  let moveLeftButton = document.getElementById("right_button");
-  moveLeftButton.classList.remove("d-none");
+  let moveRightButton = document.getElementById("right_button");
+  moveRightButton.classList.remove("d-none");
 }
 
+/**
+ * Shows the spell button.
+ */
 function showSpellButton() {
-  let moveLeftButton = document.getElementById("spell_button");
-  moveLeftButton.classList.remove("d-none");
+  let spellButton = document.getElementById("spell_button");
+  spellButton.classList.remove("d-none");
 }
 
+/**
+ * Shows the sword button.
+ */
 function showSwordButton() {
-  let moveLeftButton = document.getElementById("sword_button");
-  moveLeftButton.classList.remove("d-none");
+  let swordButton = document.getElementById("sword_button");
+  swordButton.classList.remove("d-none");
 }
 
+/**
+ * Shows the jump button.
+ */
 function showJumpButton() {
-  let moveLeftButton = document.getElementById("jump_button");
-  moveLeftButton.classList.remove("d-none");
+  let jumpButton = document.getElementById("jump_button");
+  jumpButton.classList.remove("d-none");
 }
 
+/**
+ * Adds touch event listeners to mobile buttons for controlling character actions.
+ */
 function tochButtons() {
   document.getElementById("left_button").addEventListener("touchstart", (e) => {
     e.preventDefault();
@@ -164,6 +231,9 @@ function tochButtons() {
   });
 }
 
+/**
+ * Adds active class on touchstart and removes it on touchend for visual feedback.
+ */
 buttons.forEach((button) => {
   button.addEventListener("touchstart", () => {
     button.classList.add("active");

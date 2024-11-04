@@ -1,4 +1,17 @@
+/**
+ * The Enemy class represents an enemy character in the game.
+ * It extends MovableObject, inheriting properties for movement, collision detection, and health management.
+ */
 class Enemy extends MovableObject {
+  /**
+   * @type {number} y - The vertical position of the enemy.
+   * @type {number} height - The height of the enemy.
+   * @type {number} width - The width of the enemy.
+   * @type {number} healthPoints - The health points of the enemy.
+   * @type {Array<string>} ENEMY_WALKING - Array of image paths for the enemy's walking animation.
+   * @type {Array<string>} ENEMY_DEAD - Array of image paths for the enemy's death animation.
+   * @type {boolean} hasDroppedManaPotion - Indicates if the enemy has already dropped a mana potion.
+   */
   y = 160;
   height = 220;
   width = 180;
@@ -23,6 +36,12 @@ class Enemy extends MovableObject {
     "assets/png/enemy/enemyDead/enemyDead2.png",
     "assets/png/enemy/enemyDead/enemyDead3.png",
   ];
+
+  /**
+   * Creates an instance of the Enemy class.
+   * @param {string} imagePath - The path to the initial image for the enemy.
+   * @param {number} x - The initial horizontal position of the enemy.
+   */
   constructor(imagePath, x) {
     super().loadImage(imagePath);
     this.x = x;
@@ -33,6 +52,11 @@ class Enemy extends MovableObject {
     this.otherDirection = true;
     this.hasDroppedManaPotion = false;
   }
+
+  /**
+   * Animates the enemy's movement and actions.
+   * The enemy moves left and switches between walking and dead animations based on its state.
+   */
   animate() {
     setInterval(() => {
       this.moveLeft();
@@ -40,7 +64,8 @@ class Enemy extends MovableObject {
     setInterval(() => {
       if (this.gotHit()) {
         this.isDead();
-      } if (this.isDead()) {
+      }
+      if (this.isDead()) {
         this.playAnimationOnce(this.CHARACTER_ATTACK_SPELL_HIT);
         this.playAnimationOnce(this.ENEMY_DEAD);
         this.isEnemyDead();
@@ -51,9 +76,13 @@ class Enemy extends MovableObject {
     }, 500 / 4);
   }
 
-  isEnemyDead(){
+  /**
+   * Checks if the enemy is dead and drops a mana potion if it hasn't already done so.
+   * If the enemy is dead, it stops moving and adds a mana potion to the world.
+   */
+  isEnemyDead() {
     if (this.isDead() && !this.hasDroppedManaPotion) {
-      let dropManaPotion = new Manapotion(this.x)
+      let dropManaPotion = new Manapotion(this.x);
       world.manaPotions.push(dropManaPotion);
       this.speed = 0;
       this.hasDroppedManaPotion = true;

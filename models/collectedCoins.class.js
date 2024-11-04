@@ -1,4 +1,15 @@
+/**
+ * The CollectedCoins class represents collectible coins in the game.
+ * It extends MovableObject, allowing it to move and interact with the player character.
+ */
 class CollectedCoins extends MovableObject {
+  /**
+   * @type {number} x - The horizontal position of the coin.
+   * @type {number} y - The vertical position of the coin.
+   * @type {number} height - The height of the coin.
+   * @type {number} width - The width of the coin.
+   * @type {Array<string>} COIN_FLIPP - Array of image paths for the coin flipping animation.
+   */
   x = 20;
   y = 90;
   height = 30;
@@ -17,6 +28,10 @@ class CollectedCoins extends MovableObject {
     "assets/png/coin/gold10.png",
   ];
 
+  /**
+   * Creates an instance of the CollectedCoins class.
+   * @param {string} imagePath - The path to the initial image for the coin.
+   */
   constructor(imagePath) {
     super().loadImage(imagePath);
     this.otherDirection = false;
@@ -24,11 +39,20 @@ class CollectedCoins extends MovableObject {
     this.animate();
     this.gatherCoin();
   }
+
+  /**
+   * Animates the coin by cycling through its flipping images.
+   */
   animate() {
     setInterval(() => {
       this.playAnimation(this.COIN_FLIPP);
     }, 800 / 6);
   }
+
+  /**
+   * Continuously checks for collision with the character to gather the coin.
+   * If the coin is collected, it plays a sound and increments the collected coin count.
+   */
   gatherCoin() {
     setInterval(() => {
       this.world.level.coins.forEach((coin, i) => {

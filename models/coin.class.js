@@ -1,4 +1,13 @@
+/**
+ * The Coin class represents collectible coins in the game.
+ * It extends MovableObject, allowing the coin to move and interact with the environment.
+ */
 class Coin extends MovableObject {
+  /**
+   * @type {number} height - The height of the coin.
+   * @type {number} width - The width of the coin.
+   * @type {Array<string>} COIN_FLIPP - Array of image paths for the coin flipping animation.
+   */
   height = 40;
   width = 40;
 
@@ -14,6 +23,13 @@ class Coin extends MovableObject {
     "assets/png/coin/gold9.png",
     "assets/png/coin/gold10.png",
   ];
+
+  /**
+   * Creates an instance of the Coin class.
+   * @param {string} imagePath - The path to the initial image for the coin.
+   * @param {number} x - The horizontal position of the coin.
+   * @param {number} y - The vertical position of the coin.
+   */
   constructor(imagePath, x, y) {
     super().loadImage(imagePath);
     this.x = x;
@@ -22,6 +38,10 @@ class Coin extends MovableObject {
     this.loadImages(this.COIN_FLIPP);
     this.animate();
   }
+
+  /**
+   * Animates the coin by cycling through its flipping images.
+   */
   animate() {
     setInterval(() => {
       this.playAnimation(this.COIN_FLIPP);
