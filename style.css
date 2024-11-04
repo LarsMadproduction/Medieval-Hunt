@@ -61,10 +61,13 @@ button {
 }
 
 a {
-  bottom: 16px;
-  right: 16px;
+  margin: auto;
   color: white;
   text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
 }
 
 .controls-button {
@@ -237,7 +240,7 @@ td {
     font-size: 24px;
   }
 
-  .legal-notice-h2{
+  .legal-notice-h2 {
     font-size: 19px;
   }
 
