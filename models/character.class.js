@@ -114,7 +114,7 @@ class Character extends MovableObject {
       }
     }, 1000 / 60);
     setInterval(() => {
-      this.characterMoveStatemants();
+      this.characterMoveStatements();
     }, 700 / 4);
     setInterval(() => {
       this.isAfk();
@@ -123,38 +123,106 @@ class Character extends MovableObject {
 
   /**
    * Handles character movement based on keyboard input.
+   * Moves the character right or left, allows jumping, and updates the camera position.
    */
   characterMovement() {
-    if (world.keyboard.RIGHT && this.x < this.world.level.levelEndX) {
+    if (this.handleLevelLenght()) {
       this.moveRight();
       this.backInAction();
-    }
-    if (this.world.keyboard.LEFT && this.x > 0) {
+    } if (this.handleStartMovability()) {
       this.moveLeft();
       this.backInAction();
-    }
-    if (this.world.keyboard.JUMP && !this.isAboveGround()) {
+    } if (this.handleJumpAbility()) {
       this.jump();
       this.backInAction();
-    }
+    } this.handleCameraPosition();
+  }
+
+  /**
+   * Checks if the character can move right based on keyboard input and level boundaries.
+   * @returns {boolean} True if the character can move right, otherwise false.
+   */
+  handleLevelLenght() {
+    return world.keyboard.RIGHT && this.x < this.world.level.levelEndX;
+  }
+
+  /**
+   * Checks if the character can move left based on keyboard input and position on the screen.
+   * @returns {boolean} True if the character can move left, otherwise false.
+   */
+  handleStartMovability() {
+    return this.world.keyboard.LEFT && this.x > 0;
+  }
+
+  /**
+   * Checks if the character can jump based on keyboard input and whether they are currently above ground.
+   * @returns {boolean} True if the character can jump, otherwise false.
+   */
+  handleJumpAbility() {
+    return this.world.keyboard.JUMP && !this.isAboveGround();
+  }
+
+  /**
+   * Updates the camera position based on the character's current horizontal position.
+   * The camera will follow the character from the left side of the screen.
+   */
+  handleCameraPosition() {
     this.world.cameraX = -this.x + 0;
   }
 
   /**
    * Manages character animation states based on current conditions.
    */
-  characterMoveStatemants() {
+  characterMoveStatements() {
     if (this.characterAfk) {
-      this.playAnimation(this.CHARACTER_AFK);
+      this.handleAfk();
     } else if (this.gotHit()) {
-      this.backInAction();
-      this.playAnimationOnce(this.CHARACTER_HURT);
+      this.handleHit();
     } else if (this.isDead()) {
-      this.backInAction();
-      SOUND_CHARACTER_DEAD.play();
-      this.playAnimationOnce(this.CHARACTER_DEAD);
-      this.world.gameOver();
-    } else if (
+      this.handleDeath();
+    } else if (this.isMoving()) {
+      this.handleMovement();
+    } else if (this.isGrounded()) {
+      this.handleDefaultAnimation();
+    } else if (this.isAboveGround()) {
+      this.handleJump();
+    }
+  }
+
+  /**
+   * Handles the character's animation when they are AFK (away from keyboard).
+   * Plays the AFK animation.
+   */
+  handleAfk() {
+    this.playAnimation(this.CHARACTER_AFK);
+  }
+
+  /**
+   * Handles the character's animation after being hit.
+   * Plays the hurt animation and resets the character's state to back in action.
+   */
+  handleHit() {
+    this.backInAction();
+    this.playAnimationOnce(this.CHARACTER_HURT);
+  }
+
+  /**
+   * Handles the character's death animation.
+   * Plays the dead animation, stops character actions, and triggers the game over state.
+   */
+  handleDeath() {
+    this.backInAction();
+    SOUND_CHARACTER_DEAD.play();
+    this.playAnimationOnce(this.CHARACTER_DEAD);
+    this.world.gameOver();
+  }
+
+  /**
+   * Checks if the character is currently moving.
+   * @returns {boolean} True if the character is moving, otherwise false.
+   */
+  isMoving() {
+    return (
       (this.world.keyboard.RIGHT &&
         !this.isAboveGround() &&
         !this.world.keyboard.SPELL &&
@@ -163,19 +231,45 @@ class Character extends MovableObject {
         !this.isAboveGround() &&
         !this.world.keyboard.SPELL &&
         !this.world.keyboard.HIT)
-    ) {
-      this.playAnimation(this.CHARACTER_WALKING);
-      SOUND_CHARACTER_STEPS.play();
-    } else if (
+    );
+  }
+
+  /**
+   * Handles the character's movement animation.
+   * Plays the walking animation and sound effect for steps.
+   */
+  handleMovement() {
+    this.playAnimation(this.CHARACTER_WALKING);
+    SOUND_CHARACTER_STEPS.play();
+  }
+
+  /**
+   * Checks if the character is currently grounded.
+   * @returns {boolean} True if the character is on the ground, otherwise false.
+   */
+  isGrounded() {
+    return (
       !this.isAboveGround() &&
       !this.world.keyboard.SPELL &&
       !this.world.keyboard.HIT
-    ) {
-      SOUND_CHARACTER_STEPS.pause();
-      this.playAnimation(this.CHARACTER_DEFAULT);
-    } else if (this.isAboveGround()) {
-      this.playAnimationOnce(this.CHARACTER_JUMP);
-    }
+    );
+  }
+
+  /**
+   * Handles the default animation for the character when not moving or performing any action.
+   * Stops the walking sound and plays the default animation.
+   */
+  handleDefaultAnimation() {
+    SOUND_CHARACTER_STEPS.pause();
+    this.playAnimation(this.CHARACTER_DEFAULT);
+  }
+
+  /**
+   * Handles the character's jump animation.
+   * Plays the jump animation once.
+   */
+  handleJump() {
+    this.playAnimationOnce(this.CHARACTER_JUMP);
   }
 
   /**
