@@ -102,8 +102,8 @@ class DrawableObject {
   progressBossLifeBar(ctx) {
     if (this instanceof Boss) {
       let x = this.x + 70;
-      let y = this.y + 100;
-      let width = this.width * 0.5;
+      let y = this.y + 130;
+      let width = this.width * 0.4;
       let height = 20;
       let radius = 10;
       let fillPercentage = this.healthPoints;
