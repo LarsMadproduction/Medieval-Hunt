@@ -82,6 +82,7 @@ class World {
       world.gameStarted = false;
       x.removeEventListener("change", mediaQueryListener);
       hideMobileButtons();
+      toggleHomeButton();
     }, 1500);
   }
 

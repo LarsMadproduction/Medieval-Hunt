@@ -52,6 +52,21 @@ function muteAllSound(muteButtonOn) {
 }
 
 /**
+ * Toggles home button visibility.
+ */
+function toggleHomeButton() {
+  let home = document.getElementById("home_button");
+  home.classList.toggle("d-none");
+}
+
+/**
+ * Reloads the current web page.
+ */
+function homeScreen() {
+  window.location.reload();
+}
+
+/**
  * Shows or hides mobile buttons based on media query matches.
  * @param {MediaQueryList} x - Media query object for screen width.
  */

@@ -61,6 +61,7 @@ function init() {
  * Restarts the game by clearing intervals, resetting the level, and reinitializing the game.
  */
 function restart() {
+  toggleHomeButton();
   clearAllIntervals();
   World.clear();
   initLevel();

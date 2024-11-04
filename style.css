@@ -181,6 +181,10 @@ td {
   display: none;
 }
 
+.home-button{
+  margin-top: 16px;
+}
+
 .legal-notice {
   height: 100vh;
   padding-inline: 16px;
