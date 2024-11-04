@@ -1,4 +1,3 @@
-// Constant images for various game elements
 const ENEMY_IMAGE = "assets/png/enemy/enemyWalk/enemyWalk1.png";
 const MINION_IMAGE = "assets/png/minion/minionWalk/minionWalk1.png";
 const BOSS_IMAGE = "assets/png/boss/bossWalk/bossWalk1.png";
@@ -46,7 +45,6 @@ function createCoins() {
   let coinMidY = 90;
   let coinUpperY = 75;
 
-  // Define coin sets with their respective x and y positions
   let coinSets = [
     [430, coinLowestY], [450, coinLowY], [500, coinMidY], [550, coinUpperY], [600, coinMidY], [650, coinLowY], [670, coinLowestY],
     [1530, coinLowestY], [1550, coinLowY], [1600, coinMidY], [1650, coinUpperY], [1700, coinMidY], [1750, coinLowY], [1770, coinLowestY],
