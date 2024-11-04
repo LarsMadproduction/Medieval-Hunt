@@ -116,12 +116,12 @@ class MovableObject extends DrawableObject {
     if (this.healthPoints < 0.2) {
       this.healthPoints = 0;
     } else {
-      this.lastHit = new Date().getTime();
+      this.lastHit = Date.now();
     }
   }
 
   gotHit() {
-    let timepassed = new Date().getTime() - this.lastHit;
+    let timepassed = Date.now() - this.lastHit;
     return timepassed < 500;
   }
 
@@ -130,7 +130,7 @@ class MovableObject extends DrawableObject {
     if (this.healthPoints < 0.05) {
       this.healthPoints = 0;
     } else {
-      this.lastBossHit = new Date().getTime();
+      this.lastBossHit = Date.now();
     }
   }
 
@@ -139,12 +139,12 @@ class MovableObject extends DrawableObject {
     if (this.healthPoints < 0.05) {
       this.healthPoints = 0;
     } else {
-      this.lastBossHit = new Date().getTime();
+      this.lastBossHit = Date.now();
     }
   }
 
   bossGotHit() {
-    let timepassed = new Date().getTime() - this.lastBossHit;
+    let timepassed = Date.now() - this.lastBossHit;
     return timepassed < 500;
   }
 
@@ -159,7 +159,7 @@ class MovableObject extends DrawableObject {
       this.manaPoints = 0;
       world.character.manaPoints = 0;
     } else {
-      this.lastSpell = new Date().getTime();
+      this.lastSpell = Date.now();
     }
   }
 }

@@ -1,4 +1,4 @@
-let buttons = document.querySelectorAll('button');
+let buttons = document.querySelectorAll("button");
 
 function openControls() {
   let control = document.getElementById("control_overlay");

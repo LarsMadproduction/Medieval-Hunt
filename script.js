@@ -35,6 +35,7 @@ function showStartScreenContent() {
   document.getElementById("start_button").classList.add("d-none");
   document.getElementById("restart_button").classList.add("d-none");
   canvas.classList.remove("d-none");
+  document.getElementById("legal_notice").classList.add("d-none");
 }
 
 function showEndScreenContent() {
@@ -44,6 +45,7 @@ function showEndScreenContent() {
   document.getElementById("start_button").classList.add("d-none");
   document.getElementById("restart_button").classList.remove("d-none");
   canvas.classList.add("d-none");
+  document.getElementById("legal_notice").classList.remove("d-none");
 }
 
 function clearAllIntervals() {

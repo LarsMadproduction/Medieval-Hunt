@@ -35,6 +35,10 @@ h1 {
   text-shadow: 2px 2px 8px rgb(255, 255, 255);
 }
 
+p {
+  font-size: 19px;
+}
+
 canvas {
   background-color: black;
   display: block;
@@ -54,6 +58,13 @@ button {
   background-image: url("assets/png/assets/button.png");
   background-size: contain;
   background-repeat: no-repeat;
+}
+
+a {
+  bottom: 16px;
+  right: 16px;
+  color: white;
+  text-decoration: none;
 }
 
 .controls-button {
@@ -167,6 +178,18 @@ td {
   display: none;
 }
 
+.legal-notice {
+  height: 100vh;
+  padding-inline: 16px;
+  background-color: rgba(255, 255, 255, 0.452);
+  overflow-y: auto;
+}
+
+.legal-notice-h1 {
+  font-size: 40px;
+  text-shadow: 2px 2px 8px rgb(255, 255, 255);
+}
+
 .d-none {
   display: none;
 }
@@ -179,9 +202,16 @@ td {
   position: relative;
 }
 
+@media only screen and (min-width: 1920px) {
+  canvas {
+    width: 1920px;
+    height: 1080px;
+  }
+}
+
 @media only screen and (max-width: 1024px) {
   canvas {
-    width: 100%;
+    width: 100vw;
     height: 100vh;
   }
 
@@ -196,15 +226,22 @@ td {
   }
 
   .start-screen {
-    width: 100%;
+    width: 100vw;
     height: 100vh;
     background-size: cover;
   }
 }
 
-@media only screen and (min-width: 1920px) {
-  canvas {
-    width: 1920px;
-    height: 1080px;
+@media only screen and (max-width: 400px) {
+  .legal-notice-h1 {
+    font-size: 24px;
+  }
+
+  .legal-notice-h2{
+    font-size: 19px;
+  }
+
+  .legal-notice {
+    font-size: 13px;
   }
 }
