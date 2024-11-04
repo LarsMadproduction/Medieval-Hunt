@@ -2,22 +2,6 @@
  * The main game world class, handling the game's environment, characters, interactions, and animations.
  */
 class World {
-  /**
-   * @type {Lifebar} lifeBar - The character's life bar.
-   * @type {Manabar} manaBar - The character's mana bar.
-   * @type {CollectedCoins} collectedCoins - The collected coins counter.
-   * @type {Character} character - The main character of the game.
-   * @type {Array<ManaPotion>} manaPotions - Array of mana potions in the game.
-   * @type {Array<Attack>} attack - Array for storing active attack instances.
-   * @type {Array<Spell>} spell - Array for storing active spell instances.
-   * @type {Level} level - The current game level.
-   * @type {HTMLCanvasElement} canvas - The game's canvas element.
-   * @type {CanvasRenderingContext2D} ctx - The canvas rendering context.
-   * @type {Keyboard} keyboard - The keyboard input handler.
-   * @type {number} cameraX - The x-position of the camera for tracking the character.
-   * @type {number} lastCastTime - The last time a spell was cast, in milliseconds.
-   * @type {number} castInterval - Minimum time interval between casts, in milliseconds.
-   */
   lifeBar = new Lifebar("assets/png/potion/lifePotion.png", 0);
   manaBar = new Manabar("assets/png/potion/manaPotion.png", 0);
   collectedCoins = new CollectedCoins("assets/png/coin/gold1.png", 0);
@@ -36,11 +20,6 @@ class World {
   lastCastTime = 0;
   castInterval = 1000;
 
-  /**
-   * Initializes the game world.
-   * @param {HTMLCanvasElement} canvas - The canvas element for rendering the game.
-   * @param {Keyboard} keyboard - The keyboard input manager.
-   */
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
@@ -97,32 +76,60 @@ class World {
     }, 100);
   }
 
-  /**
-   * Draws all game objects to the canvas, including background, characters, and UI elements.
-   */
-  draw() {
-    this.deletFrame(this.ctx);
-    this.ctx.translate(this.cameraX, 0);
-    this.addObjectsToMap(this.level.backgrounds);
-    this.addObjectsToMap(this.level.enemies);
-    this.addObjectsToMap(this.level.minions);
-    this.addObjectsToMap(this.attack);
-    this.addObjectsToMap(this.spell);
-    this.addObjectsToMap(this.manaPotions);
-    this.addObjectsToMap(this.level.coins);
-    this.ctx.translate(-this.cameraX, 0);
+/**
+ * Draws the entire game scene by updating the canvas with movable, static, and single objects.
+ * This function clears the frame, applies camera translations, and repositions objects
+ * as needed, then recursively calls itself to animate.
+ *
+ */
+draw() {
+  this.deletFrame(this.ctx);
+  this.ctx.translate(this.cameraX, 0);
+  this.addMovableObjects();
+  this.ctx.translate(-this.cameraX, 0);
+  this.addStaticObjects();
+  this.ctx.translate(this.cameraX, 0);
+  this.addSingleObjects();
+  this.ctx.translate(-this.cameraX, 0);
+  requestAnimationFrame(this.draw.bind(this));
+}
 
-    this.addToMap(this.lifeBar);
-    this.addToMap(this.manaBar);
-    this.addToMap(this.collectedCoins);
+/**
+ * Adds all movable objects to the game scene, including enemies, minions, attacks, spells,
+ * potions, and collectibles. Movable objects typically interact dynamically with the player.
+ *
+ */
+addMovableObjects() {
+  this.addObjectsToMap(this.level.backgrounds);
+  this.addObjectsToMap(this.level.enemies);
+  this.addObjectsToMap(this.level.minions);
+  this.addObjectsToMap(this.attack);
+  this.addObjectsToMap(this.spell);
+  this.addObjectsToMap(this.manaPotions);
+  this.addObjectsToMap(this.level.coins);
+}
 
-    this.ctx.translate(this.cameraX, 0);
-    this.addToMap(this.character);
-    this.addToMap(this.level.boss);
-    this.ctx.translate(-this.cameraX, 0);
+/**
+ * Adds all static UI elements to the game scene, such as the life bar, mana bar, 
+ * and collected coins display. Static objects do not interact with the player's position.
+ *
+ */
+addStaticObjects() {
+  this.addToMap(this.lifeBar);
+  this.addToMap(this.manaBar);
+  this.addToMap(this.collectedCoins);
+}
 
-    requestAnimationFrame(this.draw.bind(this));
-  }
+/**
+ * Adds single, unique objects to the game scene, such as the main character and boss,
+ * which require separate handling in the drawing process.
+ *
+ */
+addSingleObjects() {
+  this.addToMap(this.character);
+  this.addToMap(this.level.boss);
+}
+
 
   /**
    * Adds multiple objects to the canvas.

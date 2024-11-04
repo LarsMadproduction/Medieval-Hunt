@@ -3,15 +3,6 @@
  * It extends MovableObject, inheriting properties for movement, collision detection, and health management.
  */
 class Enemy extends MovableObject {
-  /**
-   * @type {number} y - The vertical position of the enemy.
-   * @type {number} height - The height of the enemy.
-   * @type {number} width - The width of the enemy.
-   * @type {number} healthPoints - The health points of the enemy.
-   * @type {Array<string>} ENEMY_WALKING - Array of image paths for the enemy's walking animation.
-   * @type {Array<string>} ENEMY_DEAD - Array of image paths for the enemy's death animation.
-   * @type {boolean} hasDroppedManaPotion - Indicates if the enemy has already dropped a mana potion.
-   */
   y = 160;
   height = 220;
   width = 180;
@@ -37,11 +28,6 @@ class Enemy extends MovableObject {
     "assets/png/enemy/enemyDead/enemyDead3.png",
   ];
 
-  /**
-   * Creates an instance of the Enemy class.
-   * @param {string} imagePath - The path to the initial image for the enemy.
-   * @param {number} x - The initial horizontal position of the enemy.
-   */
   constructor(imagePath, x) {
     super().loadImage(imagePath);
     this.x = x;

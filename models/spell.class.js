@@ -3,11 +3,6 @@
  * Extends the MovableObject class to inherit position and movement functionalities.
  */
 class Spell extends MovableObject {
-  /**
-   * @type {number} speed - Speed at which the spell moves across the screen.
-   * @type {Array<string>} CHARACTER_SPELL - Array of spell animation image paths.
-   * @type {World} world - Reference to the game world for spell interactions.
-   */
   speed = 50;
   CHARACTER_SPELL = [
     "assets/png/character/characterChargeSkill/characterChargeSkill1.png",
@@ -16,13 +11,7 @@ class Spell extends MovableObject {
     "assets/png/character/characterChargeSkill/characterChargeSkill4.png",
     "assets/png/character/characterChargeSkill/characterChargeSkill5.png",
   ];
-  world;
 
-  /**
-   * Initializes the spell at a specific position and starts its animation and movement.
-   * @param {number} x - Initial x-position of the spell.
-   * @param {number} y - Initial y-position of the spell.
-   */
   constructor(x, y) {
     super().loadImage(
       "assets/png/character/characterChargeSkill/characterChargeSkill1.png"

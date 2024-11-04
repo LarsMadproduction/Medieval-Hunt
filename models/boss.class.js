@@ -3,17 +3,6 @@
  * It extends MovableObject, enabling movement, animations, and interactions with the game world.
  */
 class Boss extends MovableObject {
-  /**
-   * @type {number} y - The vertical position of the boss.
-   * @type {number} height - The height of the boss.
-   * @type {number} width - The width of the boss.
-   * @type {boolean} firstContact - Indicates if the boss has had its first contact with the player.
-   * @type {number} healthPoints - The current health points of the boss.
-   * @type {Array<string>} BOSS_WALKING - Array of image paths for the boss's walking animation.
-   * @type {Array<string>} BOSS_HURT - Array of image paths for the boss's hurt animation.
-   * @type {Array<string>} BOSS_DEAD - Array of image paths for the boss's dead animation.
-   * @type {Object} world - Reference to the game world object.
-   */
   y = -40;
   height = 420;
   width = 270;
@@ -46,13 +35,7 @@ class Boss extends MovableObject {
     "assets/png/boss/bossDead/bossDead3.png",
     "assets/png/boss/bossDead/bossDead4.png",
   ];
-  world;
-
-  /**
-   * Creates an instance of the Boss class.
-   * @param {string} imagePath - The path to the initial image for the boss.
-   * @param {number} x - The horizontal position of the boss.
-   */
+  
   constructor(imagePath, x) {
     super().loadImage(imagePath);
     this.x = x;

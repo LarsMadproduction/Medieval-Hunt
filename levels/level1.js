@@ -48,27 +48,9 @@ function createCoins() {
 
   // Define coin sets with their respective x and y positions
   let coinSets = [
-    [430, coinLowestY],
-    [450, coinLowY],
-    [500, coinMidY],
-    [550, coinUpperY],
-    [600, coinMidY],
-    [650, coinLowY],
-    [670, coinLowestY],
-    [1530, coinLowestY],
-    [1550, coinLowY],
-    [1600, coinMidY],
-    [1650, coinUpperY],
-    [1700, coinMidY],
-    [1750, coinLowY],
-    [1770, coinLowestY],
-    [2630, coinLowestY],
-    [2650, coinLowY],
-    [2700, coinMidY],
-    [2750, coinUpperY],
-    [2800, coinMidY],
-    [2850, coinLowY],
-    [2870, coinLowestY],
+    [430, coinLowestY], [450, coinLowY], [500, coinMidY], [550, coinUpperY], [600, coinMidY], [650, coinLowY], [670, coinLowestY],
+    [1530, coinLowestY], [1550, coinLowY], [1600, coinMidY], [1650, coinUpperY], [1700, coinMidY], [1750, coinLowY], [1770, coinLowestY],
+    [2630, coinLowestY], [2650, coinLowY], [2700, coinMidY], [2750, coinUpperY], [2800, coinMidY], [2850, coinLowY], [2870, coinLowestY],
   ];
 
   return coinSets.map(([x, y]) => new Coin(COIN_IMAGE, x, y));

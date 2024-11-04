@@ -54,16 +54,7 @@ class DrawableObject {
       let fillWidth = width * fillPercentage;
       let statusColor = "#F60C08";
       this.drawStatusBarBackground(ctx, x, y, width, height, radius);
-      this.drawStatusBarFillWidth(
-        ctx,
-        x,
-        y,
-        fillWidth,
-        height,
-        radius,
-        fillPercentage,
-        statusColor
-      );
+      this.drawStatusBarFillWidth(ctx, x, y, fillWidth, height, radius, fillPercentage, statusColor);
     }
   }
 
@@ -82,16 +73,7 @@ class DrawableObject {
       let fillWidth = width * fillPercentage;
       let statusColor = "#0089F3";
       this.drawStatusBarBackground(ctx, x, y, width, height, radius);
-      this.drawStatusBarFillWidth(
-        ctx,
-        x,
-        y,
-        fillWidth,
-        height,
-        radius,
-        fillPercentage,
-        statusColor
-      );
+      this.drawStatusBarFillWidth(ctx, x, y, fillWidth, height, radius, fillPercentage, statusColor);
     }
   }
 
@@ -110,16 +92,7 @@ class DrawableObject {
       let fillWidth = width * fillPercentage;
       let statusColor = "darkred";
       this.drawStatusBarBackground(ctx, x, y, width, height, radius);
-      this.drawStatusBarFillWidth(
-        ctx,
-        x,
-        y,
-        fillWidth,
-        height,
-        radius,
-        fillPercentage,
-        statusColor
-      );
+      this.drawStatusBarFillWidth(ctx, x, y, fillWidth, height, radius, fillPercentage, statusColor);
     }
   }
 
@@ -162,34 +135,13 @@ class DrawableObject {
    * @param {number} fillPercentage - Percentage of the bar to fill.
    * @param {string} statusColor - Color of the filled portion.
    */
-  drawStatusBarFillWidth(
-    ctx,
-    x,
-    y,
-    fillWidth,
-    height,
-    radius,
-    fillPercentage,
-    statusColor
-  ) {
+  drawStatusBarFillWidth(ctx, x, y, fillWidth, height, radius, fillPercentage, statusColor) {
     ctx.beginPath();
     ctx.moveTo(x + radius, y);
     ctx.lineTo(x + fillWidth - radius, y);
-    ctx.arc(
-      x + fillWidth - radius,
-      y + radius,
-      radius,
-      Math.PI * 1.5,
-      Math.PI * 2
-    );
+    ctx.arc(x + fillWidth - radius, y + radius, radius, Math.PI * 1.5, Math.PI * 2);
     ctx.lineTo(x + fillWidth, y + height - radius);
-    ctx.arc(
-      x + fillWidth - radius,
-      y + height - radius,
-      radius,
-      0,
-      Math.PI * 0.5
-    );
+    ctx.arc(x + fillWidth - radius, y + height - radius, radius, 0, Math.PI * 0.5);
     ctx.lineTo(x + radius, y + height);
     ctx.arc(x + radius, y + height - radius, radius, Math.PI * 0.5, Math.PI);
     ctx.lineTo(x, y + radius);

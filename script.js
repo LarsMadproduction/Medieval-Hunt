@@ -1,44 +1,11 @@
-/**
- * Canvas element used for rendering the game.
- * @type {HTMLCanvasElement}
- */
 let canvas;
-
-/**
- * The main game world instance.
- * @type {World}
- */
 let world;
-
-/**
- * Keyboard input handler.
- * @type {Keyboard}
- */
 let keyboard = new Keyboard();
-
-/**
- * Media query for checking max width of 1024px.
- * @type {MediaQueryList}
- */
-let x = window.matchMedia("(max-width: 1024px)");
-
-/**
- * Indicates whether the game has started.
- * @type {boolean}
- */
+let x = window.matchMedia("(max-width: 1366px)");
 let gameStarted = false;
-
-/**
- * Media query listener function for handling mobile button visibility.
- */
 let mediaQueryListener = function () {
   mobileButtons(x);
 };
-
-/**
- * Action cooldowns for various player actions.
- * @type {Object<string, {cooldown: number, lastAction: number | null}>}
- */
 let actions = {
   SPELL: { cooldown: 1000, lastAction: null },
   HIT: { cooldown: 500, lastAction: null },

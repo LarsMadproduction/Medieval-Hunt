@@ -3,22 +3,6 @@
  * It extends MovableObject, enabling movement, animations, and interaction with the game world.
  */
 class Character extends MovableObject {
-  /**
-   * @type {number} speed - The movement speed of the character.
-   * @type {boolean} characterAfk - Indicates if the character is away from keyboard (AFK).
-   * @type {number} lastActiveTime - Timestamp of the last time the character was active.
-   * @type {boolean} immortal - Indicates if the character is currently immortal.
-   * @type {boolean} swordSwingAnimation - Indicates if a sword swing animation is currently playing.
-   * @type {Array<string>} CHARACTER_DEFAULT - Array of image paths for the character's default animation.
-   * @type {Array<string>} CHARACTER_AFK - Array of image paths for the character's AFK animation.
-   * @type {Array<string>} CHARACTER_WALKING - Array of image paths for the character's walking animation.
-   * @type {Array<string>} CHARACTER_CHARGE_SPELL - Array of image paths for the character's spell charge animation.
-   * @type {Array<string>} CHARACTER_JUMP - Array of image paths for the character's jumping animation.
-   * @type {Array<string>} CHARACTER_HURT - Array of image paths for the character's hurt animation.
-   * @type {Array<string>} CHARACTER_DEAD - Array of image paths for the character's dead animation.
-   * @type {Array<string>} CHARACTER_BASE_ATTACK - Array of image paths for the character's base attack animation.
-   * @type {Object} world - Reference to the game world object.
-   */
   speed = 3.8;
   characterAfk = false;
   lastActiveTime = Date.now();
@@ -80,11 +64,6 @@ class Character extends MovableObject {
     "assets/png/character/characterBaseAttack/characterBaseAttack4.png",
   ];
 
-  /**
-   * Creates an instance of the Character class.
-   * @param {string} imagePath - The path to the initial image for the character.
-   * @param {number} x - The horizontal position of the character.
-   */
   constructor(imagePath, x) {
     super().loadImage(imagePath);
     this.applyGravity();

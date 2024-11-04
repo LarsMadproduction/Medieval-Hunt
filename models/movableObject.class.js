@@ -3,19 +3,6 @@
  * It extends DrawableObject, inheriting rendering properties, and adds movement, collision detection, and health/mana management.
  */
 class MovableObject extends DrawableObject {
-  /**
-   * @type {number} speed - The base movement speed of the object.
-   * @type {boolean} otherDirection - Indicates if the object is facing left.
-   * @type {number} speedY - The vertical speed, used for jumping.
-   * @type {number} accelaration - Acceleration for vertical movement (gravity).
-   * @type {number} lastHit - Timestamp of the last time the object was hit.
-   * @type {number} lastBossHit - Timestamp of the last time the boss was hit.
-   * @type {number} lastSpell - Timestamp of the last spell cast.
-   * @type {number} i - Counter used for animation frames.
-   * @type {Array<number>} spellIntervals - Holds interval IDs for spell management.
-   * @type {boolean} hasBeenHit - Indicates if the object has been hit recently.
-   * @type {Array<string>} CHARACTER_ATTACK_SPELL_HIT - Array of image paths for the spell-hit animation.
-   */
   speed = 0.2;
   otherDirection = false;
   speedY = 0;

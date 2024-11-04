@@ -3,27 +3,16 @@
  * It extends MovableObject and handles the potion's properties and behavior, including gravity and mana gathering.
  */
 class Manapotion extends MovableObject {
-  /**
-   * @type {number} height - The height of the mana potion.
-   * @type {number} width - The width of the mana potion.
-   * @type {number} y - The vertical position of the mana potion on the screen.
-   * @type {Array<string>} MANA_POTIONS - Array of image paths for the mana potion.
-   */
   height = 50;
   width = 50;
   y = 320;
-  /** @type {string[]} - Image paths for the mana potion. */
   MANA_POTIONS = [
     "assets/png/potion/manaPotion.png",
     "assets/png/potion/manaPotion.png",
     "assets/png/potion/manaPotion.png",
     "assets/png/potion/manaPotion.png",
   ];
-
-  /**
-   * Creates a new Manapotion object and initializes its properties and behavior.
-   * @param {number} x - The initial horizontal position of the mana potion.
-   */
+  
   constructor(x) {
     super().loadImage("assets/png/potion/manaPotion.png");
     this.loadImages(this.MANA_POTIONS);

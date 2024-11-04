@@ -3,13 +3,6 @@
  * It extends MovableObject, allowing it to move and interact with the player character.
  */
 class CollectedCoins extends MovableObject {
-  /**
-   * @type {number} x - The horizontal position of the coin.
-   * @type {number} y - The vertical position of the coin.
-   * @type {number} height - The height of the coin.
-   * @type {number} width - The width of the coin.
-   * @type {Array<string>} COIN_FLIPP - Array of image paths for the coin flipping animation.
-   */
   x = 20;
   y = 90;
   height = 30;
@@ -28,10 +21,6 @@ class CollectedCoins extends MovableObject {
     "assets/png/coin/gold10.png",
   ];
 
-  /**
-   * Creates an instance of the CollectedCoins class.
-   * @param {string} imagePath - The path to the initial image for the coin.
-   */
   constructor(imagePath) {
     super().loadImage(imagePath);
     this.otherDirection = false;

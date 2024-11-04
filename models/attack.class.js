@@ -3,16 +3,8 @@
  * It extends MovableObject, enabling it to move and interact with other objects.
  */
 class Attack extends MovableObject {
-  /**
-   * @type {number} speed - The speed at which the attack moves.
-   */
   speed = 50;
 
-  /**
-   * Creates an instance of the Attack class.
-   * @param {number} x - The initial horizontal position of the attack.
-   * @param {number} y - The initial vertical position of the attack.
-   */
   constructor(x, y) {
     super();
     this.x = x;

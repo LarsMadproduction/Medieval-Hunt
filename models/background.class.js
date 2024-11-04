@@ -3,11 +3,7 @@
  * It extends MovableObject, allowing it to move and interact with the game environment.
  */
 class Background extends MovableObject {
-  /**
-   * Creates an instance of the Background class.
-   * @param {string} imagePath - The path to the background image.
-   * @param {number} x - The initial horizontal position of the background.
-   */
+
   constructor(imagePath, x) {
     super().loadImage(imagePath);
     this.x = x;
