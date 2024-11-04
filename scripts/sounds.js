@@ -119,6 +119,7 @@ function muteSound() {
   SOUND_BOSS_HURT.muted = true;
   SOUND_BOSS_DEAD.muted = true;
   SOUND_BOSS_STEP.muted = true;
+  localStorage.setItem('soundMuted', 'true');
 }
 
 /**
@@ -138,4 +139,27 @@ function playSound() {
   SOUND_BOSS_HURT.muted = false;
   SOUND_BOSS_DEAD.muted = false;
   SOUND_BOSS_STEP.muted = false;
+  localStorage.setItem('soundMuted', 'false');
 }
+
+/**
+ * Loads the sound status from localStorage and sets the initial state.
+ */
+function loadSoundStatus() {
+  const isMuted = localStorage.getItem('soundMuted');
+  let muteButtonOn = document.getElementById("music_button_on");
+  let muteButtonOff = document.getElementById("music_button_off");
+
+  if (isMuted === 'true') {
+    muteSound();
+    muteButtonOn.classList.add("d-none");
+    muteButtonOff.classList.remove("d-none");
+  } else {
+    playSound();
+    muteButtonOn.classList.remove("d-none");
+    muteButtonOff.classList.add("d-none");
+  }
+}
+
+window.onload = loadSoundStatus;
+
